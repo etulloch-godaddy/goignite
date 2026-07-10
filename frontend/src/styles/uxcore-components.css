@@ -1,0 +1,19 @@
+/* UXCore component styles */
+@import "@ux/alert/dist/styles.css";
+@import "@ux/box/dist/styles.css";
+@import "@ux/button/dist/styles.css";
+@import "@ux/card/dist/styles.css";
+@import "@ux/checkbox/dist/styles.css";
+@import "@ux/chip/dist/styles.css";
+@import "@ux/dialog/dist/styles.css";
+@import "@ux/message-overlay/dist/styles.css";
+@import "@ux/modal/dist/styles.css";
+@import "@ux/progress-steps/dist/styles.css";
+@import "@ux/radio/dist/styles.css";
+@import "@ux/select/dist/styles.css";
+@import "@ux/spinner/dist/styles.css";
+@import "@ux/tabs/dist/styles.css";
+@import "@ux/tag/dist/styles.css";
+@import "@ux/text/dist/styles.css";
+@import "@ux/text-lockup/dist/styles.css";
+@import "@ux/toggle/dist/styles.css";
