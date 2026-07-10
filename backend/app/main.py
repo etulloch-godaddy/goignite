@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routes import domains, users
+from app.routes import achievements, domains, missions, users
 
 app = FastAPI(
     title="CreatorLevel API",
@@ -19,6 +19,8 @@ app.add_middleware(
 
 app.include_router(users.router)
 app.include_router(domains.router)
+app.include_router(missions.router)
+app.include_router(achievements.router)
 
 
 @app.get("/health")

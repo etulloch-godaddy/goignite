@@ -79,10 +79,6 @@ def upsert_onboarding_data(
           business_name: "Study Survival Kits",
           monthly_revenue: 1000,
           team_size: 1,
-          ideal-customer: [
-            "Busy college students in a time crunch, who need a better studying experience.",
-            "Professors with little time to go shopping during finals week."
-          ]
         },
       }),
     })
