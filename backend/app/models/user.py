@@ -36,4 +36,5 @@ class OnboardUserRequest(BaseModel):
 
 
 class OnboardUserResponse(BaseModel):
+    user_id: str
     user: User
