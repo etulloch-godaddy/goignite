@@ -7,6 +7,7 @@ from pydantic import BaseModel
 from app.models.achievement import Achievement, AchievementCategory
 from app.models.mission import Mission
 from app.services import store
+from app.services.user_store import load_users, save_users
 from app.services.xp_service import award_xp
 
 router = APIRouter(prefix="/api/missions", tags=["missions"])
@@ -29,14 +30,15 @@ class CompleteMissionResponse(BaseModel):
 
 @router.get("/today/{user_id}", response_model=list[Mission])
 def get_today_missions(user_id: str) -> list[Mission]:
-    user = store.USERS.get(user_id)
+    users = load_users()
+    user = users.get(user_id)
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
 
     eligible = [
         m for m in _MISSIONS
         if m.stage == user.stage.value
-        and ("all" in m.creator_types or user.creator_type.value in m.creator_types)
+        and ("all" in m.creator_types or user.creator_type is None or user.creator_type.value in m.creator_types)
         and m.mission_id not in user.completed_missions
     ]
     return eligible[:5]
@@ -44,7 +46,8 @@ def get_today_missions(user_id: str) -> list[Mission]:
 
 @router.post("/{mission_id}/complete", response_model=CompleteMissionResponse)
 def complete_mission(mission_id: str, body: CompleteMissionRequest) -> CompleteMissionResponse:
-    user = store.USERS.get(body.user_id)
+    users = load_users()
+    user = users.get(body.user_id)
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
 
@@ -68,6 +71,8 @@ def complete_mission(mission_id: str, body: CompleteMissionRequest) -> CompleteM
 
     store.ACHIEVEMENTS_STORE.setdefault(user.user_id, []).extend(all_achievements)
     user.completed_missions.append(mission_id)
+    users[user.user_id] = user
+    save_users(users)
 
     return CompleteMissionResponse(
         user_id=user.user_id,
