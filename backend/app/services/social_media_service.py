@@ -1,6 +1,7 @@
 import os
 import uuid
 from datetime import datetime, timezone
+from typing import Optional
 from urllib.parse import urlencode
 
 import httpx
@@ -199,7 +200,7 @@ MOCK_CONTENT_IDEAS = [
 ]
 
 
-async def generate_content_ideas(creator_type: str, stage: str, platform: str, onboarding: dict | None = None) -> list:
+async def generate_content_ideas(creator_type: str, stage: str, platform: str, onboarding: Optional[dict] = None) -> list:
     if MOCK_MODE or not ANTHROPIC_API_KEY:
         return MOCK_CONTENT_IDEAS
 
@@ -289,6 +290,30 @@ async def fetch_onboarding_data(user_id: str) -> dict:
     return {}
 
 
+MOCK_SEO_PROFILE_ANALYSIS = {
+    "score": 4,
+    "keywords_present": ["fashion", "creator"],
+    "keywords_missing": ["OOTD", "style tips", "outfit inspo", "collabs open"],
+    "rewritten_bio": "Fashion creator | daily OOTD + style tips ✨ Thrift finds & outfit inspo every week. Collabs open — DM me 📩",
+    "tips": [
+        "Add your city or region — geo-keywords like 'NYC' or 'LA' boost discoverability in local brand searches and Google.",
+        "Put your niche keyword ('OOTD' or 'fashion tips') in the very first line — that's what gets indexed by search engines.",
+        "Include an explicit CTA like 'Collabs open — DM me'. Profiles with a CTA convert 3x better for brand inquiries.",
+        "Mention your posting cadence ('new fits every week') — sets audience expectations and signals active creator status to the algorithm.",
+        "Use a keyword-rich phrase rather than a sentence. 'Daily OOTD + style tips' is more searchable than 'I post outfits every day'."
+    ],
+    "mock": True,
+}
+
+MOCK_SEO_CONTENT_OPTIMIZATION = {
+    "original": "Check out my new fit today! I love this jacket so much.",
+    "optimized": "This thrifted jacket is giving everything right now ✨ Found it at Goodwill for $8 — full OOTD breakdown in my link in bio. Drop a 🔥 if you want the full styling guide. #OOTD #ThriftFinds #FashionTips #OutfitInspo #ThriftedFashion",
+    "keywords_added": ["OOTD", "ThriftFinds", "FashionTips", "OutfitInspo", "ThriftedFashion"],
+    "explanation": "Replaced generic language ('new fit', 'jacket') with searchable terms ('thrifted jacket', 'OOTD', 'styling guide'). Added a specific price point — budget fashion content gets significantly more saves. Placed 5 high-discovery hashtags at the end of the caption per Instagram best practice. Added a CTA that drives link-in-bio traffic without feeling forced.",
+    "mock": True,
+}
+
+
 MOCK_GROWTH_PLAN = {
     "plan_horizon": "30 days",
     "biggest_opportunity": "Your TikTok audience is growing 2x faster than Instagram right now — prioritise short-form video to maximise reach in the next 30 days.",
@@ -343,7 +368,7 @@ async def generate_growth_plan(
     stage: str,
     platforms: list,
     completed_mission_ids: list,
-    onboarding: dict | None = None,
+    onboarding: Optional[dict] = None,
 ) -> dict:
     if MOCK_MODE or not ANTHROPIC_API_KEY:
         return MOCK_GROWTH_PLAN
@@ -407,3 +432,145 @@ async def generate_growth_plan(
                 raw = raw[4:]
         import json as _json
         return _json.loads(raw.strip())
+
+
+async def analyze_seo_profile(
+    platform: str,
+    bio: str,
+    creator_type: str,
+    onboarding: Optional[dict] = None,
+) -> dict:
+    if MOCK_MODE or not ANTHROPIC_API_KEY:
+        return MOCK_SEO_PROFILE_ANALYSIS
+
+    onboarding_context = ""
+    if onboarding:
+        lines = [f"  - {k}: {v}" for k, v in onboarding.items()]
+        onboarding_context = "Additional context about this creator:\n" + "\n".join(lines) + "\n\n"
+
+    platform_context = (
+        f"Instagram bios are indexed by Google. Keywords that people search when looking for "
+        f"a {creator_type} creator to follow or hire should appear naturally in the bio. "
+        f"A CTA drives profile-to-DM conversion for brand deals."
+        if platform == "instagram"
+        else
+        f"TikTok profiles appear in TikTok search results and influence FYP recommendations. "
+        f"A keyword-rich bio helps the algorithm understand your niche and surface your profile "
+        f"when users search for your content type."
+    )
+
+    prompt = (
+        f"You are an SEO strategist for {platform} social media profiles helping a {creator_type} "
+        f"content creator maximize their profile's discoverability.\n\n"
+        f"Current bio:\n\"{bio}\"\n\n"
+        f"{onboarding_context}"
+        f"Platform context: {platform_context}\n\n"
+        f"Analyze this bio and return a JSON object with exactly these keys:\n"
+        f"- score (integer 1-10: current SEO effectiveness of the bio as written)\n"
+        f"- keywords_present (array of strings: niche keywords already in the bio that help discoverability)\n"
+        f"- keywords_missing (array of 3-6 strings: high-value keywords this bio is missing for a {creator_type} creator on {platform})\n"
+        f"- rewritten_bio (string: improved bio under 150 characters, weaves in missing keywords naturally, keeps the creator's voice, ends with a CTA)\n"
+        f"- tips (array of exactly 5 strings: specific, actionable improvements each with a brief why)\n"
+        f"- mock (boolean: false)\n\n"
+        f"Return only valid JSON, no explanation, no markdown fences."
+    )
+
+    async with httpx.AsyncClient() as client:
+        resp = await client.post(
+            "https://api.anthropic.com/v1/messages",
+            headers={
+                "x-api-key": ANTHROPIC_API_KEY,
+                "anthropic-version": "2023-06-01",
+                "content-type": "application/json",
+            },
+            json={
+                "model": "claude-sonnet-4-6",
+                "max_tokens": 1500,
+                "messages": [{"role": "user", "content": prompt}],
+            },
+            timeout=30.0,
+        )
+        resp.raise_for_status()
+        raw = resp.json()["content"][0]["text"].strip()
+        if raw.startswith("```"):
+            raw = raw.split("```")[1]
+            if raw.startswith("json"):
+                raw = raw[4:]
+        import json as _json
+        try:
+            return _json.loads(raw.strip())
+        except _json.JSONDecodeError:
+            fallback = dict(MOCK_SEO_PROFILE_ANALYSIS)
+            fallback["parse_error"] = True
+            return fallback
+
+
+async def optimize_seo_content(
+    platform: str,
+    content: str,
+    creator_type: str,
+    onboarding: Optional[dict] = None,
+) -> dict:
+    if MOCK_MODE or not ANTHROPIC_API_KEY:
+        return MOCK_SEO_CONTENT_OPTIMIZATION
+
+    onboarding_context = ""
+    if onboarding:
+        lines = [f"  - {k}: {v}" for k, v in onboarding.items()]
+        onboarding_context = "Creator context:\n" + "\n".join(lines) + "\n\n"
+
+    platform_rules = (
+        "Instagram rules: Use 5–10 hashtags placed at the end of the caption (not 30 — that signals spam). "
+        "The first 125 characters appear before 'more' in the feed — put your hook there. "
+        "Use keyword-rich language in the body text, not only in hashtags."
+        if platform == "instagram"
+        else
+        "TikTok rules: TikTok's search engine indexes caption text AND hashtags. Use 3–5 hashtags. "
+        "Put your most important keyword in the first sentence. "
+        "Keep total caption under 300 characters. The algorithm uses captions to categorize content."
+    )
+
+    prompt = (
+        f"You are an SEO and content strategist for {platform}. Rewrite this caption to maximize "
+        f"discoverability for a {creator_type} creator. Keep their authentic voice — do not make "
+        f"it sound corporate or generic.\n\n"
+        f"Original caption:\n\"{content}\"\n\n"
+        f"{onboarding_context}"
+        f"{platform_rules}\n\n"
+        f"Return a JSON object with exactly these keys:\n"
+        f"- original (string: the original caption, unchanged)\n"
+        f"- optimized (string: the fully rewritten SEO-optimized caption with hashtags)\n"
+        f"- keywords_added (array of strings: new keywords or hashtags added, without the # symbol)\n"
+        f"- explanation (string: 2-4 sentences explaining what changed and why each change improves discoverability)\n"
+        f"- mock (boolean: false)\n\n"
+        f"Return only valid JSON, no explanation, no markdown fences."
+    )
+
+    async with httpx.AsyncClient() as client:
+        resp = await client.post(
+            "https://api.anthropic.com/v1/messages",
+            headers={
+                "x-api-key": ANTHROPIC_API_KEY,
+                "anthropic-version": "2023-06-01",
+                "content-type": "application/json",
+            },
+            json={
+                "model": "claude-sonnet-4-6",
+                "max_tokens": 1500,
+                "messages": [{"role": "user", "content": prompt}],
+            },
+            timeout=30.0,
+        )
+        resp.raise_for_status()
+        raw = resp.json()["content"][0]["text"].strip()
+        if raw.startswith("```"):
+            raw = raw.split("```")[1]
+            if raw.startswith("json"):
+                raw = raw[4:]
+        import json as _json
+        try:
+            return _json.loads(raw.strip())
+        except _json.JSONDecodeError:
+            fallback = dict(MOCK_SEO_CONTENT_OPTIMIZATION)
+            fallback["parse_error"] = True
+            return fallback

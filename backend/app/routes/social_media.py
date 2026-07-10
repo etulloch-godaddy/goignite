@@ -6,12 +6,14 @@ from fastapi import APIRouter, HTTPException, Query
 from fastapi.responses import RedirectResponse
 
 from app.services.social_media_service import (
+    analyze_seo_profile,
     build_achievement,
     exchange_code_for_stats,
     fetch_onboarding_data,
     generate_content_ideas,
     generate_growth_plan,
     get_oauth_url,
+    optimize_seo_content,
     update_user_xp,
 )
 
@@ -22,6 +24,9 @@ _outreach_store: dict[str, list] = {}
 _achievement_store: dict[str, list] = {}
 
 DATA_DIR = Path(__file__).parent.parent / "data"
+
+_VALID_PLATFORMS = ("instagram", "tiktok")
+_VALID_CREATOR_TYPES = ("fashion", "gaming", "fitness", "art", "food")
 
 
 def _load(filename: str) -> dict:
@@ -283,41 +288,6 @@ def get_achievements(user_id: str):
     }
 
 
-# --- Summary ---
-
-@router.get("/summary/{user_id}")
-def get_summary(user_id: str):
-    """Single aggregate endpoint for the dashboard — missions, XP, outreach, achievements."""
-    from app.services.social_media_service import MOCK_MODE, MOCK_STATS
-
-    achievements = _achievement_store.get(user_id, [])
-    total_xp = sum(
-        int(a["impact"].split("+")[-1].replace(" XP", ""))
-        for a in achievements
-        if "+" in a.get("impact", "")
-    )
-
-    outreach_entries = _outreach_store.get(user_id, [])
-    contacted = len(outreach_entries)
-    replied = sum(1 for e in outreach_entries if e["status"] in ("replied", "deal"))
-    deals = sum(1 for e in outreach_entries if e["status"] == "deal")
-
-    connected_platforms = (
-        [p for p, s in MOCK_STATS.items() if s.get("connected")]
-        if MOCK_MODE
-        else []
-    )
-
-    return {
-        "user_id": user_id,
-        "missions_completed": len(achievements),
-        "xp_earned": total_xp,
-        "outreach": {"contacted": contacted, "replied": replied, "deals": deals},
-        "achievements": achievements[-3:],
-        "connected_platforms": connected_platforms,
-    }
-
-
 # --- Growth Advisor ---
 
 @router.post("/growth-plan")
@@ -382,51 +352,126 @@ def get_next_action(
     }
 
 
-# --- Monetization Advisor ---
+# --- Monetization Paths ---
 
 @router.get("/monetization-advice")
 def get_monetization_advice(
     creator_type: Optional[str] = Query("all"),
-    stage: Optional[str] = Query("starter"),
     instagram_followers: Optional[int] = Query(0),
     tiktok_followers: Optional[int] = Query(0),
 ):
     """
-    Returns realistic monetisation options with rate estimates based on follower count and creator type.
+    Returns actionable monetization paths for the user's creator type and follower count.
+    Each path includes a concrete first step and specific programs to apply to.
     """
     data = _load("social_monetization.json")
     max_followers = max(instagram_followers, tiktok_followers)
 
-    bracket = "0-1k"
-    for key, b in data["brackets"].items():
-        if b["min"] <= max_followers <= b["max"]:
-            bracket = key
-            break
-
-    all_methods = data["methods"]
     relevant = [
-        m for m in all_methods
+        m for m in data["methods"]
         if creator_type in m["creator_types"] or "all" in m["creator_types"]
     ]
 
-    options = []
+    paths = []
     for method in relevant:
-        rate_info = method["rate_by_bracket"].get(bracket, {})
-        options.append({
+        paths.append({
             "method": method["method"],
             "description": method["description"],
-            "realistic": rate_info.get("realistic", False),
-            "rate_range": rate_info.get("rate_range", "N/A"),
-            "how_to_start": method["how_to_start"],
-            "programs": method.get("programs", []),
+            "available_now": max_followers >= method["min_followers"],
+            "first_step": method["first_step"],
+            "programs": method["programs"],
         })
 
-    options.sort(key=lambda x: (not x["realistic"], x["method"]))
+    paths.sort(key=lambda x: (not x["available_now"], x["method"]))
+
+    bracket_key = "0-999"
+    for key in ("100000+", "10000-99999", "1000-9999"):
+        thresholds = {"100000+": 100000, "10000-99999": 10000, "1000-9999": 1000}
+        if max_followers >= thresholds[key]:
+            bracket_key = key
+            break
 
     return {
         "creator_type": creator_type,
-        "stage": stage,
-        "follower_bracket": data["brackets"][bracket]["label"],
-        "monetization_options": options,
-        "top_recommendation": data["top_recommendation_by_bracket"][bracket],
+        "monetization_paths": paths,
+        "where_to_start": data["where_to_start_by_followers"][bracket_key],
     }
+
+
+# --- SEO Tools ---
+
+@router.post("/seo/profile")
+async def seo_profile_analysis(payload: dict):
+    """
+    Score a creator's bio for SEO quality and return a rewritten version optimized for discoverability.
+    Body: { "user_id", "platform", "bio", "creator_type" }
+    """
+    user_id = payload.get("user_id")
+    platform = (payload.get("platform") or "").lower()
+    bio = (payload.get("bio") or "").strip()
+    creator_type = (payload.get("creator_type") or "").lower()
+
+    if platform not in _VALID_PLATFORMS:
+        raise HTTPException(status_code=400, detail=f"platform must be one of: {', '.join(_VALID_PLATFORMS)}")
+    if not bio:
+        raise HTTPException(status_code=400, detail="bio must not be empty")
+    if creator_type not in _VALID_CREATOR_TYPES:
+        raise HTTPException(status_code=400, detail=f"creator_type must be one of: {', '.join(_VALID_CREATOR_TYPES)}")
+
+    onboarding = await fetch_onboarding_data(user_id) if user_id else {}
+    result = await analyze_seo_profile(platform, bio, creator_type, onboarding=onboarding)
+    return {"user_id": user_id, "platform": platform, **result}
+
+
+@router.get("/seo/keywords")
+def get_seo_keywords(
+    creator_type: Optional[str] = Query(None),
+    platform: Optional[str] = Query(None),
+):
+    """
+    Return ranked SEO keywords for a creator type and platform.
+    Query params: creator_type (fashion/gaming/fitness/art/food), platform (instagram/tiktok)
+    """
+    if creator_type and creator_type not in _VALID_CREATOR_TYPES:
+        raise HTTPException(status_code=400, detail=f"creator_type must be one of: {', '.join(_VALID_CREATOR_TYPES)}")
+    if platform and platform not in _VALID_PLATFORMS:
+        raise HTTPException(status_code=400, detail=f"platform must be one of: {', '.join(_VALID_PLATFORMS)}")
+
+    data = _load("seo_keywords.json")
+    keywords_db = data["keywords"]
+
+    if not creator_type and not platform:
+        return {"keywords": keywords_db}
+
+    if creator_type and not platform:
+        return {"creator_type": creator_type, "keywords": keywords_db.get(creator_type, {})}
+
+    if platform and not creator_type:
+        return {"platform": platform, "keywords": {ct: keywords_db[ct].get(platform, []) for ct in keywords_db}}
+
+    keywords = keywords_db.get(creator_type, {}).get(platform, [])
+    return {"creator_type": creator_type, "platform": platform, "keywords": keywords, "count": len(keywords)}
+
+
+@router.post("/seo/content")
+async def seo_content_optimization(payload: dict):
+    """
+    Rewrite a caption or post for maximum discoverability on the given platform.
+    Body: { "user_id", "platform", "content", "creator_type" }
+    """
+    user_id = payload.get("user_id")
+    platform = (payload.get("platform") or "").lower()
+    content = (payload.get("content") or "").strip()
+    creator_type = (payload.get("creator_type") or "").lower()
+
+    if platform not in _VALID_PLATFORMS:
+        raise HTTPException(status_code=400, detail=f"platform must be one of: {', '.join(_VALID_PLATFORMS)}")
+    if not content:
+        raise HTTPException(status_code=400, detail="content must not be empty")
+    if creator_type not in _VALID_CREATOR_TYPES:
+        raise HTTPException(status_code=400, detail=f"creator_type must be one of: {', '.join(_VALID_CREATOR_TYPES)}")
+
+    onboarding = await fetch_onboarding_data(user_id) if user_id else {}
+    result = await optimize_seo_content(platform, content, creator_type, onboarding=onboarding)
+    return {"user_id": user_id, "platform": platform, **result}
+
