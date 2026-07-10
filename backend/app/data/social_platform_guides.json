@@ -1,0 +1,94 @@
+{
+  "guides": [
+    {
+      "platform": "instagram",
+      "min_stage": "starter",
+      "icon": "📸",
+      "title": "Instagram for Creators",
+      "tagline": "Build your visual brand and drive traffic to your business",
+      "tips": [
+        "Write a bio that states WHAT you do, WHO you help, and includes a CTA (e.g. '👇 Book me' or '🔗 Shop my looks')",
+        "Post Reels for reach, Carousels for saves, Stories for daily connection — use all three",
+        "Aim for 3–5 posts/week minimum; consistency beats perfection",
+        "Use 5–10 hashtags per post (mix of niche #fashioncreator + broad #ootd + community #styleblogger)",
+        "Reply to every comment in the first hour — the algorithm rewards engagement speed",
+        "Use your link-in-bio for all external links; Instagram doesn't allow links in captions",
+        "Collab posts (tagging a brand as co-author) get shown to THEIR audience too — use this for brand deals",
+        "Check your Insights weekly: track profile visits, reach, and link-in-bio clicks"
+      ],
+      "stage_tips": {
+        "starter": "Focus on bio optimization and consistent posting. Aim for 100 followers before anything else.",
+        "builder": "Start using Collab posts and Story polls to boost engagement. Research brands in your niche.",
+        "brand": "Switch to a Creator or Business account for advanced analytics. Add a rate card to your bio or link-in-bio.",
+        "investor_ready": "Use Instagram as a portfolio link in your pitch deck and LinkedIn. Screenshot your best analytics for your media kit."
+      }
+    },
+    {
+      "platform": "tiktok",
+      "min_stage": "starter",
+      "icon": "🎵",
+      "title": "TikTok for Creators",
+      "tagline": "The fastest way to grow a new audience from zero",
+      "tips": [
+        "Hook viewers in the first 1–2 seconds — TikTok's algorithm measures completion rate above all else",
+        "Post 1–2 times per day when starting out; quantity matters more than production quality on TikTok",
+        "Use trending sounds to boost discoverability, but put your own spin on them to stand out",
+        "Niche hashtags (#fitnesscreator, #foodtok) outperform broad ones (#fyp) for finding your real audience",
+        "Duet and Stitch top creators in your niche — it puts you in front of their established audience",
+        "TikTok LIVE at 1000+ followers unlocks gifts and boosted discoverability",
+        "Pin your 3 best videos to your profile — these are your first impression for brand scouts",
+        "Reply to comments with a video — comment replies perform exceptionally well for reach"
+      ],
+      "stage_tips": {
+        "starter": "Post daily for 30 days straight. Don't delete videos — TikTok can resurface old content anytime.",
+        "builder": "Apply for TikTok Creator Marketplace at 10k followers for brand deal access.",
+        "brand": "Use TikTok Analytics to identify your best-performing content categories for your media kit.",
+        "investor_ready": "Screenshot TikTok analytics for your pitch deck — brands and investors love TikTok growth stories."
+      }
+    },
+    {
+      "platform": "facebook",
+      "min_stage": "starter",
+      "icon": "📘",
+      "title": "Facebook for Creators",
+      "tagline": "Build community and reach older, higher-spending audiences",
+      "tips": [
+        "Create a Facebook Page (not a personal profile) for your creator brand — it unlocks analytics and ad tools",
+        "Facebook Groups are goldmines: join 3–5 groups in your niche and contribute value before promoting yourself",
+        "Facebook Reels (cross-posted from Instagram) is currently heavily boosted by the algorithm",
+        "Live video on Facebook gets the highest organic reach of any content type on the platform",
+        "Facebook's audience skews 25–45 — ideal if your brand sells products or services to that demographic",
+        "Use Facebook Events to promote launches, lives, or workshops",
+        "Link your Instagram and Facebook pages so you can cross-post easily from the Meta Business Suite",
+        "Check Page Insights monthly — track reach, page likes, and post engagement rate"
+      ],
+      "stage_tips": {
+        "starter": "Create your Page and cross-post your Instagram content. Low-effort way to build a second audience.",
+        "builder": "Join 3 Facebook Groups in your niche and start contributing. Groups are great for brand collab leads.",
+        "brand": "Set up Meta Business Suite to manage Instagram and Facebook in one place with unified analytics.",
+        "investor_ready": "Use Facebook Page data in your media kit — it shows you can reach multiple demographics."
+      }
+    },
+    {
+      "platform": "linkedin",
+      "min_stage": "brand",
+      "icon": "💼",
+      "title": "LinkedIn for Creator-Entrepreneurs",
+      "tagline": "Get taken seriously by brands, investors, and press",
+      "tips": [
+        "Position yourself as a founder, not just a creator: 'Founder & Content Creator at {{brand_name}}' not 'Influencer'",
+        "Write a LinkedIn article once a month sharing expertise from your niche — it builds authority fast",
+        "Long-form posts (300–600 words) about lessons learned or milestones get 3–5x more reach than short posts",
+        "Connect with brand partnership managers, talent agents, and journalists in your industry",
+        "Use the Featured section to link your media kit, best collaborations, or press mentions",
+        "Comment thoughtfully on posts from bigger creators/brands in your space — you get seen by their network",
+        "Add your creator metrics (follower counts, engagement rates) to your About section",
+        "LinkedIn DMs to brand marketing managers convert better than Instagram DMs for B2B partnerships"
+      ],
+      "stage_tips": {
+        "brand": "Start building your LinkedIn presence now. Even with 0 connections, it signals professionalism to brands.",
+        "investor_ready": "LinkedIn is non-negotiable at this stage. Investors, press, and serious brand partners will Google you."
+      }
+    }
+  ]
+}
