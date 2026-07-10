@@ -1,0 +1,103 @@
+{
+  "social_outreach": [
+    {
+      "template_id": "tpl-brand-collab-dm",
+      "stage": "builder",
+      "title": "Brand Collab DM",
+      "platform": "instagram",
+      "creator_types": ["all"],
+      "description": "A short, direct DM to a brand proposing a collaboration. Best sent via Instagram or TikTok DM.",
+      "body": "Hey {{brand_name}} team 👋\n\nI'm {{your_name}}, a {{niche}} creator with {{follower_count}} followers on {{platform}}. My audience is {{audience_description}} — exactly the people who love what you make.\n\nI'd love to collaborate on a {{collab_type}} (gifted post, paid partnership, or affiliate deal — whatever works best for you). I've worked with brands like {{past_brand_or_similar}} and consistently hit {{avg_engagement_rate}}% engagement.\n\nWould you be open to chatting? Happy to send my media kit.\n\n— {{your_name}}"
+    },
+    {
+      "template_id": "tpl-pr-pitch-email",
+      "stage": "brand",
+      "title": "PR / Feature Pitch Email",
+      "platform": "email",
+      "creator_types": ["all"],
+      "description": "A professional email pitching yourself to a publication, blog, or newsletter for a feature story.",
+      "body": "Subject: Story Pitch — {{your_name}}, {{niche}} Creator Building {{brand_name}}\n\nHi {{editor_name}},\n\nI'm {{your_name}}, a {{niche}} content creator based in {{location}} with {{follower_count}} followers across Instagram and TikTok.\n\nI thought your audience would connect with my story: {{one_sentence_story_hook}}.\n\nSome context:\n• I've grown my audience from {{starting_followers}} to {{current_followers}} in {{timeframe}}\n• I recently {{notable_achievement}} (e.g. landed a brand deal, launched a product, hit X views)\n• My audience is {{audience_description}} — {{age_range}}, passionate about {{niche}}\n\nI'd love to be featured in {{publication_name}} or contribute a guest piece on {{story_angle}}. Happy to provide photos, stats, or a quote — whatever is most useful.\n\nAttached is my media kit. Looking forward to connecting.\n\nBest,\n{{your_name}}\n{{your_email}} | {{your_website}}"
+    },
+    {
+      "template_id": "tpl-creator-collab-proposal",
+      "stage": "builder",
+      "title": "Creator Collab Proposal",
+      "platform": "instagram",
+      "creator_types": ["all"],
+      "description": "A DM or email proposing a content collaboration with another creator in a complementary niche.",
+      "body": "Hey {{creator_name}}! 👋\n\nLove what you're doing with {{their_content_type}} — your {{specific_post_or_series}} really resonated with me.\n\nI'm {{your_name}}, a {{your_niche}} creator ({{your_follower_count}} followers). I think our audiences would genuinely enjoy a collab — your {{their_audience_trait}} + my {{your_audience_trait}} is a natural fit.\n\nI was thinking we could do:\n→ {{collab_idea_1}} (e.g. a joint reel, a takeover, a co-created post)\n→ {{collab_idea_2}} (backup idea)\n\nNo pressure at all — just wanted to put it out there. Would you be open to a quick chat?\n\n— {{your_name}}"
+    },
+    {
+      "template_id": "tpl-link-in-bio-caption",
+      "stage": "starter",
+      "title": "Link in Bio Caption",
+      "platform": "instagram",
+      "creator_types": ["all"],
+      "description": "A caption that drives followers to your link in bio. Works for any announcement, launch, or evergreen content.",
+      "body": "{{hook_line}} 👇\n\n{{2-3 sentence description of what they'll find — your product, portfolio, booking link, etc.}}\n\nEverything you need is in my bio 🔗\n\n{{relevant_hashtags}}\n\n💬 {{engagement_question — e.g. 'Drop a ❤️ if you want more of this' or 'Comment LINK and I'll DM you directly'}}"
+    },
+    {
+      "template_id": "tpl-audience-engagement-post",
+      "stage": "starter",
+      "title": "Audience Engagement Post",
+      "platform": "instagram",
+      "creator_types": ["all"],
+      "description": "A post designed to maximize comments and shares. Use polls, 'this or that', or AMA formats.",
+      "body": "{{attention_grabbing_opener}} 🙋\n\nI want to hear from YOU:\n{{question_1}}\n{{question_2 (optional)}}\n\n{{why_this_matters_to_you_and_them — 1-2 sentences showing you care about their input}}\n\nDrop your answer in the comments ⬇️ I read every single one.\n\n{{hashtags}}"
+    },
+    {
+      "template_id": "tpl-podcast-guest-pitch",
+      "stage": "investor_ready",
+      "title": "Podcast Guest Pitch Email",
+      "platform": "email",
+      "creator_types": ["all"],
+      "description": "Pitch yourself as a guest to a podcast in your niche or the creator economy space.",
+      "body": "Subject: Guest Pitch — {{your_name}}, {{niche}} Creator & Entrepreneur\n\nHi {{host_name}},\n\nI've been listening to {{podcast_name}} for a while — {{specific_episode_or_topic}} really resonated with me.\n\nI'm {{your_name}}, a {{niche}} content creator turned entrepreneur. I've grown my audience to {{follower_count}} across Instagram and TikTok, and I've been building {{brand_name}} — {{one_sentence_brand_description}}.\n\nI think your audience would find value in hearing about:\n• {{story_angle_1}} (e.g. How I landed my first brand deal with under 5k followers)\n• {{story_angle_2}} (e.g. Turning content creation into a real business at age {{your_age}})\n• {{story_angle_3}} (e.g. What most young creators get wrong about monetisation)\n\nI'm based in {{location}}, comfortable on video or audio, and can work around your schedule. Happy to send clips or a one-pager if that helps.\n\nWould love to be on the show.\n\n{{your_name}}\n{{your_email}} | {{your_instagram_or_website}}"
+    },
+    {
+      "template_id": "tpl-brand-followup",
+      "stage": "builder",
+      "title": "Brand Follow-Up DM",
+      "platform": "instagram",
+      "creator_types": ["all"],
+      "description": "A short, friendly follow-up to send 7–10 days after your initial brand collab DM with no response. 80% of deals happen after a follow-up.",
+      "body": "Hey {{brand_name}} 👋 Just wanted to follow up on my message from last week!\n\nI know inboxes get busy — totally understand. I'm still really interested in collaborating and think it could be a great fit for your audience.\n\nHappy to share my media kit or chat on whatever terms work for you. No pressure either way!\n\n— {{your_name}}"
+    },
+    {
+      "template_id": "tpl-linkedin-outreach-dm",
+      "stage": "investor_ready",
+      "title": "LinkedIn Outreach DM",
+      "platform": "linkedin",
+      "creator_types": ["all"],
+      "description": "A professional LinkedIn DM to connect with brand marketing managers, talent agents, investors, or journalists.",
+      "body": "Hi {{their_name}},\n\nI came across your profile through {{how_you_found_them — e.g. 'your work at {{company}}' or 'a post you shared about {{topic}}'}} and wanted to connect.\n\nI'm {{your_name}} — I build content and community around {{your_niche}}. I've grown to {{follower_count}} followers across Instagram and TikTok, and I'm currently focused on {{current_goal — e.g. 'scaling my brand partnerships' or 'raising a pre-seed round for my creator business'}}.\n\nI think there could be a genuine overlap with what you're working on at {{their_company}}. Would love to connect and swap notes when you have a moment.\n\n— {{your_name}}"
+    },
+    {
+      "template_id": "tpl-tiktok-collab-dm",
+      "stage": "builder",
+      "title": "TikTok Creator Collab DM",
+      "platform": "tiktok",
+      "creator_types": ["all"],
+      "description": "A short DM to propose a TikTok duet, stitch, or co-created video with another creator in your niche.",
+      "body": "Hey {{creator_name}}! 👋 Huge fan of your {{specific_video_or_series}} — the way you {{what_you_love_about_their_content}} is genuinely great.\n\nI'm {{your_name}}, I make {{your_content_type}} content ({{your_follower_count}} followers). I think a collab between us could go crazy — our audiences overlap a lot.\n\nWould you be down for a:\n→ Duet / Stitch on {{video_idea}}\n→ Or a joint TikTok on {{topic}}\n\nEither way, open to whatever feels natural for you. Just wanted to shoot my shot 😄\n\n— {{your_name}} @{{your_handle}}"
+    },
+    {
+      "template_id": "tpl-rate-card-intro",
+      "stage": "brand",
+      "title": "Rate Card Introduction Email",
+      "platform": "email",
+      "creator_types": ["all"],
+      "description": "A professional email to send alongside your rate card when a brand asks 'what are your rates?'",
+      "body": "Subject: {{your_name}} — Rates & Partnership Info\n\nHi {{their_name}},\n\nThanks for reaching out — I'd love to work together!\n\nI've attached my rate card with full pricing, but here's a quick summary:\n\n📸 Single Instagram Post: {{ig_post_rate}}\n🎬 Instagram Reel: {{reel_rate}}\n📱 TikTok Video: {{tiktok_rate}}\n📦 Content Package (3 posts): {{package_rate}}\n\nAll rates include usage rights for {{usage_period}} and {{number_of_revisions}} revision round.\n\nI'm flexible on format and always open to discussing what works for your campaign goals. A few brands I've worked with: {{past_brands_or_'this would be our first partnership'}}.\n\nHappy to jump on a quick call to align on the brief. What does your timeline look like?\n\nBest,\n{{your_name}}\n{{your_email}} | {{your_instagram_or_website}}"
+    },
+    {
+      "template_id": "tpl-affiliate-application",
+      "stage": "builder",
+      "title": "Affiliate / Ambassador Application",
+      "platform": "email",
+      "creator_types": ["all"],
+      "description": "An email to apply to an affiliate or ambassador program when no formal application exists — pitch yourself directly.",
+      "body": "Subject: Affiliate / Ambassador Application — {{your_name}}, {{niche}} Creator\n\nHi {{brand_name}} team,\n\nI'm {{your_name}}, a {{niche}} content creator with {{follower_count}} followers on {{primary_platform}}. I've been genuinely using and loving {{specific_product_or_product_line}} for {{how_long}} — it's become a staple in my {{how_you_use_it — e.g. 'daily routine / setup / workflow'}}.\n\nI'd love to apply to your affiliate or ambassador program. Here's a quick snapshot:\n• Platform: {{platform}} | Followers: {{follower_count}} | Avg engagement: {{engagement_rate}}%\n• Audience: {{age_range}}, {{location}}, passionate about {{niche}}\n• Past brand partnerships: {{past_brands_or_'this would be our first partnership'}}\n\nI'd create authentic content that showcases {{product}} in a real, relatable way — no forced ads. I believe in the product and I think my audience would too.\n\nLet me know if you'd like my full media kit or more details. Would love to chat!\n\n— {{your_name}}\n{{your_email}} | {{your_instagram}}"
+    }
+  ]
+}

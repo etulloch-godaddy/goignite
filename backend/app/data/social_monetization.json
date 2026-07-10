@@ -1,0 +1,58 @@
+{
+  "methods": [
+    {
+      "method": "Affiliate Marketing",
+      "description": "Earn commission on sales you drive via a trackable link. No follower minimum — you can start today.",
+      "min_followers": 0,
+      "first_step": "Apply to Amazon Influencer Program (any follower count) or LTK (requires 1k+ on Instagram or TikTok). Add your link to your bio immediately.",
+      "programs": ["Amazon Influencer", "LikeToKnowIt (LTK)", "ShareASale", "Impact"],
+      "creator_types": ["fashion", "fitness", "food", "art", "gaming", "all"]
+    },
+    {
+      "method": "Sponsored Post or Reel",
+      "description": "A brand pays you to feature their product in a photo, carousel, or short-form video.",
+      "min_followers": 1000,
+      "first_step": "Use the Brand Collab DM template in your Templates tab. Start with small or local brands in your niche — they respond faster and are more open to micro-creators.",
+      "programs": [],
+      "creator_types": ["fashion", "fitness", "food", "art", "all"]
+    },
+    {
+      "method": "Brand Ambassador Program",
+      "description": "An ongoing relationship with one brand — monthly content in exchange for a flat fee and product.",
+      "min_followers": 1000,
+      "first_step": "Use the Affiliate / Ambassador Application template. Target brands you already use and can speak authentically about.",
+      "programs": [],
+      "creator_types": ["fashion", "fitness", "food", "art", "gaming", "all"]
+    },
+    {
+      "method": "Gaming Sponsorship",
+      "description": "Gaming-specific deals: peripherals (Razer, SteelSeries, HyperX), energy drinks (G Fuel, Monster), or chairs (Secretlab). Often includes free gear plus a revenue share.",
+      "min_followers": 500,
+      "first_step": "Apply directly to Razer Streamer Program, HyperX Creator Program, or G Fuel Sponsorship from their websites. Most accept applications at any stream size.",
+      "programs": ["Razer Streamer Program", "HyperX Creator", "G Fuel Sponsorship", "SteelSeries Influencer"],
+      "creator_types": ["gaming"]
+    },
+    {
+      "method": "Twitch Subscriptions & Bits",
+      "description": "Recurring income once you hit Twitch Affiliate. Viewers pay $4.99–$24.99/month to subscribe; you earn 50% (Partners can negotiate 70%).",
+      "min_followers": 0,
+      "first_step": "Hit the Twitch Affiliate requirements: 50 followers, 500 total minutes broadcast, 7 unique broadcast days, avg 3 concurrent viewers. Track your progress in the Twitch dashboard.",
+      "programs": ["Twitch Affiliate", "Twitch Partner"],
+      "creator_types": ["gaming"]
+    },
+    {
+      "method": "Digital Products",
+      "description": "Sell something you create once and deliver forever — presets, templates, ebooks, workout plans, art brushes. 100% margin, no brand approval needed.",
+      "min_followers": 500,
+      "first_step": "Pick one product you can create in a weekend (a Lightroom preset pack, a recipe PDF, a workout template). List it on Gumroad or Stan Store and put the link in your bio.",
+      "programs": ["Gumroad", "Stan Store", "Payhip", "Teachable"],
+      "creator_types": ["fashion", "fitness", "food", "art", "all"]
+    }
+  ],
+  "where_to_start_by_followers": {
+    "0-999":   "You're at the beginning — affiliate marketing is your best move right now. Zero follower requirement, and it teaches you what your audience actually buys.",
+    "1000-9999": "You're ready for brand deals. Send 3 Brand Collab DMs this week using the template — at your stage, engagement rate matters more than follower count.",
+    "10000-99999": "Push for recurring ambassador deals over one-off posts. Predictable monthly income beats sporadic sponsorships.",
+    "100000+": "Diversify beyond brand deals. One digital product launch can outperform 6 months of sponsored posts."
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "stage_gates": [
+    {
+      "stage": "starter",
+      "title": "Start Your Social Presence",
+      "prompt": "Set up your Instagram bio and add a link in bio. Your social presence is your business card — make it count.",
+      "cta_label": "Optimize My Bio",
+      "cta_mission_id": "sm-starter-001",
+      "icon": "📸",
+      "platforms": ["instagram", "tiktok"],
+      "tip": "Even 100 engaged followers is enough to land your first brand deal. Quality beats quantity at this stage."
+    },
+    {
+      "stage": "builder",
+      "title": "Make Your First Move",
+      "prompt": "Send your first brand collab DM. Reaching out to brands is a skill — the more you do it, the easier it gets. Use the template we've prepared for you.",
+      "cta_label": "Send First DM",
+      "cta_mission_id": "sm-builder-002",
+      "icon": "📨",
+      "platforms": ["instagram", "tiktok"],
+      "tip": "Don't wait until you have a huge following. Micro-influencers (1k–10k) often get better response rates than big accounts."
+    },
+    {
+      "stage": "brand",
+      "title": "Go Pro — Send Your Media Kit",
+      "prompt": "Send your media kit to 2 brands this week. Your CreatorLevel profile is your media kit. Brands want to see your numbers, your audience, and your story.",
+      "cta_label": "Send Media Kit",
+      "cta_mission_id": "sm-brand-001",
+      "icon": "📊",
+      "platforms": ["email", "instagram"],
+      "tip": "The best media kit pitches lead with your audience's story, not your own numbers. Tell brands who they're really reaching."
+    },
+    {
+      "stage": "investor_ready",
+      "title": "Get on the Radar — Pitch Press & Podcasts",
+      "prompt": "Pitch yourself to a podcast or media outlet. At this stage, earned media and press features are what separate brands from creators. Your story is worth telling.",
+      "cta_label": "Pitch a Podcast",
+      "cta_mission_id": "sm-investor-002",
+      "icon": "🎙️",
+      "platforms": ["email", "linkedin"],
+      "tip": "Podcasts with 1k–10k listeners in your niche will often say yes to a strong pitch. Bigger isn't always better."
+    }
+  ]
+}
