@@ -3,24 +3,22 @@ from typing import Any
 
 from fastapi import APIRouter, HTTPException
 
-from app.models.user import OnboardUserRequest, OnboardUserResponse, User
+from app.models.user import CreateNewUserRequest, CreateNewUserResponse, User
 from app.services.user_store import load_users, save_users
 
 router = APIRouter(prefix="/api/users", tags=["users"])
 
 
-@router.post("/onboard", response_model=OnboardUserResponse)
-def onboard_user(payload: OnboardUserRequest) -> OnboardUserResponse:
+@router.post("/create-new-user", response_model=CreateNewUserResponse)
+def create_new_user(payload: CreateNewUserRequest) -> CreateNewUserResponse:
     users = load_users()
     user = User(
         user_id=str(uuid4()),
         creator_type=payload.creator_type,
     )
-    user.business_profile.bio = payload.bio
-    user.business_profile.revenue_goal = payload.revenue_goal
     users[user.user_id] = user
     save_users(users)
-    return OnboardUserResponse(user_id=user.user_id, user=user)
+    return CreateNewUserResponse(user_id=user.user_id)
 
 
 @router.get("/{user_id}", response_model=User)

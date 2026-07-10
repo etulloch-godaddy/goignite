@@ -31,12 +31,9 @@ class User(BaseModel):
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
-class OnboardUserRequest(BaseModel):
+class CreateNewUserRequest(BaseModel):
     creator_type: CreatorType
-    bio: str = ""
-    revenue_goal: str = ""
 
 
-class OnboardUserResponse(BaseModel):
+class CreateNewUserResponse(BaseModel):
     user_id: str
-    user: User
