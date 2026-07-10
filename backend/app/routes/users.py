@@ -1,20 +1,31 @@
 from uuid import uuid4
-from typing import Any
 
 from fastapi import APIRouter, HTTPException
 
-from app.models.user import CreateNewUserRequest, CreateNewUserResponse, User
+from app.models.user import (
+    CreateNewUserResponse,
+    OnboardingDataResponse,
+    UpsertOnboardingDataRequest,
+    User,
+)
 from app.services.user_store import load_users, save_users
 
 router = APIRouter(prefix="/api/users", tags=["users"])
 
 
 @router.post("/create-new-user", response_model=CreateNewUserResponse)
-def create_new_user(payload: CreateNewUserRequest) -> CreateNewUserResponse:
+def create_new_user() -> CreateNewUserResponse:
+    """
+    Create a new user and return only user_id.
+
+    Example request (frontend):
+    fetch("http://localhost:8000/api/users/create-new-user", {
+      method: "POST",
+    })
+    """
     users = load_users()
     user = User(
         user_id=str(uuid4()),
-        creator_type=payload.creator_type,
     )
     users[user.user_id] = user
     save_users(users)
@@ -23,6 +34,12 @@ def create_new_user(payload: CreateNewUserRequest) -> CreateNewUserResponse:
 
 @router.get("/{user_id}", response_model=User)
 def get_user_profile(user_id: str) -> User:
+    """
+    Fetch the full user profile.
+
+    Example request (frontend):
+    fetch(`http://localhost:8000/api/users/${user_id}`)
+    """
     users = load_users()
     user = users.get(user_id)
     if user is None:
@@ -30,24 +47,52 @@ def get_user_profile(user_id: str) -> User:
     return user
 
 
-@router.patch("/onboarding-data", response_model=User)
-def upsert_onboarding_data(payload: dict[str, Any]) -> User:
-    user_id = payload.get("user_id")
-    if not isinstance(user_id, str) or not user_id.strip():
-        raise HTTPException(status_code=400, detail="user_id is required")
+@router.get("/{user_id}/onboarding-data", response_model=OnboardingDataResponse)
+def get_user_onboarding_data(user_id: str) -> OnboardingDataResponse:
+    """
+    Fetch only the onboarding key-value dictionary for a user.
 
-    updates = {
-        key: value
-        for key, value in payload.items()
-        if key != "user_id"
-    }
+    Example request (frontend):
+    fetch(`http://localhost:8000/api/users/${user_id}/onboarding-data`)
+    """
+    users = load_users()
+    user = users.get(user_id)
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    return OnboardingDataResponse(user_id=user_id, onboarding_data=user.onboarding_data)
 
+
+@router.patch("/{user_id}/onboarding-data", response_model=OnboardingDataResponse)
+def upsert_onboarding_data(
+    user_id: str,
+    payload: UpsertOnboardingDataRequest,
+) -> OnboardingDataResponse:
+    """
+    Upsert onboarding key-value pairs for a user.
+
+    Example request (frontend):
+    fetch(`http://localhost:8000/api/users/${user_id}/onboarding-data`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        data: {
+          business_name: "Study Survival Kits",
+          monthly_revenue: 1000,
+          team_size: 1,
+          ideal-customer: [
+            "Busy college students in a time crunch, who need a better studying experience.",
+            "Professors with little time to go shopping during finals week."
+          ]
+        },
+      }),
+    })
+    """
     users = load_users()
     user = users.get(user_id)
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
 
-    user.onboarding_data.update(updates)
+    user.onboarding_data.update(payload.data)
     users[user_id] = user
     save_users(users)
-    return user
+    return OnboardingDataResponse(user_id=user_id, onboarding_data=user.onboarding_data)

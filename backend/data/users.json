@@ -1,1 +1,22 @@
-{}
+{
+  "70e2c4fa-9131-4c3b-8c5e-b558be3a7d85": {
+    "user_id": "70e2c4fa-9131-4c3b-8c5e-b558be3a7d85",
+    "creator_type": null,
+    "stage": "starter",
+    "business_profile": {
+      "bio": "",
+      "revenue_goal": ""
+    },
+    "onboarding_data": {
+      "one-sentence-pitch": "Sell customized “study survival kits” on campus—small bags with snacks, pens, sticky notes, gum, and mini self-care items—by buying supplies in bulk and reselling them in person during finals week.",
+      "ideal-customer": [
+        "Busy college students in a time crunch, who need a better studying experience.",
+        "Professors with little time to go shopping during finals week."
+      ],
+      "business_name": "Study Survival Kits",
+      "monthly_revenue": 1000,
+      "team_size": 1
+    },
+    "created_at": "2026-07-10T18:32:01.206580Z"
+  }
+}
