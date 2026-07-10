@@ -1,4 +1,4 @@
 fastapi[standard]
 uvicorn[standard]
-go_agent_python
+httpx
 python-dotenv>=1.0.1

@@ -8,7 +8,7 @@ pip install -r requirements.txt
 
 ## Configure API Key
 
-Copy the example env file and add your Anthropic API key:
+Copy the example env file and add your CaaS SSO JWT token:
 
 ```
 cp .env.example .env
@@ -17,10 +17,8 @@ cp .env.example .env
 Then open `.env` and set:
 
 ```
-ANTHROPIC_API_KEY=sk-ant-...your key here...
+CAAS_SSO_JWT=sso-jwt <your-token>
 ```
-
-Get a key at https://console.anthropic.com
 
 ## Run the API
 
