@@ -1,0 +1,11 @@
+{
+  "name": "hackathon",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --dir frontend dev",
+    "build": "pnpm --dir frontend build",
+    "start": "pnpm --dir frontend start",
+    "lint": "pnpm --dir frontend lint",
+    "install:frontend": "pnpm --dir frontend install"
+  }
+}
