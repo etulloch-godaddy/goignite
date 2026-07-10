@@ -1,4 +1,5 @@
 from uuid import uuid4
+from typing import Any
 
 from fastapi import APIRouter, HTTPException
 
@@ -28,4 +29,27 @@ def get_user_profile(user_id: str) -> User:
     user = users.get(user_id)
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
+    return user
+
+
+@router.patch("/onboarding-data", response_model=User)
+def upsert_onboarding_data(payload: dict[str, Any]) -> User:
+    user_id = payload.get("user_id")
+    if not isinstance(user_id, str) or not user_id.strip():
+        raise HTTPException(status_code=400, detail="user_id is required")
+
+    updates = {
+        key: value
+        for key, value in payload.items()
+        if key != "user_id"
+    }
+
+    users = load_users()
+    user = users.get(user_id)
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    user.onboarding_data.update(updates)
+    users[user_id] = user
+    save_users(users)
     return user
