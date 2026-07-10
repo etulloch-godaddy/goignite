@@ -1,8 +1,12 @@
 import os
+from pathlib import Path
 from typing import Optional
 
 import httpx
+from dotenv import load_dotenv
 from fastapi import HTTPException
+
+load_dotenv(dotenv_path=Path(__file__).resolve().parents[2] / ".env", override=False)
 
 
 class GoDaddyClient:
