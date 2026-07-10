@@ -1,1 +1,4 @@
 fastapi[standard]
+uvicorn[standard]
+go_agent_python
+python-dotenv>=1.0.1

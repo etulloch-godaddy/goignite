@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routes import users
+from app.routes import users, chat
 
 app = FastAPI(
     title="CreatorLevel API",
@@ -18,6 +18,7 @@ app.add_middleware(
 )
 
 app.include_router(users.router)
+app.include_router(chat.router, prefix="/api")
 
 
 @app.get("/health")
