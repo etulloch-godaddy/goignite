@@ -1,20 +1,28 @@
 @import "tailwindcss";
+@plugin "@ux/tailwind-intents/plugin";
+
+@import "../styles/godaddy-theme.css";
 @import "../styles/uxcore-components.css";
-
-:root {
-  --background: #ffffff;
-  --foreground: #111111;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@import "../styles/uxcore-icons.css";
+@import "../styles/dashboard-theme.css";
 
 body {
-  background: var(--background);
-  color: var(--foreground);
   font-family: "GD Sherpa", Arial, Helvetica, sans-serif;
+}
+
+.dashboard-grid-item {
+  flex: 1 1 16rem;
+  min-width: min(100%, 16rem);
+}
+
+.dashboard-grid-2 .dashboard-grid-item {
+  flex: 1 1 18rem;
+}
+
+.dashboard-grid-3 .dashboard-grid-item {
+  flex: 1 1 14rem;
+}
+
+.dashboard-nav-button {
+  justify-content: flex-start;
 }

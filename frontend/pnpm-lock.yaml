@@ -26,6 +26,9 @@ importers:
       '@ux/chip':
         specifier: ^2500.12.0
         version: 2500.12.0(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@ux/circular-progress':
+        specifier: ^2500.12.0
+        version: 2500.12.0(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@ux/dialog':
         specifier: ^2500.11.3
         version: 2500.11.3(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -862,6 +865,14 @@ packages:
 
   '@ux/chip@2500.12.0':
     resolution: {integrity: sha512-o9BuapLJQh50wyS+xDEuyRhPMmknbgrTBKwGfg6hO2WYNhwd1lusN30KdG3hQHPmqcCCLMaFarUcBO0Q8AVmnw==, tarball: https://gdartifactory1.jfrog.io/artifactory/api/npm/node-virt/@ux/chip/-/@ux/chip-2500.12.0.tgz}
+    engines: {node: '>= 18'}
+    peerDependencies:
+      prop-types: ^15.7.2
+      react: 17.x || 18.x || 19.x
+      react-dom: 17.x || 18.x || 19.x
+
+  '@ux/circular-progress@2500.12.0':
+    resolution: {integrity: sha512-iZkRUeoGt2kY0dr4P4KXLQNcoWn4uxJutaEj8ll1C3bwW7dobGtBoRYxNTcqxqv5PsgyKmkb/HFentsYReSftg==, tarball: https://gdartifactory1.jfrog.io/artifactory/api/npm/node-virt/@ux/circular-progress/-/@ux/circular-progress-2500.12.0.tgz}
     engines: {node: '>= 18'}
     peerDependencies:
       prop-types: ^15.7.2
@@ -3109,6 +3120,15 @@ snapshots:
       '@ux/button': 2500.11.3(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@ux/component-utilities': 2500.12.0(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@ux/icon': 2500.11.3(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@ux/intents': 2500.9.0
+      '@ux/text': 2500.9.0(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      classnames: 2.5.1
+      prop-types: 15.8.1
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
+
+  '@ux/circular-progress@2500.12.0(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+    dependencies:
       '@ux/intents': 2500.9.0
       '@ux/text': 2500.9.0(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       classnames: 2.5.1

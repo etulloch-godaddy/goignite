@@ -8,6 +8,8 @@
 @import "@ux/dialog/dist/styles.css";
 @import "@ux/message-overlay/dist/styles.css";
 @import "@ux/modal/dist/styles.css";
+@import "@ux/circular-progress/dist/styles.css";
+@import "@ux/progress-bar/dist/styles.css";
 @import "@ux/progress-steps/dist/styles.css";
 @import "@ux/radio/dist/styles.css";
 @import "@ux/select/dist/styles.css";
