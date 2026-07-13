@@ -159,7 +159,9 @@ hackathon2026/
 | POST | `/api/missions/{id}/complete` | Mark complete, award XP, check stage promotion | ✓ |
 | GET | `/api/users/{id}/achievements` | Accomplishments dashboard data | ✓ |
 | GET | `/api/users/{id}/business-profile` | Auto-built profile (Claude-powered) | — |
-| GET | `/api/funding` | Funding opportunities (query by stage + creator_type) | — |
+| GET | `/api/funding` | Funding opportunities (query by `stage` + `creator_type`) | ✓ |
+| GET | `/api/funding?stage=investor_ready` | Funding filtered to investor-ready stage (accelerators, angels) | ✓ |
+| GET | `/api/funding?stage=builder&creator_type=fashion` | Funding filtered by stage and creator type | ✓ |
 | GET | `/api/monetization/toolkit` | Guides + templates | — |
 | POST | `/api/ai/generate-pitch` | Claude generates pitch deck from user data | — |
 | GET | `/api/godaddy/stage-gate/{user_id}` | GoDaddy upgrade recommendation for current stage | — |
@@ -262,7 +264,7 @@ GODADDY_OTE=true   # set false for production
 9. Auto-bio generation at onboarding
 
 ### Phase 4 — Discovery + Monetisation
-10. Funding Engine — static `funding.json` + eligibility filter
+10. ✓ Funding Engine — `funding.json` (15 opportunities) + `GET /api/funding` with stage + creator_type filtering
 11. Monetization Toolkit — static guides + template downloads
 
 ### Phase 5 — GoDaddy + Polish
@@ -300,6 +302,12 @@ curl http://localhost:8000/api/users/{user_id}/achievements
 cd frontend
 npm run dev
 # Open http://localhost:5173 — complete onboarding quiz end-to-end
+
+# Funding Engine
+curl http://localhost:8000/api/funding
+curl "http://localhost:8000/api/funding?stage=investor_ready"
+curl "http://localhost:8000/api/funding?stage=investor_ready&creator_type=fashion"
+curl "http://localhost:8000/api/funding?stage=builder&creator_type=gaming"
 
 # AI layer
 # Set ANTHROPIC_API_KEY in .env
