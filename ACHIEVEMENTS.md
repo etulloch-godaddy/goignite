@@ -1,4 +1,4 @@
-# CreatorLevel — Achievements Catalog
+# GoIgnite — Achievements Catalog
 
 Achievements are auto-generated from mission completion events — no manual entry required. Every time a user completes a mission, the backend writes an `Achievement` record. The `AccomplishmentsBoard` renders these directly; completing missions is all it takes to keep the dashboard current.
 

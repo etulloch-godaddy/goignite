@@ -1,4 +1,4 @@
-# CreatorLevel — Hackathon Build Plan (name is still in progress )
+# GoIgnite — Hackathon Build Plan
 ## Context
 
 Building a gamified business-building platform for teen/young adult content creators. The platform mirrors Duolingo's habit loop: users level up their business through daily missions rather than being overwhelmed by a full business plan upfront. As users grow, they graduate into GoDaddy's product ecosystem (domain → email → business suite) — the platform acts as a structured on-ramp that pre-qualifies and onboards small creators into GoDaddy's tooling.

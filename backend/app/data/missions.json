@@ -180,7 +180,7 @@
     "stage": "brand",
     "creator_types": ["all"],
     "title": "Fill all business profile fields",
-    "description": "Complete your bio, pitch, revenue goal, and domain in your CreatorLevel profile.",
+    "description": "Complete your bio, pitch, revenue goal, and domain in your GoIgnite profile.",
     "xp_reward": 75,
     "completion_prompt": "Confirm all fields are filled",
     "achievement_title": "Business Profile Complete",
