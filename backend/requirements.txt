@@ -1,4 +1,4 @@
 fastapi[standard]
 uvicorn[standard]
-httpx
+openai
 python-dotenv>=1.0.1

@@ -24,7 +24,7 @@ CAAS_SSO_JWT=sso-jwt <your-token>
 
 ```
 source .venv/bin/activate
-uvicorn app.main:app --reload
+1
 ```
 
 Server runs at http://localhost:8000
