@@ -1,3 +1,10 @@
+from dotenv import load_dotenv
+load_dotenv()
+
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from app.routes import users, chat
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -18,6 +25,7 @@ app.add_middleware(
 )
 
 app.include_router(users.router)
+app.include_router(chat.router, prefix="/api")
 app.include_router(domains.router)
 app.include_router(missions.router)
 app.include_router(achievements.router)
