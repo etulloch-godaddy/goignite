@@ -13,6 +13,7 @@ import PageIcon from "@ux/icon/page";
 import LightbulbIcon from "@ux/icon/lightbulb";
 import GraphIcon from "@ux/icon/graph";
 import LockedIcon from "@ux/icon/locked";
+import SocialIcon from "@ux/icon/social";
 import ChevronDownIcon from "@ux/icon/chevron-down";
 import SidebarCollapseIcon from "@ux/icon/sidebar-collapse";
 import type { NavItem } from "@/lib/dashboard-data";
@@ -29,6 +30,7 @@ const iconMap = {
   page: PageIcon,
   lightbulb: LightbulbIcon,
   graph: GraphIcon,
+  social: SocialIcon,
 } as const;
 
 function NavIcon({ name }: { name: string }) {

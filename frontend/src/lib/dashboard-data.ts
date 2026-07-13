@@ -214,6 +214,12 @@ export function buildPrimaryNav(missionCount: number): NavItem[] {
       icon: "bullseye",
       href: "#achievements",
     },
+    {
+      id: "social",
+      label: "Social",
+      icon: "social",
+      href: "/social",
+    },
   ];
 }
 
