@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { demoUser, type DashboardUser } from "@/lib/dashboard-data";
+import { emptyUser, type DashboardUser } from "@/lib/dashboard-data";
 import { mapUserToDashboard } from "@/lib/map-dashboard";
 import {
   checkApiHealth,
@@ -35,7 +35,7 @@ export function useDashboard() {
     setApiConnected(healthy);
 
     if (!healthy) {
-      setUser(demoUser);
+      setUser(emptyUser);
       setLoading(false);
       return;
     }
@@ -46,7 +46,7 @@ export function useDashboard() {
       await loadDashboard(id);
     } catch {
       setApiConnected(false);
-      setUser(demoUser);
+      setUser(emptyUser);
     } finally {
       setLoading(false);
     }
@@ -72,7 +72,7 @@ export function useDashboard() {
   );
 
   return {
-    user: user ?? demoUser,
+    user: user ?? emptyUser,
     loading,
     apiConnected,
     completingId,
