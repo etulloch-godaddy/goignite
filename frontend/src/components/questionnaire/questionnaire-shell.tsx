@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect, type ReactNode } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { getOrCreateUserId, patchOnboarding } from "@/services/api";
 import { QuestionnaireHeader } from "./questionnaire-header";
@@ -111,9 +112,54 @@ function TransitionWrapper({ stepKey, children }: TransitionWrapperProps) {
     className = "q-step q-step-enter q-step-enter-active";
   }
 
+  return <div className={className}>{displayed.node}</div>;
+}
+
+/**
+ * Illustrations render in a persistent layer that lives OUTSIDE the step
+ * transition, so they don't fade/vanish when navigating between steps.
+ * Steps 1–3 share the two-column gif; steps 4–7 share the bottom illustration.
+ */
+function StepIllustration({ step }: { step: number }) {
+  const isTwoCol = step >= 1 && step <= 3;
+  const isCentered = step >= 4 && step <= 7;
+
+  if (!isTwoCol && !isCentered) return null;
+
   return (
-    <div className="q-step-container">
-      <div className={className}>{displayed.node}</div>
+    <div className="q-illust-layer" aria-hidden>
+      {isTwoCol && (
+        <div className="q-two-col">
+          <div />
+          <div className="q-two-col-illust">
+            <Image
+              src="/questionnaire/dream-it.gif"
+              alt=""
+              width={480}
+              height={480}
+              unoptimized
+              priority
+            />
+          </div>
+        </div>
+      )}
+
+      {isCentered && (
+        <div
+          className={
+            "q-bottom-illust" +
+            (step === 4 ? " q-bottom-illust--raised" : "") +
+            (step === 5 ? " q-bottom-illust--lg" : "")
+          }
+        >
+          <Image
+            src="/questionnaire/cursor-ride.png"
+            alt=""
+            width={400}
+            height={400}
+          />
+        </div>
+      )}
     </div>
   );
 }
@@ -240,7 +286,10 @@ export function QuestionnaireShell() {
     <div className="q-page">
       <QuestionnaireHeader />
       {step > 0 && <ProgressDots current={step - 1} total={TOTAL_STEPS - 1} />}
-      <TransitionWrapper stepKey={step}>{renderStep()}</TransitionWrapper>
+      <div className="q-step-container">
+        <StepIllustration step={step} />
+        <TransitionWrapper stepKey={step}>{renderStep()}</TransitionWrapper>
+      </div>
     </div>
   );
 }

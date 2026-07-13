@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import Image from "next/image";
 import text from "@ux/text";
 import Button from "@ux/button";
 import Chip from "@ux/chip";
@@ -56,16 +55,6 @@ export function StepBusinessType({ initial, onNext }: StepBusinessTypeProps) {
             onClick={() => onNext(selected)}
           />
         </div>
-      </div>
-
-      <div className="q-two-col-illust">
-        <Image
-          src="/questionnaire/dream-it.gif"
-          alt="Dream it illustration"
-          width={480}
-          height={480}
-          unoptimized
-        />
       </div>
     </div>
   );

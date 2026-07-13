@@ -34,6 +34,15 @@
   height: 5.5rem;
 }
 
+.q-header-wordmark {
+  font-family: var(--font-gd-sage), system-ui, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111111;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
 .q-header-actions {
   display: flex;
   align-items: center;
@@ -81,12 +90,26 @@
   position: absolute;
   inset: 0;
   overflow-y: auto;
+  z-index: 1;
 }
 
 .q-step--static {
   position: relative;
   inset: auto;
   min-height: 100%;
+}
+
+/* Persistent illustration layer — sits behind the animated step so the
+   artwork never fades/vanishes during step transitions. */
+.q-illust-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.q-illust-layer .q-two-col {
+  height: 100%;
 }
 
 .q-step-enter {
@@ -269,23 +292,38 @@
 
 .q-two-col {
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
+  grid-template-columns: minmax(0, 1fr) 30rem;
   min-height: calc(100vh - 4rem);
+  max-width: 78rem;
+  margin: 0 auto;
+  padding-inline: 4rem;
+}
+
+@media (max-width: 1024px) {
+  .q-two-col {
+    padding-inline: 2rem;
+  }
 }
 
 @media (max-width: 768px) {
   .q-two-col {
     grid-template-columns: 1fr;
+    padding-inline: 1.5rem;
+  }
+
+  /* Avoid overlap with stacked single-column content on small screens. */
+  .q-illust-layer {
+    display: none;
   }
 }
 
 .q-two-col-form {
-  padding: 3rem 2rem 3rem 5rem;
+  padding: 3rem 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   min-width: 0;
-  max-width: 46rem;
+  max-width: 54rem;
 }
 
 .q-two-col-illust {
@@ -293,13 +331,13 @@
   align-items: center;
   justify-content: center;
   min-width: 0;
-  padding: 1rem 2rem;
+  padding: 0.5rem 0;
 }
 
 .q-two-col-illust img {
-  width: 100%;
+  width: 30rem;
   max-width: 100%;
-  max-height: 40rem;
+  max-height: 46rem;
   object-fit: contain;
   transform: scaleY(-1) rotate(180deg);
 }
@@ -314,6 +352,15 @@
   min-height: calc(100vh - 4rem);
   padding: 2rem;
   position: relative;
+}
+
+.q-centered--top {
+  justify-content: flex-start;
+  padding-top: 4rem;
+}
+
+.q-bottom-illust--raised {
+  bottom: 3rem;
 }
 
 .q-centered-form {

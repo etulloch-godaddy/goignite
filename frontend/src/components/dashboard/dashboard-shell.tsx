@@ -8,13 +8,12 @@ import {
   type DashboardUser,
 } from "@/lib/dashboard-data";
 import { useDashboard } from "@/hooks/use-dashboard";
+import { AiCompanion } from "./ai-companion";
+import { BusinessOverview } from "./business-overview";
 import { DashboardHeader } from "./dashboard-header";
 import { DashboardLoading } from "./dashboard-loading";
 import { DashboardSidebar } from "./dashboard-sidebar";
 import { DashboardToast } from "./dashboard-toast";
-import { FocusAreaCards } from "./focus-area-cards";
-import { GreetingRow } from "./greeting-row";
-import { MissionMatches } from "./mission-matches";
 import { WelcomeBanner } from "./welcome-banner";
 
 const Main = box.main;
@@ -70,14 +69,13 @@ function DashboardContent({ user }: { user: DashboardUser }) {
           inlinePadding="lg"
           className="w-full dashboard-content"
         >
-          <GreetingRow user={user} />
           <WelcomeBanner user={user} />
-          <MissionMatches user={user} />
-          <FocusAreaCards areas={user.focusAreas} />
+          <BusinessOverview user={user} />
         </Main>
       </Box>
 
       <DashboardToast message="You're all set — your dashboard is up to date!" />
+      <AiCompanion businessName={user.businessName} />
     </Box>
   );
 }

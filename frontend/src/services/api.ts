@@ -122,3 +122,12 @@ export async function getOrCreateUserId(): Promise<string> {
   localStorage.setItem(USER_ID_KEY, id);
   return id;
 }
+
+export const DEMO_ONBOARDING = {
+  first_name: "Maya",
+  business_name: "Valentina's Hot Sauce",
+  creator_type_label: "Fashion & lifestyle",
+  pitch: "",
+  niche: "",
+  social_link: "",
+};
