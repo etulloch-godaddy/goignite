@@ -37,15 +37,20 @@
 
   /* ─── Action primary ─── */
   --ux-c5mlr8: #111111;
+  --ux-pmb6pt: #111111;
   --ux-t04p4h: #ffffff;
+  --ux-1tmjflg: #ffffff;
   --ux-kdwujq: transparent;
+  --ux-pv1fr7: transparent;
   --ux-1nlagp6: #00a4a6;
   --ux-pe46kj: 5px;
   --ux-k7zm59: 1px;
 
   /* ─── Action primary hovered ─── */
   --ux-ran6wz: #333333;
+  --ux-57c70m: #333333;
   --ux-1ckzto6: #ffffff;
+  --ux-ztff7: #ffffff;
 
   /* ─── Action primary chosen ─── */
   --ux-1ehwjjs: #000000;
@@ -94,19 +99,26 @@
   --ux-k4fkva: #ffffff;
 
   /* ─── Action option ─── */
-  --ux-1sw32wb: transparent;
+  --ux-1sw32wb: #ffffff;
+  --ux-17c63hq: #ffffff;
   --ux-1wf60ri: #111111;
+  --ux-wukzej: #111111;
   --ux-iz7fvt: #d6dada;
-  --ux-1frurfw: 5px;
+  --ux-1rh1mlo: #d6dada;
+  --ux-1frurfw: 16px;
   --ux-1ygxynm: 1px;
 
   /* ─── Action option hovered ─── */
   --ux-1x1u50s: #f3f5f6;
+  --ux-aiy2vd: #f3f5f6;
   --ux-1mntjax: #111111;
+  --ux-12ycqrg: #111111;
 
   /* ─── Action option chosen ─── */
   --ux-9cqgfr: #e0e5e6;
+  --ux-ke8df6: #e0e5e6;
   --ux-h8m2iq: #111111;
+  --ux-17514tj: #111111;
 
   /* ─── Navigate ─── */
   --ux-2rqapw: #444444;

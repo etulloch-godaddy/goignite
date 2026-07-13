@@ -25,6 +25,7 @@
     "@ux/progress-bar": "^2500.12.0",
     "@ux/progress-steps": "^2500.11.3",
     "@ux/radio": "^2500.9.0",
+    "@ux/range-input": "^2500.12.0",
     "@ux/select": "^2500.12.0",
     "@ux/spinner": "^2500.9.0",
     "@ux/tabs": "^2500.12.0",

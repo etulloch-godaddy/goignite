@@ -1,4 +1,5 @@
 /* -> Import styles for UXCore icons */
+@import "@ux/icon/add-filled/index.css";
 @import "@ux/icon/alert/index.css";
 @import "@ux/icon/apps/index.css";
 @import "@ux/icon/apps2/index.css";
@@ -49,7 +50,9 @@
 @import "@ux/icon/folder/index.css";
 @import "@ux/icon/folder-open/index.css";
 @import "@ux/icon/fonts-pairing/index.css";
+@import "@ux/icon/food/index.css";
 @import "@ux/icon/forward/index.css";
+@import "@ux/icon/gd-logo/index.css";
 @import "@ux/icon/gd-the-go/index.css";
 @import "@ux/icon/google/index.css";
 @import "@ux/icon/grab-vert/index.css";
@@ -58,6 +61,7 @@
 @import "@ux/icon/heart/index.css";
 @import "@ux/icon/hide/index.css";
 @import "@ux/icon/history/index.css";
+@import "@ux/icon/home-filled/index.css";
 @import "@ux/icon/image/index.css";
 @import "@ux/icon/image-gallery/index.css";
 @import "@ux/icon/information/index.css";
@@ -98,8 +102,10 @@
 @import "@ux/icon/sidebar-collapse/index.css";
 @import "@ux/icon/sidebar-collapse-filled/index.css";
 @import "@ux/icon/sidebar-expand/index.css";
+@import "@ux/icon/sm-business-filled/index.css";
 @import "@ux/icon/social/index.css";
 @import "@ux/icon/sparkles/index.css";
+@import "@ux/icon/sparkles-filled/index.css";
 @import "@ux/icon/stop/index.css";
 @import "@ux/icon/tablet/index.css";
 @import "@ux/icon/tiktok/index.css";
@@ -111,6 +117,7 @@
 @import "@ux/icon/unlink/index.css";
 @import "@ux/icon/user/index.css";
 @import "@ux/icon/user-locked/index.css";
+@import "@ux/icon/user-waving-filled/index.css";
 @import "@ux/icon/users3/index.css";
 @import "@ux/icon/video/index.css";
 @import "@ux/icon/volume-mute/index.css";

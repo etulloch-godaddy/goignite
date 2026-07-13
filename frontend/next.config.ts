@@ -30,6 +30,7 @@ const nextConfig: NextConfig = {
     "@ux/text",
     "@ux/text-lockup",
     "@ux/toggle",
+    "@ux/range-input",
   ],
 };
 
