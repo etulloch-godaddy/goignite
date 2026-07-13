@@ -7,12 +7,12 @@ import {
   getUser,
   type ApiUser,
 } from "@/services/api";
-import { demoUser, type DashboardUser } from "@/lib/dashboard-data";
+import { emptyUser, type DashboardUser } from "@/lib/dashboard-data";
 import { mapUserToDashboard } from "@/lib/map-dashboard";
 
 export function useSocial() {
   const [userId, setUserId] = useState<string | null>(null);
-  const [user, setUser] = useState<DashboardUser>(demoUser);
+  const [user, setUser] = useState<DashboardUser>(emptyUser);
   const [apiConnected, setApiConnected] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -23,7 +23,7 @@ export function useSocial() {
     setApiConnected(healthy);
 
     if (!healthy) {
-      setUser(demoUser);
+      setUser(emptyUser);
       setLoading(false);
       return;
     }
@@ -34,7 +34,7 @@ export function useSocial() {
       const profile: ApiUser = await getUser(id);
       setUser(mapUserToDashboard(profile, [], []));
     } catch {
-      setUser(demoUser);
+      setUser(emptyUser);
     } finally {
       setLoading(false);
     }
