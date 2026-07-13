@@ -156,6 +156,41 @@ hackathon2026/
 | GET | `/api/monetization/toolkit` | Guides + templates |
 | POST | `/api/ai/generate-pitch` | Claude generates pitch deck from user data |
 | GET | `/api/godaddy/stage-gate/{user_id}` | GoDaddy upgrade recommendation for current stage |
+| GET | `/api/social/connect/{platform}` | OAuth authorization URL for instagram/tiktok/facebook |
+| GET | `/api/social/callback/{platform}` | OAuth code exchange + redirect to frontend |
+| GET | `/api/social/mock-oauth/{platform}` | Instant mock connect — returns fake stats, no redirect needed |
+| GET | `/api/social/stats/{user_id}` | Connected platform follower/engagement stats |
+| GET | `/api/social/missions/{user_id}` | Social missions filtered by stage + creator_type |
+| POST | `/api/social/missions/{mission_id}/complete` | Complete social mission and write achievement |
+| GET | `/api/social/templates` | Outreach templates filtered by stage + platform |
+| GET | `/api/social/guides` | Platform guides (IG/TikTok/FB/LinkedIn) filtered by stage |
+| GET | `/api/social/stage-gate/{stage}` | Social visibility prompt shown at each stage unlock |
+| POST | `/api/social/content-ideas` | Claude-generated 7-day content plan |
+| GET | `/api/social/outreach/{user_id}` | Brand outreach pipeline log + summary stats |
+| POST | `/api/social/outreach/{user_id}` | Log a new brand outreach entry |
+| PATCH | `/api/social/outreach/{user_id}/{entry_id}` | Update outreach status; fires achievement on first "deal" |
+| GET | `/api/social/achievements/{user_id}` | All social achievements for a user |
+| GET | `/api/social/next-action/{user_id}` | Single highest-impact incomplete mission for the user |
+| GET | `/api/social/monetization-advice` | Monetization paths by creator type + follower count |
+| POST | `/api/social/growth-plan` | Claude-generated 30-day growth plan personalised to user |
+| GET | `/api/social/seo/keywords` | Ranked SEO keywords by creator type + platform |
+| POST | `/api/social/seo/profile` | Score + rewrite a bio for SEO discoverability |
+| POST | `/api/social/seo/content` | Rewrite a caption for maximum platform discoverability |
+
+---
+
+## Social Media & Marketing Module
+
+`social_media_service.py` handles OAuth, platform stats, Claude content generation, and achievement writes. The full hub lives in `SocialMediaHub.jsx` across 6 tabs.
+
+- **Platform Connect**: OAuth flow for Instagram, TikTok, and Facebook — set `MOCK_SOCIAL_APIS=true` in `.env` to bypass all external calls for demo
+- **Live Stats**: Follower count, engagement rate, and recent post performance pulled per connected platform
+- **Social Missions**: 22 missions across all 4 stages, filtered by creator type — completions write achievements with real milestone impact descriptions
+- **AI Content Plan**: `POST /api/social/content-ideas` calls `claude-sonnet-4-6` to generate a 7-day post calendar with hooks, captions, and hashtags; falls back to a static mock if no API key is set
+- **Outreach Tracker**: Brand deal pipeline with status tracking across Starter → Investor-Ready; entries 7+ days old with status "sent" surface a follow-up reminder; closing a deal auto-fires an achievement
+- **Outreach Templates + Platform Guides**: 9 copy-paste DM/email templates and IG/TikTok/FB/LinkedIn guides, all scoped by stage
+
+Integrator adds one `include_router` call in `main.py` and one `<Route>` in `App.jsx` — no other shared files touched.
 
 ---
 
