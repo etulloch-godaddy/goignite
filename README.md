@@ -149,72 +149,53 @@ hackathon2026/
 
 ## API Routes
 
-### Users
-| Method | Route | Description | Status |
-|---|---|---|---|
-| POST | `/api/users/create-new-user` | Create user, return user_id | ✓ |
-| GET | `/api/users/{id}` | Get user profile + XP + stage | ✓ |
-| GET | `/api/users/{id}/onboarding-data` | Get onboarding answers | ✓ |
-| PATCH | `/api/users/{id}/onboarding-data` | Save onboarding answers | ✓ |
-| GET | `/api/users/{id}/achievements` | Accomplishments dashboard data | ✓ |
+| Method | Route | Description |
+|---|---|---|
+| POST | `/api/users/onboard` | Create user with creator type, get roadmap |
+| GET | `/api/users/{id}` | Get user profile + XP + stage |
+| GET | `/api/missions/today/{user_id}` | Get today's personalised missions |
+| POST | `/api/missions/{id}/complete` | Mark complete, award XP, check stage promotion |
+| GET | `/api/users/{id}/business-profile` | Auto-built profile (Claude-powered) |
+| GET | `/api/users/{id}/achievements` | Accomplishments dashboard data |
+| GET | `/api/funding` | Funding opportunities (query by stage + creator_type) |
+| GET | `/api/monetization/toolkit` | Guides + templates |
+| POST | `/api/ai/generate-pitch` | Claude generates pitch deck from user data |
+| GET | `/api/godaddy/stage-gate/{user_id}` | GoDaddy upgrade recommendation for current stage |
+| GET | `/api/social/connect/{platform}` | OAuth authorization URL for instagram/tiktok/facebook |
+| GET | `/api/social/callback/{platform}` | OAuth code exchange + redirect to frontend |
+| GET | `/api/social/mock-oauth/{platform}` | Instant mock connect — returns fake stats, no redirect needed |
+| GET | `/api/social/stats/{user_id}` | Connected platform follower/engagement stats |
+| GET | `/api/social/missions/{user_id}` | Social missions filtered by stage + creator_type |
+| POST | `/api/social/missions/{mission_id}/complete` | Complete social mission and write achievement |
+| GET | `/api/social/templates` | Outreach templates filtered by stage + platform |
+| GET | `/api/social/guides` | Platform guides (IG/TikTok/FB/LinkedIn) filtered by stage |
+| GET | `/api/social/stage-gate/{stage}` | Social visibility prompt shown at each stage unlock |
+| POST | `/api/social/content-ideas` | Claude-generated 7-day content plan |
+| GET | `/api/social/outreach/{user_id}` | Brand outreach pipeline log + summary stats |
+| POST | `/api/social/outreach/{user_id}` | Log a new brand outreach entry |
+| PATCH | `/api/social/outreach/{user_id}/{entry_id}` | Update outreach status; fires achievement on first "deal" |
+| GET | `/api/social/achievements/{user_id}` | All social achievements for a user |
+| GET | `/api/social/next-action/{user_id}` | Single highest-impact incomplete mission for the user |
+| GET | `/api/social/monetization-advice` | Monetization paths by creator type + follower count |
+| POST | `/api/social/growth-plan` | Claude-generated 30-day growth plan personalised to user |
+| GET | `/api/social/seo/keywords` | Ranked SEO keywords by creator type + platform |
+| POST | `/api/social/seo/profile` | Score + rewrite a bio for SEO discoverability |
+| POST | `/api/social/seo/content` | Rewrite a caption for maximum platform discoverability |
 
-### Missions
-| Method | Route | Description | Status |
-|---|---|---|---|
-| GET | `/api/missions/today/{user_id}` | Get today's personalised missions (filtered by stage + creator type) | ✓ |
-| POST | `/api/missions/{id}/complete` | Mark complete, award XP, trigger stage promotion check | ✓ |
+---
 
-### Funding
-| Method | Route | Description | Status |
-|---|---|---|---|
-| GET | `/api/funding` | All funding opportunities | ✓ |
-| GET | `/api/funding?stage=investor_ready` | Filter to investor-ready stage (accelerators, angels) | ✓ |
-| GET | `/api/funding?stage=builder&creator_type=fashion` | Filter by stage and creator type | ✓ |
+## Social Media & Marketing Module
 
-### Chat (AI Business Advisor)
-| Method | Route | Description | Status |
-|---|---|---|---|
-| POST | `/api/chat` | Claude-powered Q&A — answers business questions, surfaces relevant GoDaddy products from KB | ✓ |
+`social_media_service.py` handles OAuth, platform stats, Claude content generation, and achievement writes. The full hub lives in `SocialMediaHub.jsx` across 6 tabs.
 
-### Social & Growth
-| Method | Route | Description | Status |
-|---|---|---|---|
-| GET | `/connect/{platform}` | OAuth connect for Instagram / TikTok | ✓ |
-| GET | `/callback/{platform}` | OAuth callback handler | ✓ |
-| GET | `/mock-oauth/{platform}` | Mock OAuth for demo | ✓ |
-| GET | `/stats/{user_id}` | Social platform stats for user | ✓ |
-| GET | `/missions/{user_id}` | Social missions filtered by stage + creator type | ✓ |
-| POST | `/missions/{mission_id}/complete` | Complete social mission, award XP, write achievement | ✓ |
-| GET | `/templates` | Content templates by stage + creator type | ✓ |
-| GET | `/guides` | Platform growth guides | ✓ |
-| POST | `/content-ideas` | Claude generates content ideas from niche + audience | ✓ |
-| GET | `/outreach/{user_id}` | Brand outreach tracker | ✓ |
-| POST | `/outreach/{user_id}` | Log a new outreach entry | ✓ |
-| PATCH | `/outreach/{user_id}/{entry_id}` | Update outreach status | ✓ |
-| GET | `/stage-gate/{stage}` | GoDaddy upgrade prompt for stage | ✓ |
-| GET | `/achievements/{user_id}` | Social-specific achievements | ✓ |
-| POST | `/growth-plan` | Claude generates personalised growth plan | ✓ |
-| GET | `/next-action/{user_id}` | Single highest-impact incomplete mission | ✓ |
-| GET | `/monetization-advice` | Monetisation recommendations by creator type + stage | ✓ |
-| POST | `/seo/profile` | Analyse SEO profile | ✓ |
-| GET | `/seo/keywords` | SEO keyword suggestions by niche | ✓ |
-| POST | `/seo/content` | Claude optimises content for SEO | ✓ |
+- **Platform Connect**: OAuth flow for Instagram, TikTok, and Facebook — set `MOCK_SOCIAL_APIS=true` in `.env` to bypass all external calls for demo
+- **Live Stats**: Follower count, engagement rate, and recent post performance pulled per connected platform
+- **Social Missions**: 22 missions across all 4 stages, filtered by creator type — completions write achievements with real milestone impact descriptions
+- **AI Content Plan**: `POST /api/social/content-ideas` calls `claude-sonnet-4-6` to generate a 7-day post calendar with hooks, captions, and hashtags; falls back to a static mock if no API key is set
+- **Outreach Tracker**: Brand deal pipeline with status tracking across Starter → Investor-Ready; entries 7+ days old with status "sent" surface a follow-up reminder; closing a deal auto-fires an achievement
+- **Outreach Templates + Platform Guides**: 9 copy-paste DM/email templates and IG/TikTok/FB/LinkedIn guides, all scoped by stage
 
-### GoDaddy Domains
-| Method | Route | Description | Status |
-|---|---|---|---|
-| GET | `/api/domains/available` | Check single domain availability | ✓ |
-| POST | `/api/domains/available/bulk` | Bulk availability check (up to 500) | ✓ |
-| GET | `/api/domains/suggest` | Suggest domain names from keyword | ✓ |
-| GET | `/api/domains/tlds` | List supported TLDs | ✓ |
-| GET | `/api/domains/` | List registered domains | ✓ |
-| GET | `/api/domains/{domain}` | Get domain details | ✓ |
-| POST | `/api/domains/purchase` | Purchase a domain | ✓ |
-| POST | `/api/domains/{domain}/renew` | Renew a domain | ✓ |
-| GET | `/api/domains/{domain}/records` | Get DNS records | ✓ |
-| PATCH | `/api/domains/{domain}/records` | Add DNS records | ✓ |
-| PUT | `/api/domains/{domain}/records/{type}` | Replace DNS records by type | ✓ |
-| DELETE | `/api/domains/{domain}/records/{type}/{name}` | Delete DNS records | ✓ |
+Integrator adds one `include_router` call in `main.py` and one `<Route>` in `App.jsx` — no other shared files touched.
 
 ---
 

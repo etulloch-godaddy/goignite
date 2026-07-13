@@ -5,6 +5,8 @@ from typing import Optional
 from fastapi import APIRouter, HTTPException, Query
 from fastapi.responses import RedirectResponse
 
+from app.services import store
+from app.services.user_store import load_users, save_users
 from app.services.social_media_service import (
     analyze_seo_profile,
     build_achievement,
@@ -14,14 +16,12 @@ from app.services.social_media_service import (
     generate_growth_plan,
     get_oauth_url,
     optimize_seo_content,
-    update_user_xp,
 )
 
 router = APIRouter()
 
-# In-memory stores — keyed by user_id. Swap for DynamoDB without changing route signatures.
+# In-memory store — keyed by user_id. Swap for DynamoDB without changing route signatures.
 _outreach_store: dict[str, list] = {}
-_achievement_store: dict[str, list] = {}
 
 DATA_DIR = Path(__file__).parent.parent / "data"
 
@@ -106,7 +106,7 @@ def get_social_missions(
 @router.post("/missions/{mission_id}/complete")
 async def complete_social_mission(mission_id: str, payload: dict):
     """
-    Mark a social mission complete, award XP, and write a social_visibility achievement.
+    Mark a social mission complete and write a social achievement.
 
     Body: { "user_id": "...", "completion_text": "..." }
     """
@@ -119,16 +119,24 @@ async def complete_social_mission(mission_id: str, payload: dict):
     if not mission:
         raise HTTPException(status_code=404, detail="Mission not found")
 
-    achievement = build_achievement(user_id, mission)
-    _achievement_store.setdefault(user_id, []).append(achievement)
+    users = load_users()
+    user = users.get(user_id)
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
 
-    xp_synced = await update_user_xp(user_id, mission["xp_reward"])
+    if mission_id in user.completed_missions:
+        raise HTTPException(status_code=409, detail="Mission already completed")
+
+    achievement = build_achievement(user_id, mission)
+    store.ACHIEVEMENTS_STORE.setdefault(user_id, []).append(achievement)
+
+    user.completed_missions.append(mission_id)
+    users[user_id] = user
+    save_users(users)
 
     return {
         "success": True,
         "mission_id": mission_id,
-        "xp_awarded": mission["xp_reward"],
-        "xp_synced": xp_synced,
         "achievement": achievement,
     }
 
@@ -273,17 +281,11 @@ def get_stage_gate(stage: str):
 
 @router.get("/achievements/{user_id}")
 def get_achievements(user_id: str):
-    """Return all social visibility achievements for a user."""
-    achievements = _achievement_store.get(user_id, [])
-    total_xp = sum(
-        int(a["impact"].split("+")[-1].replace(" XP", ""))
-        for a in achievements
-        if "+" in a.get("impact", "")
-    )
+    """Return all social achievements for a user."""
+    achievements = store.ACHIEVEMENTS_STORE.get(user_id, [])
     return {
         "user_id": user_id,
         "missions_completed": len(achievements),
-        "total_xp": total_xp,
         "achievements": achievements,
     }
 
@@ -355,17 +357,22 @@ def get_next_action(
 # --- Monetization Paths ---
 
 @router.get("/monetization-advice")
-def get_monetization_advice(
+async def get_monetization_advice(
     creator_type: Optional[str] = Query("all"),
     instagram_followers: Optional[int] = Query(0),
     tiktok_followers: Optional[int] = Query(0),
+    user_id: Optional[str] = Query(None),
 ):
     """
     Returns actionable monetization paths for the user's creator type and follower count.
     Each path includes a concrete first step and specific programs to apply to.
+    Pass user_id to enrich advice with onboarding context (revenue_goal, business_name).
     """
+    from app.services.social_media_service import fetch_onboarding_data
     data = _load("social_monetization.json")
     max_followers = max(instagram_followers, tiktok_followers)
+
+    onboarding = await fetch_onboarding_data(user_id) if user_id else {}
 
     relevant = [
         m for m in data["methods"]
@@ -391,10 +398,22 @@ def get_monetization_advice(
             bracket_key = key
             break
 
+    where_to_start = data["where_to_start_by_followers"][bracket_key]
+
+    revenue_goal = onboarding.get("revenue_goal") or onboarding.get("monthly_revenue")
+    business_name = onboarding.get("business_name")
+    if business_name or revenue_goal:
+        context_parts = []
+        if business_name:
+            context_parts.append(f"for {business_name}")
+        if revenue_goal:
+            context_parts.append(f"targeting ${revenue_goal}/month")
+        where_to_start = f"{where_to_start} ({', '.join(context_parts)})"
+
     return {
         "creator_type": creator_type,
         "monetization_paths": paths,
-        "where_to_start": data["where_to_start_by_followers"][bracket_key],
+        "where_to_start": where_to_start,
     }
 
 
