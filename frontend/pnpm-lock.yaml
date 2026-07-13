@@ -53,6 +53,9 @@ importers:
       '@ux/radio':
         specifier: ^2500.9.0
         version: 2500.9.0(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@ux/range-input':
+        specifier: ^2500.12.0
+        version: 2500.12.0(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@ux/select':
         specifier: ^2500.12.0
         version: 2500.12.0(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -939,6 +942,14 @@ packages:
       react: 17.x || 18.x || 19.x
       react-dom: 17.x || 18.x || 19.x
 
+  '@ux/linear-progress@2500.11.1':
+    resolution: {integrity: sha512-g/P9Foy0E6qdMYnRzekcKEhWXLuUkEVz1bhBaf/qlCWhESfbwW+6/61hLmGnNh8nigDHyl5AnWJIBxnN8bhtxg==, tarball: https://gdartifactory1.jfrog.io/artifactory/api/npm/node-virt/@ux/linear-progress/-/@ux/linear-progress-2500.11.1.tgz}
+    engines: {node: '>= 18'}
+    peerDependencies:
+      prop-types: ^15.7.2
+      react: 17.x || 18.x || 19.x
+      react-dom: 17.x || 18.x || 19.x
+
   '@ux/message-overlay@2500.12.0':
     resolution: {integrity: sha512-i++kFKW2nE57eCYsDrXiH00oB8NLEqhxmtGwzY5EHV4WSCFeOB3ctTRGQarBeYZdCcBpNgjYpRNkdVxFNKynKg==, tarball: https://gdartifactory1.jfrog.io/artifactory/api/npm/node-virt/@ux/message-overlay/-/@ux/message-overlay-2500.12.0.tgz}
     engines: {node: '>= 18'}
@@ -974,6 +985,14 @@ packages:
 
   '@ux/radio@2500.9.0':
     resolution: {integrity: sha512-JVcnhdsVoAAbG742wz7GuT03cE7cE/0RbMNyzjUdfLt8yslYxq6b0sk5TdEQE1dlQBRlQOjFnJi7v7DpZhT/wg==, tarball: https://gdartifactory1.jfrog.io/artifactory/api/npm/node-virt/@ux/radio/-/@ux/radio-2500.9.0.tgz}
+    engines: {node: '>= 18'}
+    peerDependencies:
+      prop-types: ^15.7.2
+      react: 17.x || 18.x || 19.x
+      react-dom: 17.x || 18.x || 19.x
+
+  '@ux/range-input@2500.12.0':
+    resolution: {integrity: sha512-khHQtkLATptsK7A/NnSMmzTn4veCAKLzVAJO0krRn5mz3wSWUbLNagLmLENHFJpPKdQaWjCINmTjHAChUyWRIg==, tarball: https://gdartifactory1.jfrog.io/artifactory/api/npm/node-virt/@ux/range-input/-/@ux/range-input-2500.12.0.tgz}
     engines: {node: '>= 18'}
     peerDependencies:
       prop-types: ^15.7.2
@@ -1056,10 +1075,26 @@ packages:
       react: 17.x || 18.x || 19.x
       react-dom: 17.x || 18.x || 19.x
 
+  '@ux/thumb@2500.9.0':
+    resolution: {integrity: sha512-+aL9Ul2CCtHyNa5trE8nAnyvycLqjmTjHYyrcmbKY6EaZVKSymhYYCxftaWfoO4WBNvMifs69CgJ7USMzKy80w==, tarball: https://gdartifactory1.jfrog.io/artifactory/api/npm/node-virt/@ux/thumb/-/@ux/thumb-2500.9.0.tgz}
+    engines: {node: '>= 18'}
+    peerDependencies:
+      prop-types: ^15.7.2
+      react: 17.x || 18.x || 19.x
+      react-dom: 17.x || 18.x || 19.x
+
   '@ux/toggle@2500.12.0':
     resolution: {integrity: sha512-XkFb1wU/KE58uYIrhlxWjr0YvWmXANDRXR3sDMYkiDqh/R0866NGIH3PCdXLIdxyY0RE9iFCls/Xz/13MjHhKA==, tarball: https://gdartifactory1.jfrog.io/artifactory/api/npm/node-virt/@ux/toggle/-/@ux/toggle-2500.12.0.tgz}
     engines: {node: '>= 18'}
     deprecated: This component has been deprecated since v2500. Please consider using the  component instead.
+    peerDependencies:
+      prop-types: ^15.7.2
+      react: 17.x || 18.x || 19.x
+      react-dom: 17.x || 18.x || 19.x
+
+  '@ux/track@2500.11.1':
+    resolution: {integrity: sha512-1SrpGO1xY9BLrk6NHW1KKsW2guVHxO+oK82gENJmhXGNo9pMLlROt0C+fZqSPaoXky8Jbg78ZLyzd/EsmexQcg==, tarball: https://gdartifactory1.jfrog.io/artifactory/api/npm/node-virt/@ux/track/-/@ux/track-2500.11.1.tgz}
+    engines: {node: '>= 18'}
     peerDependencies:
       prop-types: ^15.7.2
       react: 17.x || 18.x || 19.x
@@ -3213,6 +3248,16 @@ snapshots:
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
 
+  '@ux/linear-progress@2500.11.1(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+    dependencies:
+      '@ux/intents': 2500.9.0
+      '@ux/text': 2500.9.0(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@ux/track': 2500.11.1(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      classnames: 2.5.1
+      prop-types: 15.8.1
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
+
   '@ux/message-overlay@2500.12.0(@types/react@19.2.17)(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@ux/disrupt': 2500.12.0(@types/react@19.2.17)(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -3262,6 +3307,19 @@ snapshots:
     dependencies:
       '@ux/intents': 2500.9.0
       '@ux/text': 2500.9.0(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      classnames: 2.5.1
+      prop-types: 15.8.1
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
+
+  '@ux/range-input@2500.12.0(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+    dependencies:
+      '@ux/box': 2500.9.0(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@ux/component-utilities': 2500.12.0(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@ux/intents': 2500.9.0
+      '@ux/linear-progress': 2500.11.1(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@ux/text': 2500.9.0(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@ux/thumb': 2500.9.0(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       classnames: 2.5.1
       prop-types: 15.8.1
       react: 19.2.4
@@ -3356,10 +3414,27 @@ snapshots:
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
 
+  '@ux/thumb@2500.9.0(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+    dependencies:
+      '@ux/intents': 2500.9.0
+      classnames: 2.5.1
+      prop-types: 15.8.1
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
+
   '@ux/toggle@2500.12.0(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@ux/component-utilities': 2500.12.0(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@ux/intents': 2500.9.0
+      classnames: 2.5.1
+      prop-types: 15.8.1
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
+
+  '@ux/track@2500.11.1(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+    dependencies:
+      '@ux/intents': 2500.9.0
+      '@ux/text': 2500.9.0(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       classnames: 2.5.1
       prop-types: 15.8.1
       react: 19.2.4

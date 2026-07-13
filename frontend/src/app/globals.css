@@ -5,6 +5,7 @@
 @import "../styles/uxcore-components.css";
 @import "../styles/uxcore-icons.css";
 @import "../styles/dashboard-theme.css";
+@import "../styles/questionnaire.css";
 
 body {
   font-family: "GD Sherpa", Arial, Helvetica, sans-serif;
