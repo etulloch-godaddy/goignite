@@ -11,7 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.routes import achievements, domains, funding, missions, users
 
 app = FastAPI(
-    title="CreatorLevel API",
+    title="GoIgnite API",
     description="Gamified business-building backend for creator onboarding.",
     version="0.1.0",
 )

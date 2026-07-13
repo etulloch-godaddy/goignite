@@ -1,1 +1,1 @@
-"""Backend application package for CreatorLevel."""
+"""Backend application package for GoIgnite."""

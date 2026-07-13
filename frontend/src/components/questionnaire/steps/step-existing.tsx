@@ -57,7 +57,7 @@ export function StepExisting({ initial, onNext }: StepExistingProps) {
         </div>
       </div>
 
-      <div className="q-bottom-illust">
+      <div className="q-bottom-illust q-bottom-illust--lg">
         <Image
           src="/questionnaire/cursor-ride.png"
           alt="Cursor ride illustration"

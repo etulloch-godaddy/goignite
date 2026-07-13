@@ -1,5 +1,7 @@
 # GoIgnite
 
+## Context
+
 A step-by-step platform that helps young entrepreneurs launch new businesses or scale existing ideas, powered by GoDaddy's full suite of business tools.
 
 Users progress through four stages — Starter → Builder → Brand → Investor-Ready — completing daily missions that build their business piece by piece. Each stage unlocks the next tier of GoDaddy tools and surfaces AI-powered guidance tailored to where they are. The platform is designed to pre-qualify and onboard new entrepreneurs into GoDaddy's ecosystem through a structured, gamified on-ramp.

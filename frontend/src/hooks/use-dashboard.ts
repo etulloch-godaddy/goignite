@@ -14,7 +14,7 @@ import {
   patchOnboarding,
 } from "@/services/api";
 
-const USER_ID_KEY = "creatorlevel_user_id";
+const USER_ID_KEY = "goignite_user_id";
 
 export function useDashboard() {
   const [user, setUser] = useState<DashboardUser | null>(null);
