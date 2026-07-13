@@ -196,15 +196,15 @@ export function buildGrowthNav(stage: Stage): NavItem[] {
       icon: "page",
       href: "#website",
       locked: !builderOpen,
-      lockReason: builderOpen ? undefined : "Unlocks at Builder",
+      lockReason: builderOpen ? undefined : "Unlocks at Investor Ready",
     },
     {
       id: "funding",
       label: "Funding",
       icon: "lightbulb",
-      href: "#funding",
+      href: "/investor-ready",
       locked: !brandOpen,
-      lockReason: brandOpen ? undefined : "Unlocks at Brand",
+      lockReason: brandOpen ? undefined : "Unlocks at Investor Ready",
     },
   ];
 }

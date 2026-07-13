@@ -9,7 +9,6 @@ import {
 } from "@/lib/dashboard-data";
 import { useDashboard } from "@/hooks/use-dashboard";
 import { ChatWidget } from "@/components/chat/chat-widget";
-import { InvestorReadyCTA } from "./investor-ready-cta";
 import { AiCompanion } from "./ai-companion";
 import { BusinessOverview } from "./business-overview";
 import { DashboardHeader } from "./dashboard-header";
@@ -74,10 +73,7 @@ function DashboardContent({ user }: { user: DashboardUser }) {
           className="w-full dashboard-content"
         >
           <WelcomeBanner user={user} />
-          <MissionMatches user={user} />
-          <FocusAreaCards areas={user.focusAreas} />
-          <InvestorReadyCTA />
-          <BusinessOverview user={user} />
+<BusinessOverview user={user} />
         </Main>
       </Box>
 
