@@ -36,6 +36,20 @@ export type ApiAchievement = {
   category: string;
 };
 
+export type ApiFunding = {
+  id: string;
+  name: string;
+  type: string;
+  description: string;
+  amount: string;
+  deadline: string;
+  eligibility_stages: string[];
+  creator_types: string[];
+  requirements: string[];
+  application_url: string;
+  tags: string[];
+};
+
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(`${API_URL}${path}`, {
     ...init,
@@ -104,7 +118,16 @@ export async function getAchievements(userId: string): Promise<ApiAchievement[]>
   return request<ApiAchievement[]>(`/api/users/${userId}/achievements`);
 }
 
-<<<<<<< Updated upstream
+export async function getFunding(
+  stage?: string,
+  creatorType?: string,
+): Promise<ApiFunding[]> {
+  const params = new URLSearchParams();
+  if (stage) params.set("stage", stage);
+  if (creatorType) params.set("creator_type", creatorType);
+  return request<ApiFunding[]>(`/api/funding?${params}`);
+}
+
 const USER_ID_KEY = "creatorlevel_user_id";
 
 export async function getOrCreateUserId(): Promise<string> {
@@ -123,7 +146,7 @@ export async function getOrCreateUserId(): Promise<string> {
   localStorage.setItem(USER_ID_KEY, id);
   return id;
 }
-=======
+
 export async function sendChat(
   message: string,
   sessionId: string,
@@ -135,5 +158,3 @@ export async function sendChat(
   });
   return data.reply;
 }
-
->>>>>>> Stashed changes
