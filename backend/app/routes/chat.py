@@ -4,7 +4,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
 from app.services.qnabot import get_reply
-from app.store import USERS
+from app.services.user_store import load_users
 
 router = APIRouter()
 
@@ -21,13 +21,18 @@ class ChatResponse(BaseModel):
 
 
 def _build_user_context(user_id: str) -> Optional[str]:
-    user = USERS.get(user_id)
+    users = load_users()
+    user = users.get(user_id)
     if user is None:
         return None
     lines = []
     if user.creator_type:
         lines.append(f"Creator type: {user.creator_type.value}")
     lines.append(f"Stage: {user.stage.value}")
+    data = user.onboarding_data
+    for key in ("first_name", "business_name", "pitch", "goal", "budget"):
+        if data.get(key):
+            lines.append(f"{key.replace('_', ' ').title()}: {data[key]}")
     if user.business_profile.bio:
         lines.append(f"Bio: {user.business_profile.bio}")
     if user.business_profile.revenue_goal:

@@ -8,6 +8,7 @@ import {
   type DashboardUser,
 } from "@/lib/dashboard-data";
 import { useDashboard } from "@/hooks/use-dashboard";
+import { ChatWidget } from "@/components/chat/chat-widget";
 import { DashboardHeader } from "./dashboard-header";
 import { DashboardLoading } from "./dashboard-loading";
 import { DashboardSidebar } from "./dashboard-sidebar";
@@ -89,5 +90,10 @@ export function DashboardShell() {
     return <DashboardLoading />;
   }
 
-  return <DashboardContent user={user} />;
+  return (
+    <>
+      <DashboardContent user={user} />
+      <ChatWidget />
+    </>
+  );
 }

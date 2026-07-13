@@ -104,6 +104,7 @@ export async function getAchievements(userId: string): Promise<ApiAchievement[]>
   return request<ApiAchievement[]>(`/api/users/${userId}/achievements`);
 }
 
+<<<<<<< Updated upstream
 const USER_ID_KEY = "creatorlevel_user_id";
 
 export async function getOrCreateUserId(): Promise<string> {
@@ -122,3 +123,17 @@ export async function getOrCreateUserId(): Promise<string> {
   localStorage.setItem(USER_ID_KEY, id);
   return id;
 }
+=======
+export async function sendChat(
+  message: string,
+  sessionId: string,
+  userId?: string | null,
+): Promise<string> {
+  const data = await request<{ reply: string }>("/api/chat", {
+    method: "POST",
+    body: JSON.stringify({ message, session_id: sessionId, user_id: userId ?? null }),
+  });
+  return data.reply;
+}
+
+>>>>>>> Stashed changes
