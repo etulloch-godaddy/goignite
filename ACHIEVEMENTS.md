@@ -132,11 +132,11 @@ Triggered automatically by `xp_service.py` when the XP threshold is crossed.
 
 ## XP Summary
 
-| Stage | XP to unlock | Cumulative achievements available |
-|-------|-------------|----------------------------------|
-| Starter | 0 | 225 XP |
-| Builder | 300 XP | 750 XP |
-| Brand | 700 XP | 375 XP |
-| Investor-Ready | 1500 XP | 375 XP |
+| Stage | XP to unlock | Achievements available | XP available |
+|-------|-------------|----------------------|-------------|
+| Starter | 0 | 5 | 225 XP |
+| Builder | 300 XP | 10 | 750 XP |
+| Brand | 700 XP | 4 | 375 XP |
+| Investor-Ready | 1500 XP | 4 | 575 XP |
 
-Total achievable XP across all missions: **1,725 XP** — enough to reach Investor-Ready (1,500 XP) with room to spare.
+Total achievable XP across all missions: **1,925 XP** — enough to reach Investor-Ready (1,500 XP) with room to spare.
