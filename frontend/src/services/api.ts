@@ -36,6 +36,22 @@ export type ApiAchievement = {
   category: string;
 };
 
+export type PitchSlide = {
+  slide_number: number;
+  title: string;
+  headline: string;
+  key_points: string[];
+  speaker_notes: string;
+};
+
+export type PitchOutline = {
+  deck_title: string;
+  tagline: string;
+  funding_ask: string;
+  slides: PitchSlide[];
+  mock?: boolean;
+};
+
 export type ApiFunding = {
   id: string;
   name: string;
@@ -147,14 +163,12 @@ export async function getOrCreateUserId(): Promise<string> {
   return id;
 }
 
-export const DEMO_ONBOARDING = {
-  first_name: "Maya",
-  business_name: "Valentina's Hot Sauce",
-  creator_type_label: "Fashion & lifestyle",
-  pitch: "",
-  niche: "",
-  social_link: "",
-};
+export async function generatePitch(userId: string): Promise<PitchOutline> {
+  return request<PitchOutline>("/api/pitch/outline", {
+    method: "POST",
+    body: JSON.stringify({ user_id: userId }),
+  });
+}
 
 export async function sendChat(
   message: string,
