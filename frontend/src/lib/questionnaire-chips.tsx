@@ -1,13 +1,20 @@
 import type { ReactElement } from "react";
 import AddFilledIcon from "@ux/icon/add-filled";
+import AppsIcon from "@ux/icon/apps";
+import BullseyeIcon from "@ux/icon/bullseye";
 import ColorPaletteIcon from "@ux/icon/color-palette";
+import DollarIcon from "@ux/icon/dollar";
 import FoodIcon from "@ux/icon/food";
 import HomeFilledIcon from "@ux/icon/home-filled";
 import ImageGalleryIcon from "@ux/icon/image-gallery";
+import MapIcon from "@ux/icon/map";
+import MegaphoneIcon from "@ux/icon/megaphone";
 import PlayIcon from "@ux/icon/play";
+import ShieldCheckIcon from "@ux/icon/shield-check";
 import SmBusinessFilledIcon from "@ux/icon/sm-business-filled";
 import SparklesFilledIcon from "@ux/icon/sparkles-filled";
 import UserWavingFilledIcon from "@ux/icon/user-waving-filled";
+import WebsiteIcon from "@ux/icon/website";
 
 const ICON_SIZE = 24;
 
@@ -33,13 +40,13 @@ export const businessTypeChipOptions: QuestionnaireChipOption[] = [
 ];
 
 export const confusionChipOptions: QuestionnaireChipOption[] = [
-  { label: "Legal & business setup", icon: chipIcon(PlayIcon) },
-  { label: "Finding customers", icon: chipIcon(SparklesFilledIcon) },
-  { label: "Pricing & managing money", icon: chipIcon(SmBusinessFilledIcon) },
-  { label: "Marketing & promoting", icon: chipIcon(UserWavingFilledIcon) },
-  { label: "Just knowing what to do next", icon: chipIcon(ImageGalleryIcon) },
-  { label: "Building a website / brand", icon: chipIcon(FoodIcon) },
-  { label: "Honestly… all of it", icon: chipIcon(HomeFilledIcon) },
+  { label: "Legal & business setup", icon: chipIcon(ShieldCheckIcon) },
+  { label: "Finding customers", icon: chipIcon(BullseyeIcon) },
+  { label: "Pricing & managing money", icon: chipIcon(DollarIcon) },
+  { label: "Marketing & promoting", icon: chipIcon(MegaphoneIcon) },
+  { label: "Just knowing what to do next", icon: chipIcon(MapIcon) },
+  { label: "Building a website / brand", icon: chipIcon(WebsiteIcon) },
+  { label: "Honestly… all of it", icon: chipIcon(AppsIcon) },
 ];
 
 export const existingAssetChipOptions: QuestionnaireChipOption[] = [
