@@ -1,0 +1,134 @@
+{
+  "keywords": {
+    "fashion": {
+      "instagram": [
+        {"keyword": "OOTD", "search_intent": "discovery", "rank": 1, "tip": "Most-searched fashion tag on Instagram. Use in every outfit post."},
+        {"keyword": "OutfitInspo", "search_intent": "discovery", "rank": 2, "tip": "High volume, less saturated than OOTD. Strong on Reels."},
+        {"keyword": "FashionTips", "search_intent": "how-to", "rank": 3, "tip": "Attracts followers who want to learn — high retention signal."},
+        {"keyword": "StyleInspo", "search_intent": "discovery", "rank": 4, "tip": "Broad discovery tag. Pair with a niche-specific tag."},
+        {"keyword": "ThriftFinds", "search_intent": "community", "rank": 5, "tip": "Highly engaged subculture. Thrift content averages 2x saves."},
+        {"keyword": "FashionCreator", "search_intent": "community", "rank": 6, "tip": "Connects you with brand scouts actively searching for creators."},
+        {"keyword": "GetReadyWithMe", "search_intent": "discovery", "rank": 7, "tip": "Strong Reel format keyword. High watch-through rates signal quality."},
+        {"keyword": "FashionHaul", "search_intent": "purchase", "rank": 8, "tip": "Purchase-intent audience — ideal for affiliate link posts."},
+        {"keyword": "SustainableFashion", "search_intent": "community", "rank": 9, "tip": "Niche but highly engaged. Brands actively scout this tag."},
+        {"keyword": "StreetStyle", "search_intent": "discovery", "rank": 10, "tip": "Strong in urban markets. Boosts location-based discoverability."}
+      ],
+      "tiktok": [
+        {"keyword": "OOTD", "search_intent": "discovery", "rank": 1, "tip": "Top fashion category on TikTok FYP. Essential for any outfit video."},
+        {"keyword": "FashionTok", "search_intent": "community", "rank": 2, "tip": "TikTok's primary fashion hub. Billions of views. Always include."},
+        {"keyword": "OutfitOfTheDay", "search_intent": "discovery", "rank": 3, "tip": "Full phrase version is indexed by TikTok's text search engine."},
+        {"keyword": "StyleCheck", "search_intent": "community", "rank": 4, "tip": "Comment-driven format that boosts algorithmic reach."},
+        {"keyword": "ThriftTok", "search_intent": "community", "rank": 5, "tip": "Niche with viral potential. Thrift hauls get outsized shares."},
+        {"keyword": "FashionHacks", "search_intent": "how-to", "rank": 6, "tip": "How-to intent drives saves, which tells the algorithm it's high value."},
+        {"keyword": "GetReadyWithMe", "search_intent": "discovery", "rank": 7, "tip": "One of TikTok's highest-performing fashion video formats."},
+        {"keyword": "FashionAdvice", "search_intent": "how-to", "rank": 8, "tip": "Surfaces in TikTok search. Users who search this want actionable content."},
+        {"keyword": "Haul", "search_intent": "purchase", "rank": 9, "tip": "Massive purchase-intent audience. Great for affiliate and brand deals."},
+        {"keyword": "TransitionVideo", "search_intent": "discovery", "rank": 10, "tip": "Trend format fashion creators can capitalize on for broad reach."}
+      ]
+    },
+    "gaming": {
+      "instagram": [
+        {"keyword": "GamingSetup", "search_intent": "discovery", "rank": 1, "tip": "Setup content performs well on Instagram. High save rate."},
+        {"keyword": "Gamer", "search_intent": "community", "rank": 2, "tip": "Broad community tag. Good for account discoverability."},
+        {"keyword": "PCGaming", "search_intent": "community", "rank": 3, "tip": "Connects with PC community and hardware sponsorship scouts."},
+        {"keyword": "GameClips", "search_intent": "discovery", "rank": 4, "tip": "Short highlight Reels perform best. Hook within first 2 seconds."},
+        {"keyword": "GamingMemes", "search_intent": "community", "rank": 5, "tip": "Meme content gets shared extensively — strong follower growth driver."},
+        {"keyword": "StreamerLife", "search_intent": "community", "rank": 6, "tip": "BTS lifestyle content that humanizes you to potential followers."},
+        {"keyword": "GamingTips", "search_intent": "how-to", "rank": 7, "tip": "Tutorial intent. Drives follows from players who want to improve."},
+        {"keyword": "GamingContent", "search_intent": "community", "rank": 8, "tip": "General discoverability tag for gaming creators."},
+        {"keyword": "EsportsContent", "search_intent": "community", "rank": 9, "tip": "Niche but engaged. Good for competitive gaming creators."},
+        {"keyword": "GamingCommunity", "search_intent": "community", "rank": 10, "tip": "Community-building signal. Tells the algorithm who your content is for."}
+      ],
+      "tiktok": [
+        {"keyword": "GamingTok", "search_intent": "community", "rank": 1, "tip": "TikTok's primary gaming hub. Billions of views. Use on every video."},
+        {"keyword": "Gamer", "search_intent": "community", "rank": 2, "tip": "Broad tag that puts you into TikTok's gaming content bucket."},
+        {"keyword": "GamingSetup", "search_intent": "discovery", "rank": 3, "tip": "Setup tour videos go viral on TikTok. Strong watch-through rate."},
+        {"keyword": "GameClips", "search_intent": "discovery", "rank": 4, "tip": "Insane plays and highlights drive organic shares."},
+        {"keyword": "Twitch", "search_intent": "community", "rank": 5, "tip": "Cross-platform tag. TikTok audiences follow Twitch creators from here."},
+        {"keyword": "GamingMemes", "search_intent": "community", "rank": 6, "tip": "Comedy gaming content performs extremely well on TikTok FYP."},
+        {"keyword": "GamingTips", "search_intent": "how-to", "rank": 7, "tip": "How-to saves tell the algorithm your content is worth distributing more."},
+        {"keyword": "VideoGames", "search_intent": "discovery", "rank": 8, "tip": "Broad keyword indexed by TikTok's text search."},
+        {"keyword": "GamingLife", "search_intent": "community", "rank": 9, "tip": "Lifestyle gaming content — relatable, high share rate."},
+        {"keyword": "PCSetup", "search_intent": "discovery", "rank": 10, "tip": "Aspirational setup content attracts hardware brand attention."}
+      ]
+    },
+    "fitness": {
+      "instagram": [
+        {"keyword": "FitnessMotivation", "search_intent": "community", "rank": 1, "tip": "Top fitness discovery tag. Huge community, high engagement."},
+        {"keyword": "WorkoutTips", "search_intent": "how-to", "rank": 2, "tip": "Followers from this tag are highly engaged and loyal."},
+        {"keyword": "GymLife", "search_intent": "community", "rank": 3, "tip": "Lifestyle tag. Connects you with a gym-going audience."},
+        {"keyword": "FitnessJourney", "search_intent": "community", "rank": 4, "tip": "Progress content has high save and share rates."},
+        {"keyword": "HomeWorkout", "search_intent": "how-to", "rank": 5, "tip": "High search volume. Great for equipment-free content."},
+        {"keyword": "NutritionTips", "search_intent": "how-to", "rank": 6, "tip": "Broadens your audience beyond gym content. Drives profile visits."},
+        {"keyword": "PersonalTrainer", "search_intent": "purchase", "rank": 7, "tip": "Critical bio keyword if you offer coaching or programs."},
+        {"keyword": "FitnessTips", "search_intent": "how-to", "rank": 8, "tip": "Reliable broad tag. Combine with a niche-specific tag."},
+        {"keyword": "TransformationTuesday", "search_intent": "community", "rank": 9, "tip": "Trending format. Before/after content gets 3x average saves."},
+        {"keyword": "WeightLoss", "search_intent": "purchase", "rank": 10, "tip": "Extremely high search volume. Very competitive — use with a niche tag."}
+      ],
+      "tiktok": [
+        {"keyword": "FitTok", "search_intent": "community", "rank": 1, "tip": "TikTok's fitness community hub. Billions of views. Use every time."},
+        {"keyword": "WorkoutRoutine", "search_intent": "how-to", "rank": 2, "tip": "Full phrase indexed by TikTok search. Drives saves and follows."},
+        {"keyword": "GymTok", "search_intent": "community", "rank": 3, "tip": "Niche sub-community with high engagement and active brand presence."},
+        {"keyword": "FitnessMotivation", "search_intent": "community", "rank": 4, "tip": "Broad but effective. Pairs well with transformation content."},
+        {"keyword": "HomeWorkout", "search_intent": "how-to", "rank": 5, "tip": "Equipment-free content gets massive saves."},
+        {"keyword": "WorkoutTips", "search_intent": "how-to", "rank": 6, "tip": "Tips format drives loyalty. Tip videos have high rewatch rates."},
+        {"keyword": "FitnessJourney", "search_intent": "community", "rank": 7, "tip": "Authentic progress content resonates deeply on TikTok."},
+        {"keyword": "GymLife", "search_intent": "community", "rank": 8, "tip": "Day-in-the-life gym content gets strong FYP engagement."},
+        {"keyword": "FatLoss", "search_intent": "how-to", "rank": 9, "tip": "TikTok search term. High-intent audience seeking actionable content."},
+        {"keyword": "GymMotivation", "search_intent": "community", "rank": 10, "tip": "Hype format. Use with cinematic-style clips."}
+      ]
+    },
+    "art": {
+      "instagram": [
+        {"keyword": "ArtOfTheDay", "search_intent": "discovery", "rank": 1, "tip": "Daily art discovery tag. Consistent use builds algorithmic momentum."},
+        {"keyword": "DigitalArt", "search_intent": "discovery", "rank": 2, "tip": "Huge community. Specify your software for better targeting."},
+        {"keyword": "ArtProcess", "search_intent": "discovery", "rank": 3, "tip": "Process videos and carousels get 2x saves vs final-piece posts."},
+        {"keyword": "Illustration", "search_intent": "discovery", "rank": 4, "tip": "Used by brands scouting illustrators for commissions."},
+        {"keyword": "ArtCommissions", "search_intent": "purchase", "rank": 5, "tip": "Purchase intent. Use in bio and posts when commissions are open."},
+        {"keyword": "DrawingTips", "search_intent": "how-to", "rank": 6, "tip": "Tutorial content drives followers who stay long-term."},
+        {"keyword": "ConceptArt", "search_intent": "community", "rank": 7, "tip": "Strong niche community. Good for game and entertainment industry visibility."},
+        {"keyword": "TraditionalArt", "search_intent": "community", "rank": 8, "tip": "Differentiates you from the digital art crowd."},
+        {"keyword": "Sketchbook", "search_intent": "community", "rank": 9, "tip": "Behind-the-scenes feel. High saves from aspiring artists."},
+        {"keyword": "ArtistsOfInstagram", "search_intent": "community", "rank": 10, "tip": "The original artist discovery tag on Instagram. Still strong reach."}
+      ],
+      "tiktok": [
+        {"keyword": "ArtTok", "search_intent": "community", "rank": 1, "tip": "TikTok's primary art community. Billions of views. Non-negotiable."},
+        {"keyword": "DrawingTikTok", "search_intent": "community", "rank": 2, "tip": "Drawing-specific sub-community. Drives niche audience follows."},
+        {"keyword": "ArtProcess", "search_intent": "discovery", "rank": 3, "tip": "Timelapse and process videos are TikTok's most viral art format."},
+        {"keyword": "DigitalArt", "search_intent": "discovery", "rank": 4, "tip": "Strong TikTok search term. Specify your software for extra reach."},
+        {"keyword": "SpeedPaint", "search_intent": "discovery", "rank": 5, "tip": "Speed painting is one of TikTok's highest-engagement art formats."},
+        {"keyword": "DrawingTips", "search_intent": "how-to", "rank": 6, "tip": "Tutorial saves boost algorithmic distribution."},
+        {"keyword": "ArtCommissions", "search_intent": "purchase", "rank": 7, "tip": "Shows up when people search TikTok for artists to hire."},
+        {"keyword": "Sketchbook", "search_intent": "community", "rank": 8, "tip": "Casual, authentic format. Sketchbook tours go viral regularly."},
+        {"keyword": "Illustration", "search_intent": "discovery", "rank": 9, "tip": "Indexed by TikTok search. Brand scouts use this to find illustrators."},
+        {"keyword": "ArtChallenge", "search_intent": "community", "rank": 10, "tip": "Challenges drive exponential reach. Participate in or start one."}
+      ]
+    },
+    "food": {
+      "instagram": [
+        {"keyword": "FoodPhotography", "search_intent": "discovery", "rank": 1, "tip": "The primary food discoverability tag on Instagram. Always include."},
+        {"keyword": "FoodBlogger", "search_intent": "community", "rank": 2, "tip": "Connects you with food brands and PR agencies actively scouting."},
+        {"keyword": "RecipeIdeas", "search_intent": "how-to", "rank": 3, "tip": "How-to intent. Recipe content drives saves — the highest-value action."},
+        {"keyword": "EasyRecipes", "search_intent": "how-to", "rank": 4, "tip": "High search volume. Simple recipes get 3x more saves than complex ones."},
+        {"keyword": "FoodieContent", "search_intent": "community", "rank": 5, "tip": "Broad but effective community tag for food creators."},
+        {"keyword": "HomeCooking", "search_intent": "community", "rank": 6, "tip": "Relatable and aspirational. Kitchenware brands scout this tag."},
+        {"keyword": "HealthyEating", "search_intent": "how-to", "rank": 7, "tip": "Wellness crossover audience. Doubles your potential follower pool."},
+        {"keyword": "MealPrep", "search_intent": "how-to", "rank": 8, "tip": "Highest save rate in food content. Always use on prep posts."},
+        {"keyword": "RestaurantReview", "search_intent": "discovery", "rank": 9, "tip": "Local SEO tag. Great for restaurant PR partnerships."},
+        {"keyword": "FoodTasting", "search_intent": "discovery", "rank": 10, "tip": "Review and reaction content drives high comment engagement."}
+      ],
+      "tiktok": [
+        {"keyword": "FoodTok", "search_intent": "community", "rank": 1, "tip": "TikTok's food community hub. Billions of views. Use on everything."},
+        {"keyword": "Cooking", "search_intent": "how-to", "rank": 2, "tip": "Top-level keyword indexed by TikTok search and the FYP algorithm."},
+        {"keyword": "EasyRecipes", "search_intent": "how-to", "rank": 3, "tip": "This exact phrase is searched millions of times on TikTok."},
+        {"keyword": "RecipeTok", "search_intent": "community", "rank": 4, "tip": "Recipe sub-community with strong engagement and high save rates."},
+        {"keyword": "FoodReview", "search_intent": "discovery", "rank": 5, "tip": "Restaurant and food review content gets massive organic reach."},
+        {"keyword": "MealPrep", "search_intent": "how-to", "rank": 6, "tip": "Searched by intent. Meal prep TikToks average 2x saves vs standard food."},
+        {"keyword": "WhatIEatInADay", "search_intent": "community", "rank": 7, "tip": "One of TikTok's most viral food formats. Drives massive views."},
+        {"keyword": "CookingTips", "search_intent": "how-to", "rank": 8, "tip": "Tips format drives saves — signals high-value content to the algorithm."},
+        {"keyword": "HomeCooking", "search_intent": "community", "rank": 9, "tip": "Relatable format. TikTok's algorithm favors authentic home cooking content."},
+        {"keyword": "FoodHacks", "search_intent": "how-to", "rank": 10, "tip": "Hack content goes viral on TikTok. Extremely high share and save rate."}
+      ]
+    }
+  }
+}

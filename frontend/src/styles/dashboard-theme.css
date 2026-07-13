@@ -1,0 +1,151 @@
+/* Dashboard layout — matched to Figma mockup */
+
+.dashboard-page {
+  background-color: #ffffff;
+}
+
+.dashboard-sidebar {
+  width: 17.5rem;
+  min-width: 17.5rem;
+  background-color: #fafafa;
+  border-right: 0;
+}
+
+.dashboard-main {
+  background-color: #ffffff;
+}
+
+.dashboard-header {
+  background-color: #ffffff;
+  border-bottom: 0;
+}
+
+/* ─── Nav items ─── */
+
+.dashboard-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  text-decoration: none;
+  color: #444444;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.dashboard-nav-item:hover:not(:disabled) {
+  background-color: #f3f5f6;
+}
+
+.dashboard-nav-item--active {
+  background-color: #d8efef;
+  color: #111111;
+  font-weight: 500;
+}
+
+.dashboard-nav-item--active:hover:not(:disabled) {
+  background-color: #d8efef;
+}
+
+.dashboard-nav-item:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.dashboard-workspace-switcher {
+  color: #444444;
+}
+
+.dashboard-nav-divider {
+  height: 1px;
+  margin: 0.5rem 0;
+  background-color: #e0e5e6;
+}
+
+/* ─── Welcome banner ─── */
+
+.dashboard-welcome {
+  background-color: #d8efef;
+  border-radius: 1rem;
+  min-height: 12.5rem;
+}
+
+/* ─── Metric cards ─── */
+
+.dashboard-metric-card {
+  background-color: #f5f7f8;
+  min-height: 10.9375rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboard-metric-card--tall {
+  min-height: 21.75rem;
+}
+
+/* ─── Insights grid ─── */
+
+.dashboard-insights-grid {
+  display: grid;
+  grid-template-columns: minmax(12rem, 1fr) minmax(0, 2fr);
+  gap: 1rem;
+}
+
+.dashboard-insights-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (max-width: 960px) {
+  .dashboard-insights-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─── Header utilities ─── */
+
+.dashboard-header-divider {
+  width: 1px;
+  height: 1.5rem;
+  background-color: #111111;
+}
+
+.dashboard-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  color: #111111;
+}
+
+.dashboard-icon-button:hover {
+  background-color: #f3f5f6;
+}
+
+.dashboard-profile-chip {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #111111;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}

@@ -1,0 +1,194 @@
+:root {
+  /* ─── Box ─── */
+  --ux-cao06b: #ffffff;
+  --ux-1leynsm: #111111;
+  --ux-97h3vl: #d6dada;
+
+  /* ─── Box low contrast ─── */
+  --ux-l7zq7p: #f5f7f8;
+  --ux-vuekow: #111111;
+  --ux-1vw9arb: #e0e5e6;
+
+  /* ─── Box high contrast ─── */
+  --ux-7wu8i7: #111111;
+  --ux-1o8cusa: #ffffff;
+  --ux-1nx9aml: #333333;
+
+  /* ─── Action (inline / default) ─── */
+  --ux-1owc8nc: transparent;
+  --ux-ut3xrx: #111111;
+  --ux-1np4r62: transparent;
+  --ux-8mwkpy: #00a4a6;
+  --ux-1s5tndb: 5px;
+  --ux-1q7rsup: 1px;
+
+  /* ─── Action hovered ─── */
+  --ux-1m7qrkf: #f3f5f6;
+  --ux-unx9i2: #111111;
+
+  /* ─── Action chosen ─── */
+  --ux-9qpf6c: #e0e5e6;
+  --ux-h6e7c1: #111111;
+
+  /* ─── Action focused ─── */
+  --ux-15qjz45: transparent;
+  --ux-1e85ids: #111111;
+  --ux-io2uwb: #00a4a6;
+
+  /* ─── Action primary ─── */
+  --ux-c5mlr8: #111111;
+  --ux-pmb6pt: #111111;
+  --ux-t04p4h: #ffffff;
+  --ux-1tmjflg: #ffffff;
+  --ux-kdwujq: transparent;
+  --ux-pv1fr7: transparent;
+  --ux-1nlagp6: #00a4a6;
+  --ux-pe46kj: 5px;
+  --ux-k7zm59: 1px;
+
+  /* ─── Action primary hovered ─── */
+  --ux-ran6wz: #333333;
+  --ux-57c70m: #333333;
+  --ux-1ckzto6: #ffffff;
+  --ux-ztff7: #ffffff;
+
+  /* ─── Action primary chosen ─── */
+  --ux-1ehwjjs: #000000;
+  --ux-1uyxcq5: #ffffff;
+
+  /* ─── Action primary focused ─── */
+  --ux-vhbo95: #111111;
+
+  /* ─── Action secondary ─── */
+  --ux-1r87102: transparent;
+  --ux-w7826f: #111111;
+  --ux-1p5s1n4: #111111;
+  --ux-1y4ebat: 5px;
+  --ux-6q21m3: 1px;
+
+  /* ─── Action secondary hovered ─── */
+  --ux-c624hh: #111111;
+  --ux-1e7hthc: #ffffff;
+
+  /* ─── Action secondary chosen ─── */
+  --ux-ix2s5q: #000000;
+  --ux-19ykcyj: #ffffff;
+
+  /* ─── Action critical ─── */
+  --ux-1marogz: #c11616;
+  --ux-17htz86: #ffffff;
+  --ux-ceou01: transparent;
+
+  /* ─── Action critical hovered ─── */
+  --ux-1q4q36s: #a31212;
+  --ux-9cq6k1: #ffffff;
+
+  /* ─── Action control ─── */
+  --ux-1mh0ktr: #e0e5e6;
+  --ux-1utwv7e: #111111;
+  --ux-1qbn65p: transparent;
+  --ux-zvaw3s: 5px;
+  --ux-cc7x2: 1px;
+
+  /* ─── Action control hovered ─── */
+  --ux-11rtwg8: #d6dada;
+  --ux-1e4ese5: #111111;
+
+  /* ─── Action control chosen ─── */
+  --ux-gdy377: #111111;
+  --ux-k4fkva: #ffffff;
+
+  /* ─── Action option ─── */
+  --ux-1sw32wb: #ffffff;
+  --ux-17c63hq: #ffffff;
+  --ux-1wf60ri: #111111;
+  --ux-wukzej: #111111;
+  --ux-iz7fvt: #d6dada;
+  --ux-1rh1mlo: #d6dada;
+  --ux-1frurfw: 16px;
+  --ux-1ygxynm: 1px;
+
+  /* ─── Action option hovered ─── */
+  --ux-1x1u50s: #f3f5f6;
+  --ux-aiy2vd: #f3f5f6;
+  --ux-1mntjax: #111111;
+  --ux-12ycqrg: #111111;
+
+  /* ─── Action option chosen ─── */
+  --ux-9cqgfr: #e0e5e6;
+  --ux-ke8df6: #e0e5e6;
+  --ux-h8m2iq: #111111;
+  --ux-17514tj: #111111;
+
+  /* ─── Navigate ─── */
+  --ux-2rqapw: #444444;
+
+  /* ─── Navigate primary chosen ─── */
+  --ux-1wf60ri: #111111;
+
+  /* ─── Feedback highlight (nav badges) ─── */
+  --ux-18lg5k: #a6fff8;
+  --ux-1iwsz6x: #111111;
+
+  /* ─── Control ─── */
+  --ux-1nu8itt: #ffffff;
+  --ux-1glcx6s: #111111;
+  --ux-by6mab: #d6dada;
+  --ux-sywk25: #00a4a6;
+  --ux-1lw8azc: #ffffff;
+
+  /* ─── Feedback info ─── */
+  --ux-1i7a912: #00a4a6;
+  --ux-1a8ld87: #ffffff;
+
+  /* ─── Feedback success ─── */
+  --ux-em0gr: #00a63f;
+  --ux-1mph5ru: #ffffff;
+
+  /* ─── Feedback critical ─── */
+  --ux-1iiiqs3: #c11616;
+  --ux-xaxxaq: #ffffff;
+
+  /* ─── Feedback warning ─── */
+  --ux-1tgn1ki: #c48400;
+  --ux-l48e4z: #ffffff;
+
+  /* ─── Feedback passive ─── */
+  --ux-1u2jy43: #6b7575;
+  --ux-e5ryhe: #ffffff;
+
+  /* ─── Feedback high-contrast info ─── */
+  --ux-1lpd00q: #00a4a6;
+  --ux-15n32fv: #ffffff;
+
+  /* ─── Feedback high-contrast success ─── */
+  --ux-1ep3kxj: #00a63f;
+  --ux-zk0uja: #ffffff;
+
+  /* ─── Feedback high-contrast critical ─── */
+  --ux-1fhc073: #c11616;
+  --ux-17o0ohq: #ffffff;
+
+  /* ─── Feedback high-contrast warning ─── */
+  --ux-lv1r6m: #c48400;
+  --ux-tqp5z3: #ffffff;
+
+  /* ─── Feedback high-contrast passive ─── */
+  --ux-1m9ys0v: #6b7575;
+  --ux-1j2zkam: #ffffff;
+
+  /* ─── Generic feedback (progress bar primary) ─── */
+  --ux-f7kpiw: #00a4a6;
+  --ux-1no0ng9: #ffffff;
+
+  /* ─── Box shape ─── */
+  --ux-2jubes: 8px;
+
+  /* ─── Typography ─── */
+  --ux-117cu43: "GD Sherpa", Arial, Helvetica, sans-serif;
+  --ux-shg991: "GD Sherpa", Arial, Helvetica, sans-serif;
+  --ux-p4wcd9: "GD Sherpa", Arial, Helvetica, sans-serif;
+  --ux-gfnupv: "GD Sherpa", Arial, Helvetica, sans-serif;
+  --ux-1gutwvn: "GD Sherpa", Arial, Helvetica, sans-serif;
+  --ux-15ks663: "GD Sherpa", Arial, Helvetica, sans-serif;
+}
