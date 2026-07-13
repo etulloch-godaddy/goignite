@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+from typing import List, Optional
 
 from app.services.qnabot.prompts import (
     BUSINESS_CONTEXT_HEADER,
@@ -7,10 +8,10 @@ from app.services.qnabot.prompts import (
 )
 
 _DATA_FILE = Path(__file__).parent.parent / "data" / "business_knowledge.json"
-_knowledge_base: list[dict] | None = None
+_knowledge_base: Optional[List[dict]] = None
 
 
-def _load() -> list[dict]:
+def _load() -> list:
     global _knowledge_base
     if _knowledge_base is None:
         with open(_DATA_FILE) as f:

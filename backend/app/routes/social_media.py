@@ -87,7 +87,7 @@ def get_social_missions(
     stage: Optional[str] = Query(None),
     creator_type: Optional[str] = Query(None),
 ):
-    """Return social visibility missions filtered by stage and/or creator_type."""
+    """Return social visibility missions filtered by stage and/or creator_type, excluding already-completed ones."""
     data = _load("social_missions.json")
     missions = data["missions"]
 
@@ -99,6 +99,17 @@ def get_social_missions(
             m for m in missions
             if "all" in m["creator_types"] or creator_type in m["creator_types"]
         ]
+
+    # Filter out missions the user already completed
+    try:
+        from app.services.user_store import load_users
+        users = load_users()
+        user = users.get(user_id)
+        if user:
+            done = set(user.completed_missions)
+            missions = [m for m in missions if m["mission_id"] not in done]
+    except Exception:
+        pass
 
     return {"user_id": user_id, "missions": missions}
 
