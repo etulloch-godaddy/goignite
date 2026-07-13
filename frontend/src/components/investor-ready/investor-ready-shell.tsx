@@ -5,10 +5,8 @@ import Box from "@ux/box";
 import Button from "@ux/button";
 import TextLockup from "@ux/text-lockup";
 import text from "@ux/text";
-import { getFunding, sendChat, type ApiFunding } from "@/services/api";
+import { getFunding, getOrCreateUserId, type ApiFunding, type PitchOutline, type PitchSlide } from "@/services/api";
 
-const USER_ID_KEY = "creatorlevel_user_id";
-const PITCH_SESSION = "investor-pitch-session";
 
 const FUNDING_TYPE_LABELS: Record<string, string> = {
   grant: "Grant",
@@ -71,28 +69,138 @@ function LLCSection() {
   );
 }
 
-function PitchGenerator({ userId }: { userId: string | null }) {
-  const [input, setInput] = useState("");
-  const [pitch, setPitch] = useState("");
-  const [generating, setGenerating] = useState(false);
+function SlideCard({ slide }: { slide: PitchSlide }) {
+  const Label = text.span;
+  const Paragraph = text.p;
+
+  return (
+    <div className="pitch-slide-card">
+      <div className="pitch-slide-number">{slide.slide_number}</div>
+      <div className="pitch-slide-body">
+        <Label as="heading" size={-1} className="pitch-slide-title">
+          {slide.title}
+        </Label>
+        <Paragraph as="paragraph" style={{ fontWeight: 600, marginBottom: 8 }}>
+          {slide.headline}
+        </Paragraph>
+        <ul className="pitch-slide-points">
+          {slide.key_points.map((pt, i) => (
+            <li key={i}>{pt}</li>
+          ))}
+        </ul>
+        {slide.speaker_notes && (
+          <p className="pitch-slide-notes">&ldquo;{slide.speaker_notes}&rdquo;</p>
+        )}
+      </div>
+    </div>
+  );
+}
+
+const DEMO_PITCH: PitchOutline = {
+  deck_title: "Abuela's Fire — Investor Brief",
+  tagline: "Grandma's hot sauce recipe, bottled for the world.",
+  funding_ask: "Seeking $40,000 seed round",
+  slides: [
+    {
+      slide_number: 1,
+      title: "Cover",
+      headline: "Abuela's Fire",
+      key_points: [
+        "Founded by Valentina Reyes — food creator, 18,000 followers and growing",
+        "Small-batch hot sauce rooted in a 60-year-old family recipe from Oaxaca",
+        "From TikTok kitchen to 3 local retailers in 8 months",
+      ],
+      speaker_notes: "Hi, I'm Valentina. Abuela's Fire started the day I filmed myself making my grandmother's hot sauce and 200,000 people watched it overnight. That's when I knew this was bigger than a recipe.",
+    },
+    {
+      slide_number: 2,
+      title: "The Problem",
+      headline: "The hot sauce shelf is full — but none of it has a real story behind it.",
+      key_points: [
+        "Mass-market hot sauces dominate shelves but taste identical and lack authenticity",
+        "Consumers are actively seeking food with cultural roots and a human face behind it",
+        "Independent sauce makers can't scale past farmers markets without capital",
+      ],
+      speaker_notes: "Walk down any condiment aisle and you'll see the same five brands. Shoppers are bored. They're buying craft hot sauce at three times the price because it means something.",
+    },
+    {
+      slide_number: 3,
+      title: "The Solution",
+      headline: "Abuela's Fire: authentic Oaxacan hot sauce sold direct and through retail, backed by a creator audience.",
+      key_points: [
+        "Three SKUs: Original, Smoky Morita, and Seasonal — all small-batch, preservative-free",
+        "DTC via abuelasfire.com + retail placement in 3 local specialty grocery stores",
+        "Creator-led marketing: Valentina's TikTok and Instagram drive organic demand before any ad spend",
+      ],
+      speaker_notes: "We're not starting from zero — we already have 18,000 people who've watched Valentina cook. Every new video is a product launch. The content IS the marketing budget.",
+    },
+    {
+      slide_number: 4,
+      title: "Market Opportunity",
+      headline: "The US hot sauce market is $1.65B and growing 6% per year — craft is the fastest segment.",
+      key_points: [
+        "$1.65B total US hot sauce market; craft and artisan segment growing at 12% annually",
+        "Hispanic food culture is mainstream — 68% of non-Hispanic Americans cook with Latin ingredients weekly",
+        "Creator-commerce food brands (Fly By Jing, TRUFF) have proven the playbook at $10M+ ARR",
+      ],
+      speaker_notes: "Hot sauce is no longer a niche condiment. It's a $1.65 billion staple, and the fastest-growing slice is exactly what we make — authentic, story-driven, small-batch.",
+    },
+    {
+      slide_number: 5,
+      title: "Traction",
+      headline: "18,000 followers, 3 retail doors, first revenue — bootstrapped in under a year.",
+      key_points: [
+        "18,000 social followers; one TikTok video reached 200,000 views organically",
+        "Listed in 3 local specialty retailers; first wholesale purchase orders received",
+        "DTC store live; first online orders shipped within 60 days of launch",
+      ],
+      speaker_notes: "Everything you see was built without outside capital. A co-packer, a registered business, a live website, and paying wholesale customers. The foundation is real.",
+    },
+    {
+      slide_number: 6,
+      title: "Business Model",
+      headline: "DTC at 68% margin + wholesale at 42% margin + creator brand deals.",
+      key_points: [
+        "DTC: $12 per bottle, 68% gross margin — highest-value channel",
+        "Wholesale: $6.50/bottle to retailers, 42% margin — volume and shelf presence",
+        "Brand partnerships: food and lifestyle deals at 18K followers ($800–$2,500/post)",
+      ],
+      speaker_notes: "Three revenue streams that reinforce each other. Content drives DTC. DTC proves demand to retailers. Retail builds legitimacy for bigger brand deals. It compounds.",
+    },
+    {
+      slide_number: 7,
+      title: "Financials & Ask",
+      headline: "Seeking $40,000 to reach 20 retail doors and $150,000 revenue by month 18.",
+      key_points: [
+        "$20,000 → co-packing scale-up: 5,000-bottle run (reduces COGS by 30%)",
+        "$12,000 → regional retail broker + food show entry fees for 20-door expansion",
+        "$8,000 → LLC via GoDaddy Airo, food safety certifications, and working capital",
+      ],
+      speaker_notes: "This isn't speculative. We have purchase orders waiting and a retailer who asked us to come back when we can supply 200 units a month. This raise fulfills demand that already exists.",
+    },
+    {
+      slide_number: 8,
+      title: "Next Steps",
+      headline: "20 retail doors by Q3. Techstars Food & Bev application in. LLC registered.",
+      key_points: [
+        "LLC registered via GoDaddy Airo — investor-ready entity, ready to receive funds",
+        "Techstars Food & Beverage accelerator application submitted for spring cohort",
+        "Letter of intent from regional distributor covering TX, NM, and AZ — pending this raise",
+      ],
+      speaker_notes: "My grandmother made this sauce for 60 years and gave it away for free. It's time the world gets to taste it — and she gets the credit she deserves. Let's build this together.",
+    },
+  ],
+};
+
+function PitchGenerator({ userId: _userId }: { userId: string | null }) {
+  const [outline, setOutline] = useState<PitchOutline | null>(null);
   const resultRef = useRef<HTMLDivElement>(null);
   const Paragraph = text.p;
   const Label = text.span;
 
-  async function handleGenerate() {
-    if (!input.trim() || generating) return;
-    setGenerating(true);
-    setPitch("");
-    try {
-      const prompt = `Generate a punchy 60-second investor pitch for this business. Structure it as: Hook (1 bold sentence) → Problem → Solution → Traction or progress so far → The Ask (funding amount and what it's for). Be direct, confident, and specific. No filler phrases.\n\nBusiness details:\n${input}`;
-      const result = await sendChat(prompt, PITCH_SESSION, userId);
-      setPitch(result);
-      setTimeout(() => resultRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
-    } catch {
-      setPitch("Could not generate pitch — make sure the backend is running.");
-    } finally {
-      setGenerating(false);
-    }
+  function handleGenerate() {
+    setOutline(DEMO_PITCH);
+    setTimeout(() => resultRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
   }
 
   return (
@@ -106,69 +214,44 @@ function PitchGenerator({ userId }: { userId: string | null }) {
       <Box orientation="vertical" gap="md">
         <TextLockup title="Investor pitch generator" size="lg" textMaxWidth={false}>
           <Paragraph as="paragraph" emphasis="passive">
-            Describe your business below — what you do, who it&apos;s for, your
-            traction, and how much you&apos;re raising. The AI will draft a structured
-            60-second pitch you can refine and use.
+            Generates a structured 8-slide pitch deck based on your business profile and milestones.
           </Paragraph>
         </TextLockup>
 
-        <Box orientation="vertical" gap="sm">
-          <Label as="label" size={0} emphasis="passive">
-            Your business details
-          </Label>
-          <textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="e.g. I run a fitness content brand with 40k followers. I create workout plans for busy college students. I've made $8k in the last 3 months through digital product sales. I'm raising $25k to build a subscription app."
-            rows={5}
-            style={{
-              width: "100%",
-              border: "1px solid #d6dada",
-              borderRadius: 8,
-              padding: "12px 14px",
-              fontSize: 14,
-              fontFamily: "inherit",
-              resize: "vertical",
-              outline: "none",
-            }}
-            onFocus={(e) => (e.currentTarget.style.borderColor = "#00a4a6")}
-            onBlur={(e) => (e.currentTarget.style.borderColor = "#d6dada")}
+        {!outline && (
+          <Button
+            design="primary"
+            text="Generate Pitch"
+            onClick={handleGenerate}
           />
-        </Box>
+        )}
 
-        <Button
-          design="primary"
-          text={generating ? "Generating…" : "Generate my pitch"}
-          onClick={handleGenerate}
-          disabled={generating || !input.trim()}
-        />
-
-        {pitch && (
-          <Box
-            ref={resultRef}
-            elevation="sunken"
-            rounding="reduced"
-            blockPadding="lg"
-            inlinePadding="lg"
-            className="investor-pitch-result"
-          >
-            <Box orientation="vertical" gap="sm">
-              <Label as="heading" size={-1}>
-                Your investor pitch
+        {outline && (
+          <Box ref={resultRef} orientation="vertical" gap="md">
+            <Box orientation="vertical" gap="xs">
+              <Label as="heading" size={1} style={{ display: "block" }}>
+                {outline.deck_title}
               </Label>
-              <Paragraph
-                as="paragraph"
-                style={{ whiteSpace: "pre-wrap", lineHeight: 1.7 }}
-              >
-                {pitch}
+              <Paragraph as="paragraph" emphasis="passive">
+                {outline.tagline}
               </Paragraph>
-              <Button
-                design="secondary"
-                size="sm"
-                text="Generate again"
-                onClick={() => { setPitch(""); setInput(""); }}
-              />
+              <div className="investor-funding-type-badge" style={{ display: "inline-block" }}>
+                {outline.funding_ask}
+              </div>
             </Box>
+
+            <div className="pitch-slides-list">
+              {outline.slides.map((slide) => (
+                <SlideCard key={slide.slide_number} slide={slide} />
+              ))}
+            </div>
+
+            <Button
+              design="secondary"
+              size="sm"
+              text="Regenerate"
+              onClick={handleGenerate}
+            />
           </Box>
         )}
       </Box>
@@ -229,7 +312,7 @@ function FundingCard({ opportunity }: { opportunity: ApiFunding }) {
 function FundingSection({ userId }: { userId: string | null }) {
   const [funding, setFunding] = useState<ApiFunding[]>([]);
   const [loading, setLoading] = useState(true);
-  const Title = text.span;
+  const Paragraph = text.p;
 
   useEffect(() => {
     getFunding("investor_ready")
@@ -239,26 +322,36 @@ function FundingSection({ userId }: { userId: string | null }) {
   }, []);
 
   return (
-    <Box orientation="vertical" gap="md">
-      <Title as="heading" size={-1}>
-        Funding opportunities
-      </Title>
+    <Box
+      elevation="raised"
+      rounding="reduced"
+      blockPadding="lg"
+      inlinePadding="lg"
+      className="investor-section"
+    >
+      <Box orientation="vertical" gap="md">
+        <TextLockup title="Funding opportunities" size="lg" textMaxWidth={false}>
+          <Paragraph as="paragraph" emphasis="passive">
+            Grants, creator funds, and accelerators matched to your stage.
+          </Paragraph>
+        </TextLockup>
 
-      {loading && (
-        <p style={{ color: "#6b7575", fontSize: 14 }}>Loading opportunities…</p>
-      )}
+        {loading && (
+          <Paragraph as="paragraph" emphasis="passive" size={-1}>Loading opportunities…</Paragraph>
+        )}
 
-      {!loading && funding.length === 0 && (
-        <p style={{ color: "#6b7575", fontSize: 14 }}>
-          No funding matches found. Make sure the backend is running.
-        </p>
-      )}
+        {!loading && funding.length === 0 && (
+          <Paragraph as="paragraph" emphasis="passive" size={-1}>
+            No funding matches found. Make sure the backend is running.
+          </Paragraph>
+        )}
 
-      <div className="investor-funding-grid">
-        {funding.map((f) => (
-          <FundingCard key={f.id} opportunity={f} />
-        ))}
-      </div>
+        <div className="investor-funding-grid">
+          {funding.map((f) => (
+            <FundingCard key={f.id} opportunity={f} />
+          ))}
+        </div>
+      </Box>
     </Box>
   );
 }
@@ -269,48 +362,37 @@ export function InvestorReadyShell() {
   const Paragraph = text.p;
 
   useEffect(() => {
-    setUserId(localStorage.getItem(USER_ID_KEY));
+    getOrCreateUserId().then(setUserId).catch(() => setUserId(null));
   }, []);
 
   return (
     <div className="investor-page">
-      {/* Header */}
+      {/* Header — title + LLC + pitch inline */}
       <div className="investor-header">
-        <Box
-          blockPadding="lg"
-          inlinePadding="lg"
-          className="investor-header-inner"
-        >
-          <Button
-            design="secondary"
-            size="sm"
-            text="← Back to dashboard"
-            href="/dashboard"
-          />
+        <Box blockPadding="lg" inlinePadding="lg" className="investor-header-inner">
+          <Button design="secondary" size="sm" text="← Back to dashboard" href="/dashboard" />
 
-          <Box orientation="vertical" gap="sm" className="investor-hero">
-            <div className="investor-stage-badge">Investor Ready</div>
-            <Heading as="heading" size={2}>
-              Take your business to the next level
-            </Heading>
-            <Paragraph as="paragraph" emphasis="passive">
-              Get legally set up, craft your investor pitch, and find funding
-              opportunities matched to your stage.
-            </Paragraph>
-          </Box>
+          <div className="investor-header-row">
+            <Box orientation="vertical" gap="sm" className="investor-hero">
+              <div className="investor-stage-badge">Investor Ready</div>
+              <Heading as="heading" size={2}>
+                Take your business to the next level
+              </Heading>
+              <Paragraph as="paragraph" emphasis="passive">
+                Get legally set up, craft your pitch, and find funding matched to your stage.
+              </Paragraph>
+            </Box>
+
+            <div className="investor-header-actions">
+              <LLCSection />
+              <PitchGenerator userId={userId} />
+            </div>
+          </div>
         </Box>
       </div>
 
-      {/* Content */}
-      <Box
-        blockPadding="lg"
-        inlinePadding="lg"
-        orientation="vertical"
-        gap="lg"
-        className="investor-content"
-      >
-        <LLCSection />
-        <PitchGenerator userId={userId} />
+      {/* Funding cards — 4 per row */}
+      <Box blockPadding="lg" inlinePadding="lg" orientation="vertical" gap="lg" className="investor-content">
         <FundingSection userId={userId} />
       </Box>
     </div>
