@@ -22,6 +22,15 @@ def create_new_user() -> CreateNewUserResponse:
     return CreateNewUserResponse(user_id=user.user_id)
 
 
+@router.get("/{user_id}", response_model=User)
+def get_user_profile(user_id: str) -> User:
+    users = load_users()
+    user = users.get(user_id)
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user
+
+
 @router.get("/{user_id}/onboarding-data", response_model=OnboardingDataResponse)
 def get_user_onboarding_data(user_id: str) -> OnboardingDataResponse:
     users = load_users()
@@ -44,12 +53,3 @@ def upsert_onboarding_data(
     users[user_id] = user
     save_users(users)
     return OnboardingDataResponse(user_id=user_id, onboarding_data=user.onboarding_data)
-
-
-@router.get("/{user_id}", response_model=User)
-def get_user_profile(user_id: str) -> User:
-    users = load_users()
-    user = users.get(user_id)
-    if user is None:
-        raise HTTPException(status_code=404, detail="User not found")
-    return user
