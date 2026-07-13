@@ -1,5 +1,6 @@
 from datetime import datetime, timezone
 from enum import Enum
+from typing import Optional
 
 from pydantic import BaseModel, Field
 
@@ -23,7 +24,7 @@ class BusinessProfile(BaseModel):
 
 class User(BaseModel):
     user_id: str
-    creator_type: CreatorType
+    creator_type: Optional[CreatorType] = None
     stage: Stage = Stage.starter
     business_profile: BusinessProfile = Field(default_factory=BusinessProfile)
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
@@ -37,3 +38,12 @@ class OnboardUserRequest(BaseModel):
 
 class OnboardUserResponse(BaseModel):
     user: User
+
+
+class CreateUserResponse(BaseModel):
+    user_id: str
+
+
+class OnboardingDataResponse(BaseModel):
+    user_id: str
+    onboarding_data: dict

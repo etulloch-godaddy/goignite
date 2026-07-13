@@ -1,5 +1,6 @@
 import logging
 import os
+from typing import Optional
 
 from openai import APIConnectionError, APIStatusError, AsyncOpenAI
 
@@ -16,9 +17,15 @@ def _client() -> AsyncOpenAI:
     )
 
 
-async def get_reply(query: str, session_id: str) -> str:
-    context = retrieve_context(query) or NO_MATCH_CONTEXT
-    full_system = f"{SYSTEM_PROMPT}\n\n{context}"
+async def get_reply(query: str, session_id: str, user_context: Optional[str] = None) -> str:
+    parts = [SYSTEM_PROMPT]
+
+    if user_context:
+        parts.append(f"[USER PROFILE]\n{user_context}")
+
+    parts.append(retrieve_context(query) or NO_MATCH_CONTEXT)
+
+    full_system = "\n\n".join(parts)
 
     try:
         response = await _client().chat.completions.create(
