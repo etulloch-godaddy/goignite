@@ -34,7 +34,7 @@ Scope is shaped around a hackathon sprint (~24-48h), so the build prioritises a 
 
 ```
 hackathon2026/
-├── ACHIEVEMENTS.md              # Achievement catalog — all 21 achievements, XP values, triggers
+├── ACHIEVEMENTS.md              # Achievement catalog — all 23 achievements, XP values, triggers
 ├── backend/
 │   ├── app/
 │   │   ├── main.py                  # FastAPI app, CORS, router registration
@@ -57,7 +57,7 @@ hackathon2026/
 │   │   │   ├── achievement.py       # Achievement model  ✓ built
 │   │   │   └── domains.py           # Domain contact, record, purchase models  ✓ built
 │   │   └── data/
-│   │       ├── missions.json        # 21 mission templates per stage  ✓ built
+│   │       ├── missions.json        # 23 mission templates per stage  ✓ built
 │   │       └── funding.json         # Funding opportunities database
 │   ├── requirements.txt
 │   └── .env.example
@@ -214,7 +214,7 @@ Stage promotion is computed in `xp_service.py`. On promotion:
 2. Achievement auto-created: e.g. "Reached Builder Stage"
 3. GoDaddy upgrade prompt surfaced in frontend
 
-See `ACHIEVEMENTS.md` for the full catalog of all 21 achievements (titles, XP values, categories, trigger missions).
+See `ACHIEVEMENTS.md` for the full catalog of all 23 achievements (titles, XP values, categories, trigger missions).
 
 ---
 
