@@ -1,0 +1,236 @@
+{
+  "entries": [
+    {
+      "id": "business-structure",
+      "type": "business",
+      "keywords": ["llc", "sole proprietor", "sole proprietorship", "corporation", "s-corp", "partnership", "business structure", "business type", "incorporate", "which structure"],
+      "question": "What business structure should I choose?",
+      "answer": "For most first-timers, a sole proprietorship is the easiest start — no registration required, you just start working. The downside is that your personal assets aren't protected if something goes wrong. An LLC (Limited Liability Company) gives you a legal separation between you and your business, protecting your personal savings and property. It costs $50–$500 to file depending on your state and takes a few days to a week. S-Corps and C-Corps make sense later when you're raising investment or have employees — they're more complex and expensive to maintain. Start as a sole proprietor to test your idea, then form an LLC once you're making consistent money or signing contracts.",
+      "godaddy_products": []
+    },
+    {
+      "id": "register-business",
+      "type": "business",
+      "keywords": ["register", "ein", "employer identification number", "tax id", "dba", "doing business as", "fictitious name", "how to start", "start a business", "set up business"],
+      "question": "How do I officially register my business?",
+      "answer": "Here's the basic checklist: (1) Choose a business name and check it isn't already taken in your state. (2) File your LLC or corporation paperwork with your state's Secretary of State website — most states have an online portal. (3) Get a free EIN (Employer Identification Number) from the IRS at irs.gov — this is your business's tax ID, like a Social Security number for your company. You need it to open a business bank account. (4) If you're operating under a name different from your legal name, file a DBA ('doing business as') with your county clerk. (5) Check if your city or county requires a business license — many do even for home-based businesses.",
+      "godaddy_products": []
+    },
+    {
+      "id": "business-license",
+      "type": "business",
+      "keywords": ["business license", "permit", "license", "zoning", "home business", "local permit"],
+      "question": "Do I need a business license?",
+      "answer": "It depends on where you live and what you do. Most cities and counties require a general business license for any business operating within their jurisdiction, even freelancers working from home — fees are typically $25–$100/year. If you sell physical goods, you'll likely need a seller's permit or sales tax permit from your state. Certain professions (contractors, food businesses, childcare, healthcare) require additional state or federal licenses. Start at your city or county's official website and search 'business license' — most have a step-by-step guide. The SBA's (Small Business Administration) website at sba.gov also has a license lookup tool.",
+      "godaddy_products": []
+    },
+    {
+      "id": "contracts",
+      "type": "business",
+      "keywords": ["contract", "agreement", "client agreement", "invoice", "scope of work", "legal protection", "terms", "written agreement"],
+      "question": "Do I need contracts with my clients?",
+      "answer": "Yes — always. A contract doesn't have to be long or written by a lawyer. At minimum it should cover: (1) what work you're doing (scope), (2) the price and payment terms, (3) the timeline and deadline, (4) what happens if either side backs out, and (5) who owns the work when it's done. You can find free templates on sites like Hello Bonsai, Honeybook, or even Google Docs. Send everything in writing — even a clear email chain can serve as a contract. Once you're earning consistently, have a lawyer review your standard contract for $200–$500. Verbal agreements lead to disputes, missed payments, and stolen work. Protect yourself from day one.",
+      "godaddy_products": []
+    },
+    {
+      "id": "trademark-ip",
+      "type": "business",
+      "keywords": ["trademark", "copyright", "patent", "intellectual property", "ip", "brand protection", "protect name", "protect logo"],
+      "question": "How do I protect my brand name and logo?",
+      "answer": "Copyright protects creative works (writing, music, art, code) automatically when you create them — no registration needed, though registering at copyright.gov gives you stronger legal standing. Trademark protects brand names, logos, and slogans in commerce. You own common law trademark rights just by using a name in business, but registering with the USPTO (United States Patent and Trademark Office) at uspto.gov gives you nationwide protection and lets you use the ® symbol. A trademark application costs $250–$350 per class and takes 8–12 months. Do a trademark search before you invest heavily in a brand name. Patents protect inventions — they're expensive ($5k–$15k+) and complex; talk to a patent attorney if you have something truly novel.",
+      "godaddy_products": []
+    },
+    {
+      "id": "business-banking",
+      "type": "business",
+      "keywords": ["bank account", "business account", "business banking", "separate account", "business credit card", "mixing money", "personal account"],
+      "question": "Should I open a separate business bank account?",
+      "answer": "Yes, immediately — even if you're just starting. Mixing personal and business money creates headaches at tax time and can actually destroy the legal protection an LLC provides (called 'piercing the corporate veil'). To open a business account you'll need your EIN, your LLC formation documents (if applicable), and a government ID. Many online banks like Mercury, Relay, or Novo offer free business checking with no minimums, which is perfect when you're starting out. Get a business debit or credit card for all business purchases — this creates an automatic record and makes bookkeeping much easier. Pay yourself by transferring a set amount to your personal account, not just spending from the business account.",
+      "godaddy_products": []
+    },
+    {
+      "id": "taxes-self-employment",
+      "type": "business",
+      "keywords": ["taxes", "tax", "self employment tax", "quarterly taxes", "estimated taxes", "irs", "1099", "schedule c", "self employed", "pay taxes"],
+      "question": "How do taxes work when I'm self-employed?",
+      "answer": "As a self-employed person, you pay both the employee AND employer portions of Social Security and Medicare — that's 15.3% self-employment tax on top of regular income tax. The big shift from a regular job: no taxes are withheld automatically, so you need to pay estimated quarterly taxes yourself. Deadlines are typically April 15, June 15, September 15, and January 15. Use IRS Form 1040-ES to calculate and pay quarterly estimates — if you skip this and owe more than $1,000 at year-end, you'll owe a penalty. Keep every business receipt. At tax time you'll file a Schedule C to report income and expenses. Most self-employed people with consistent income use an accountant for the first year to learn the system.",
+      "godaddy_products": []
+    },
+    {
+      "id": "tax-deductions",
+      "type": "business",
+      "keywords": ["deduction", "deductions", "write off", "write-off", "business expense", "tax expense", "home office", "mileage", "equipment deduction"],
+      "question": "What can I deduct as business expenses?",
+      "answer": "Common deductions for small business owners include: home office (a dedicated workspace — calculate by square footage), internet and phone (business portion), software subscriptions, equipment (computers, cameras, tools), professional services (accountant, lawyer, contractor fees), marketing and advertising costs, business meals (50% deductible), vehicle/mileage for business travel, education and courses directly related to your work, and business insurance premiums. The key rule: the expense must be 'ordinary and necessary' for your business. Keep receipts and records — a simple spreadsheet or free tool like Wave works. Don't try to write off personal expenses as business ones; the IRS audits this.",
+      "godaddy_products": []
+    },
+    {
+      "id": "pricing",
+      "type": "business",
+      "keywords": ["price", "pricing", "how much to charge", "rates", "hourly rate", "project rate", "profit margin", "markup", "cost plus", "value pricing"],
+      "question": "How do I price my products or services?",
+      "answer": "Three main approaches: (1) Cost-plus: Add up what it costs you to deliver the product/service (including your time at a fair hourly rate), then add your desired profit margin (typically 20–50%+). (2) Market-based: Research what competitors charge and position yourself relative to them. (3) Value-based: Charge based on the outcome you deliver, not just your time — if you save someone $10k, charging $2k is reasonable. For services, a common freelance formula: take your desired annual salary, divide by 1,000 working hours, then double it (to cover taxes, downtime, and overhead). Beginners undercharge — it's a very common mistake. Low prices don't automatically get you more clients; they often signal lower quality. Test a higher price before you assume it won't work.",
+      "godaddy_products": []
+    },
+    {
+      "id": "bookkeeping",
+      "type": "business",
+      "keywords": ["bookkeeping", "bookkeeper", "accounting", "track money", "income", "expenses", "profit and loss", "cash flow", "invoicing", "wave", "quickbooks"],
+      "question": "Do I need to do bookkeeping and what does it involve?",
+      "answer": "Yes — bookkeeping is just consistently tracking your income and expenses so you know if you're profitable and can file taxes accurately. At the simplest level: a spreadsheet with every dollar in (income) and every dollar out (expenses) categorized by type. Free tools like Wave (waveapps.com) or Xero's free tier handle invoicing and basic accounting. QuickBooks is the industry standard for $25–$45/month once you grow. Track everything monthly, not just at tax time — trying to reconstruct a year of transactions in April is miserable. The key reports to understand: Profit & Loss (are you making money?), and Cash Flow (do you have money right now?). Most first-time business owners skip bookkeeping until they can't; don't.",
+      "godaddy_products": []
+    },
+    {
+      "id": "domain-name",
+      "type": "business",
+      "keywords": ["domain", "domain name", "website address", "url", ".com", "buy domain", "get domain", "register domain", "web address"],
+      "question": "What is a domain name and why do I need one?",
+      "answer": "A domain name is your address on the internet — like yourbusiness.com. It's separate from your website (the content) — think of the domain as the street address and the website as the building. You need a domain to: (1) have a professional web presence customers can find, (2) set up a professional email address (you@yourbusiness.com instead of yourbusiness@gmail.com), and (3) own your brand online before someone else takes your name. Domains cost $10–$20/year typically. Choose a .com if possible since it's the most trusted. Keep it short, easy to spell, and matching your business name. Register your domain even if you're not ready to build a website yet — names get taken fast.",
+      "godaddy_products": ["Domain Name Registration", "Domain Privacy Protection"]
+    },
+    {
+      "id": "build-website",
+      "type": "business",
+      "keywords": ["website", "build website", "create website", "web site", "online store", "ecommerce", "landing page", "web presence", "get online", "need a website"],
+      "question": "How do I build a website for my business?",
+      "answer": "You have several options depending on your budget and tech comfort: (1) Website builders like GoDaddy Website Builder, Squarespace, or Wix let you drag-and-drop a site in a day with no coding — $10–$25/month, great for most small businesses. (2) WordPress with a managed hosting plan gives you more flexibility and is the industry standard for content sites. (3) Shopify or WooCommerce if you're selling products online. You don't need a perfect website to start — a simple one-page site with your name, what you do, how to contact you, and a few testimonials is enough. Add more pages as you grow. The biggest mistake: spending months perfecting a website before you have any customers. Launch fast, improve later.",
+      "godaddy_products": ["GoDaddy Website Builder", "WordPress Hosting", "Online Store"]
+    },
+    {
+      "id": "business-email",
+      "type": "business",
+      "keywords": ["email", "professional email", "business email", "gmail", "custom email", "email address", "work email", "@yourdomain"],
+      "question": "Do I need a professional business email address?",
+      "answer": "Yes, and it's one of the easiest credibility upgrades you can make. An email like sarah@sarahdesigns.com looks far more professional than sarahdesigns2024@gmail.com. Clients, suppliers, and partners take you more seriously with a custom domain email. To get one: (1) Own a domain name (e.g. sarahdesigns.com), (2) Sign up for business email hosting — Google Workspace starts at $6/month and gives you Gmail's interface with your domain, Microsoft 365 is similar. GoDaddy also offers professional email if you registered your domain there. This is worth doing even before you have a website. It signals that you're a real business.",
+      "godaddy_products": ["GoDaddy Professional Email", "Microsoft 365 Email"]
+    },
+    {
+      "id": "seo",
+      "type": "business",
+      "keywords": ["seo", "search engine", "google ranking", "rank on google", "search results", "organic traffic", "keywords", "be found online", "google my business"],
+      "question": "What is SEO and do I need it?",
+      "answer": "SEO (Search Engine Optimization) is the practice of making your website show up when people Google things related to your business. For most local and service businesses, the single highest-impact SEO move is setting up a free Google Business Profile (formerly Google My Business) at business.google.com — this gets you showing up in local search results and on Google Maps. Beyond that, basic SEO: make sure your website clearly states what you do and where you are, use natural language on your pages (the words your customers would type into Google), get a few local businesses or community sites to link to you, and keep your contact info consistent everywhere online. You don't need to hire an SEO agency at the start — good content and a Google Business Profile will take you far.",
+      "godaddy_products": ["GoDaddy Website Builder (built-in SEO tools)"]
+    },
+    {
+      "id": "funding-options",
+      "type": "business",
+      "keywords": ["funding", "loan", "investor", "grant", "capital", "money to start", "small business loan", "bootstrap", "raise money", "sba loan", "crowdfunding"],
+      "question": "How do I get funding to start my business?",
+      "answer": "Funding options from simplest to most complex: (1) Bootstrapping — starting with your own savings and revenue from early customers. Most businesses should start here. (2) Friends and family — informal loans or investments from people who believe in you. Put any arrangement in writing. (3) Small business grants — free money from government programs, local foundations, or corporate programs (search grants.gov and your state's small business development center). (4) SBA microloans — the Small Business Administration guarantees loans from $500–$50k through partner lenders, with favorable rates. (5) Community banks and credit unions — often more small-business friendly than big banks. (6) Venture capital / angel investors — only relevant if you're building a high-growth tech company. Most businesses never need outside investment and are better off without it.",
+      "godaddy_products": []
+    },
+    {
+      "id": "business-plan",
+      "type": "business",
+      "keywords": ["business plan", "plan", "executive summary", "market analysis", "financial projections", "business model", "write a plan"],
+      "question": "Do I need a business plan and what goes in it?",
+      "answer": "You need some kind of plan, but it doesn't have to be a 40-page document. For most early-stage businesses, a one-page 'lean canvas' covers what matters: (1) What problem are you solving? (2) Who is your customer? (3) What's your solution? (4) How do you make money? (5) How do you reach customers? (6) What are your key costs? You need a formal business plan only when applying for a bank loan, pitching investors, or seeking certain grants. A full plan includes: executive summary, market analysis, product/service description, marketing strategy, financial projections (3 years), and management team. The SCORE organization (score.org) offers free mentoring and templates, and the SBA website has a free business plan builder.",
+      "godaddy_products": []
+    },
+    {
+      "id": "first-customers",
+      "type": "business",
+      "keywords": ["first customer", "get customers", "find clients", "sales", "lead generation", "customer acquisition", "find clients", "marketing strategy", "promote business"],
+      "question": "How do I get my first customers?",
+      "answer": "Your first customers almost always come from your existing network — tell everyone you know what you're doing. This feels uncomfortable but it works. Specific tactics: (1) Direct outreach — message people you know who might need your service, or who know someone who does. (2) Offer to do 1–3 projects at a discount (or free) in exchange for a testimonial and referral. (3) Post on LinkedIn, Instagram, or wherever your target customers spend time. (4) Join local business groups, Facebook groups in your niche, or industry forums. (5) Ask every happy customer for a referral — most will oblige if you just ask. (6) List your business on Google, Yelp, or relevant directories. The fastest path to first customers is personal, direct outreach — not ads or building an audience. Save marketing budget for when you've validated what you're selling.",
+      "godaddy_products": []
+    },
+    {
+      "id": "social-media-marketing",
+      "type": "business",
+      "keywords": ["social media", "instagram", "tiktok", "facebook", "linkedin", "twitter", "content marketing", "marketing", "promote", "grow audience", "followers", "social"],
+      "question": "How do I use social media to market my business?",
+      "answer": "Pick one or two platforms where your target customers actually are — don't try to be everywhere. B2B (selling to businesses)? LinkedIn. Consumer products or lifestyle/visual brands? Instagram or TikTok. Local services? Facebook and Instagram. The formula that works for most small businesses: post consistently (3–5x/week minimum), mix content types (tips/education, behind-the-scenes, testimonials/social proof, promotional offers), engage genuinely with your audience and similar accounts, and optimize your bio with clear info about what you do. Organic reach is slow — it typically takes 6–12 months of consistent posting to see traction. Don't buy followers; they're worthless. Paid social ads are effective once you know your message works organically. The biggest mistake: posting randomly instead of having a content strategy.",
+      "godaddy_products": []
+    },
+    {
+      "id": "accept-payments",
+      "type": "business",
+      "keywords": ["payment", "accept payment", "stripe", "paypal", "square", "venmo", "invoice payment", "online payment", "credit card", "how to get paid"],
+      "question": "How do I accept payments from customers?",
+      "answer": "For most small businesses, the easiest options are: (1) Stripe — the most widely used payment processor for online payments, works for one-time and recurring billing, 2.9% + 30¢ per transaction. (2) Square — great for in-person payments (free card reader), also does online. (3) PayPal — widely trusted and easy to set up, slightly higher fees for business use. (4) Venmo for Business — convenient for local services. (5) Wave Payments — free invoicing with built-in payment processing. For service businesses, send invoices using a tool like Wave, FreshBooks, or HoneyBook and let clients pay by card directly from the invoice. For products, Shopify handles everything in one place. Never use personal PayPal/Venmo for business long-term — it makes bookkeeping messy and looks unprofessional.",
+      "godaddy_products": ["GoDaddy Payments", "GoDaddy Online Store"]
+    },
+    {
+      "id": "insurance",
+      "type": "business",
+      "keywords": ["insurance", "business insurance", "liability insurance", "general liability", "professional liability", "errors and omissions", "insure", "policy"],
+      "question": "Does my small business need insurance?",
+      "answer": "It depends on what you do, but most businesses should have at least some coverage. General Liability Insurance covers property damage or bodily injury you cause to others — many venues, clients, and contracts require this. It typically costs $400–$1,000/year for small businesses. Professional Liability (also called Errors & Omissions) covers claims that your advice or work caused financial harm to a client — important for consultants, designers, coaches, and other service providers. If you have employees, you'll need Workers' Compensation. If you work from home, your homeowner's or renter's insurance likely doesn't cover your business property or activities — a business owner's policy (BOP) bundles coverage affordably. NEXT Insurance and Hiscox offer affordable online quotes for small businesses in minutes.",
+      "godaddy_products": []
+    },
+    {
+      "id": "godaddy-domains",
+      "type": "godaddy",
+      "keywords": ["godaddy domain", "domain registration", "register domain", "buy domain", "domain price", "domain cost", "domain privacy", "whois", ".com domain", "domain transfer", "domain search", "domain name search"],
+      "question": "What does GoDaddy offer for domain registration?",
+      "answer": "GoDaddy is one of the world's largest domain registrars with over 84 million domains under management. Key offerings: (1) Domain Search — search hundreds of TLDs (.com, .net, .org, .io, .co, .shop, .store, and hundreds more). .com domains typically start at around $12–$20/year on renewal. (2) Domain Privacy Protection — hides your personal contact info (name, address, phone, email) from public WHOIS lookups for about $10/year, preventing spam and protecting your identity. (3) Domain Transfers — bring a domain you own elsewhere to GoDaddy for centralized management. (4) Bulk Domain Management — manage all your domains from one dashboard. (5) Domain Appraisal & Auctions — buy or sell premium domains through GoDaddy Auctions. Tip: search for your business name in multiple TLDs and register the ones that matter most to your brand — .com is the most trusted, but .co, .io, and .store are gaining acceptance.",
+      "godaddy_products": ["Domain Name Registration", "Domain Privacy Protection", "GoDaddy Auctions"]
+    },
+    {
+      "id": "godaddy-website-builder",
+      "type": "godaddy",
+      "keywords": ["godaddy website builder", "godaddy website", "godaddy builder", "website builder plan", "godaddy site builder", "build site godaddy", "godaddy ai website", "godaddy airo"],
+      "question": "What is GoDaddy's Website Builder and how does it work?",
+      "answer": "GoDaddy's Website Builder (now powered by GoDaddy Airo™, its AI product suite) lets you create a professional website without any coding. How it works: answer a few questions about your business, and GoDaddy's AI generates a personalized website with content, images, and a layout tailored to your industry in minutes. Plans and features: (1) Basic plan (~$10/month) — website with custom domain, mobile-optimized, SEO tools, social media integration. (2) Premium plan (~$15/month) — adds appointment booking, email marketing, and advanced analytics. (3) Commerce plan (~$20/month) — full online store with product listings, inventory management, and payment processing. All plans include: web hosting, SSL certificate (HTTPS), 24/7 customer support, and integration with Google Business Profile. The builder is drag-and-drop, with 100+ professional templates organized by industry. Best for: service businesses, local shops, restaurants, portfolio sites, and anyone who needs a professional online presence fast without hiring a developer.",
+      "godaddy_products": ["GoDaddy Website Builder", "GoDaddy Airo"]
+    },
+    {
+      "id": "godaddy-wordpress-hosting",
+      "type": "godaddy",
+      "keywords": ["godaddy wordpress", "wordpress hosting", "managed wordpress", "wordpress plan", "godaddy wp", "wordpress site godaddy"],
+      "question": "What WordPress hosting does GoDaddy offer?",
+      "answer": "GoDaddy is one of the world's largest WordPress hosts. Their Managed WordPress Hosting handles the technical side — server maintenance, automatic WordPress core updates, and daily backups — so you focus on your content. Plans: (1) Basic (~$8/month) — 1 website, 30GB storage, 25,000 monthly visitors. (2) Deluxe (~$12/month) — 1 website, unlimited storage, 100,000 visitors/month. (3) Ultimate (~$15/month) — staging environment (test changes before going live), enhanced security. (4) Pro (~$20/month) — multiple sites, priority support, premium performance. All plans include: one-click WordPress install, free SSL certificate, 24/7 support, and integration with the GoDaddy hub for managing multiple sites. WordPress is best for: content-heavy sites (blogs, news, portfolios), businesses that need plugins and customization, and anyone who wants more flexibility than a drag-and-drop builder offers. Note: WordPress has a learning curve compared to GoDaddy's Website Builder, but it's the industry standard and gives you the most control long-term.",
+      "godaddy_products": ["Managed WordPress Hosting"]
+    },
+    {
+      "id": "godaddy-email",
+      "type": "godaddy",
+      "keywords": ["godaddy email", "microsoft 365 godaddy", "professional email godaddy", "business email godaddy", "outlook godaddy", "email hosting godaddy", "godaddy office 365"],
+      "question": "What professional email options does GoDaddy offer?",
+      "answer": "GoDaddy offers Microsoft 365 email plans bundled with their services, giving you a professional email address at your own domain (you@yourbusiness.com). Plans: (1) Email Essentials (~$2/month/user) — 10GB mailbox, webmail access, calendar and contacts. (2) Microsoft 365 Business Basic (~$6/month/user) — 50GB Exchange mailbox, Outlook, Teams, SharePoint, OneDrive (1TB), and web versions of Word/Excel/PowerPoint. (3) Microsoft 365 Business Standard (~$13/month/user) — everything above plus desktop installs of the full Office suite (Word, Excel, PowerPoint, Outlook) on up to 5 devices. All plans include: custom domain email, spam filtering, mobile sync (iOS/Android), and 24/7 GoDaddy support. Setup takes about 10 minutes. Getting started: you need a domain registered first (at GoDaddy or elsewhere). A professional email address is one of the most impactful credibility upgrades a new business can make — clients, vendors, and partners take you more seriously with a custom domain email versus a free Gmail or Yahoo address.",
+      "godaddy_products": ["GoDaddy Professional Email", "Microsoft 365 Business Basic", "Microsoft 365 Business Standard"]
+    },
+    {
+      "id": "godaddy-online-store",
+      "type": "godaddy",
+      "keywords": ["godaddy store", "godaddy ecommerce", "godaddy online store", "sell online godaddy", "godaddy shop", "online store godaddy", "sell products godaddy", "godaddy commerce"],
+      "question": "How can I sell products online with GoDaddy?",
+      "answer": "GoDaddy offers two main paths to selling online: (1) GoDaddy Website Builder Commerce Plan (~$20/month) — built-in online store with unlimited product listings, inventory tracking, discount codes, abandoned cart recovery, product variants (size, color), shipping integrations (USPS, UPS, FedEx), and tax calculations. Accepts payment via GoDaddy Payments, PayPal, Apple Pay, and Google Pay. Best for small to mid-size product catalogs without needing advanced customization. (2) WooCommerce on WordPress Hosting — for larger or more complex stores needing extensive plugin customization, subscriptions, memberships, or complex shipping rules. More setup required but highly flexible. Both options include: mobile-optimized storefronts, inventory management, order management dashboard, and customer email notifications. Key features of the commerce plan: you can list physical products, digital downloads, or services. GoDaddy Payments processes transactions with no monthly fee — you pay per transaction.",
+      "godaddy_products": ["GoDaddy Online Store", "GoDaddy Website Builder Commerce", "WooCommerce Hosting"]
+    },
+    {
+      "id": "godaddy-payments",
+      "type": "godaddy",
+      "keywords": ["godaddy payments", "godaddy pay", "godaddy point of sale", "godaddy pos", "godaddy smart terminal", "godaddy card reader", "godaddy payment processing", "godaddy transaction fee"],
+      "question": "What is GoDaddy Payments and how does it compare?",
+      "answer": "GoDaddy Payments is a payment processing solution for both online and in-person transactions, integrated directly with GoDaddy's website and store products. Key details: (1) Online transaction rate: 2.3% + 30¢ per transaction (competitive with Stripe's 2.9% + 30¢). (2) In-person rate: 2.5% per tap/swipe with the GoDaddy Smart Terminal hardware. (3) No monthly fee — you only pay per transaction. (4) Payouts: next-business-day deposits. (5) Hardware: GoDaddy Smart Terminal is a countertop POS system with a built-in receipt printer (~$249 one-time), and a card reader is available for mobile use. (6) Accepts: all major credit/debit cards, Apple Pay, Google Pay, and PayPal. (7) Seamlessly integrated with GoDaddy's Website Builder and Online Store — no third-party setup needed. Best for: businesses that already use GoDaddy's website tools and want a single dashboard for their website, store, and payments without juggling multiple services.",
+      "godaddy_products": ["GoDaddy Payments", "GoDaddy Smart Terminal"]
+    },
+    {
+      "id": "godaddy-ssl",
+      "type": "godaddy",
+      "keywords": ["ssl", "ssl certificate", "https", "secure website", "godaddy ssl", "website security", "padlock", "secure connection", "tls"],
+      "question": "Does my website need an SSL certificate and does GoDaddy provide one?",
+      "answer": "Yes — every website needs SSL (HTTPS) today. SSL encrypts data between your site and visitors, shows the padlock icon in browsers, and is now a trust signal customers look for before entering any information. Google also ranks HTTPS sites higher in search results, and modern browsers show a 'Not Secure' warning on HTTP sites. GoDaddy SSL options: (1) Free SSL — included automatically with all GoDaddy Website Builder plans and most Managed WordPress Hosting plans. No extra setup needed. (2) Standard SSL (~$80/year) — for websites hosted elsewhere or custom-configured setups; covers one domain, issued within minutes. (3) Wildcard SSL (~$300/year) — covers a domain and all its subdomains (e.g., yourdomain.com, shop.yourdomain.com, blog.yourdomain.com). (4) Extended Validation (EV) SSL (~$150/year) — shows your company name in the address bar for maximum trust signals, commonly used by e-commerce and financial sites. If you use GoDaddy's Website Builder or WordPress hosting, you don't need to buy SSL separately — it's included. You only need to purchase a standalone certificate if you're hosting elsewhere.",
+      "godaddy_products": ["Free SSL (included in hosting plans)", "Standard SSL Certificate", "Wildcard SSL Certificate"]
+    },
+    {
+      "id": "godaddy-marketing-tools",
+      "type": "godaddy",
+      "keywords": ["godaddy marketing", "godaddy seo", "godaddy email marketing", "godaddy social media", "godaddy studio", "godaddy airo marketing", "godaddy ads", "godaddy promote"],
+      "question": "What marketing tools does GoDaddy offer for small businesses?",
+      "answer": "GoDaddy Airo™ (their AI business suite) includes several marketing tools: (1) SEO Wizard — built into the Website Builder; suggests keywords, helps optimize page titles and descriptions, and tracks your Google ranking. (2) Email Marketing — create and send branded email campaigns to your customer list with templates, automation, and open/click tracking. Included in premium Website Builder plans. (3) GoDaddy Studio — a graphic design tool (mobile and web app) for creating branded social media posts, stories, logos, and marketing materials. Offers hundreds of templates, font pairing, and brand kit management. Free tier available; Pro ~$10/month. (4) Social Media Scheduler — connect your Facebook, Instagram, and Google Business Profile to post and schedule content directly from GoDaddy's dashboard. (5) Google and Meta Ads — run targeted paid ads directly from GoDaddy's marketing hub without needing separate ad accounts. (6) Google Business Profile Integration — set up and manage your Google Business listing directly from GoDaddy. These tools are designed to work together so a small business can manage their website, email, social media, and ads from one place.",
+      "godaddy_products": ["GoDaddy Airo", "GoDaddy Studio", "GoDaddy Email Marketing"]
+    },
+    {
+      "id": "hiring-contractors",
+      "type": "business",
+      "keywords": ["hire", "contractor", "employee", "freelancer", "subcontractor", "1099", "w2", "outsource", "virtual assistant", "team", "help"],
+      "question": "What's the difference between hiring an employee and a contractor?",
+      "answer": "The core difference: employees work under your direction and schedule (you control how and when they work), contractors work independently and set their own methods. Employees require you to withhold and pay payroll taxes, provide workers' comp, and potentially benefits. Contractors receive a 1099 form at year-end if you paid them $600+, and they handle their own taxes. The IRS cares a lot about this distinction — misclassifying employees as contractors is a common and costly mistake. Key contractor indicators: they work for multiple clients, use their own tools, set their own hours, and are hired for a specific project. If someone only works for you full-time and you control how they do their job, they're likely an employee. Start with contractors and only hire employees when you have steady workload for them.",
+      "godaddy_products": []
+    }
+  ]
+}

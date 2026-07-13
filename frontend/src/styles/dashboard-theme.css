@@ -1,0 +1,447 @@
+/* Dashboard layout — matched to Figma mockup */
+
+.dashboard-page {
+  background-color: #ffffff;
+}
+
+.dashboard-sidebar {
+  width: 17.5rem;
+  min-width: 17.5rem;
+  background-color: #fafafa;
+  border-right: 0;
+}
+
+.dashboard-main {
+  background-color: #ffffff;
+}
+
+/* Roomier main content: larger outer padding + spacing between sections */
+.dashboard-content {
+  gap: 2.5rem;
+  padding: 2.5rem 3rem;
+}
+
+@media (max-width: 768px) {
+  .dashboard-content {
+    gap: 2rem;
+    padding: 1.5rem 1.25rem;
+  }
+}
+
+.dashboard-header {
+  background-color: #ffffff;
+  border-bottom: 0;
+}
+
+/* ─── Nav items ─── */
+
+.dashboard-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  text-decoration: none;
+  color: #444444;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.dashboard-nav-item:hover:not(:disabled) {
+  background-color: #f3f5f6;
+}
+
+.dashboard-nav-item--active {
+  background-color: #d8efef;
+  color: #111111;
+  font-weight: 500;
+}
+
+.dashboard-nav-item--active:hover:not(:disabled) {
+  background-color: #d8efef;
+}
+
+.dashboard-nav-item:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.dashboard-workspace-switcher {
+  color: #444444;
+}
+
+.dashboard-nav-divider {
+  height: 1px;
+  margin: 0.5rem 0;
+  background-color: #e0e5e6;
+}
+
+/* ─── Welcome banner ─── */
+
+.dashboard-welcome {
+  background-color: #ffffff;
+  border: 1px solid #e0e5e6;
+  border-radius: 1rem;
+  padding: 2rem;
+}
+
+/* ─── Metric cards ─── */
+
+.dashboard-metric-card {
+  background-color: #f5f7f8;
+  min-height: 10.9375rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboard-metric-card--tall {
+  min-height: 21.75rem;
+}
+
+/* ─── Insights grid ─── */
+
+.dashboard-insights-grid {
+  display: grid;
+  grid-template-columns: minmax(12rem, 1fr) minmax(0, 2fr);
+  gap: 1rem;
+}
+
+.dashboard-insights-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (max-width: 960px) {
+  .dashboard-insights-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─── Search bar ─── */
+
+.dashboard-search {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  width: 100%;
+  max-width: 30rem;
+  padding: 0.625rem 1rem;
+  border-radius: 999px;
+  border: 1px solid #e0e5e6;
+  background-color: #ffffff;
+  color: #6b7575;
+}
+
+.dashboard-search:focus-within {
+  border-color: #00a4a6;
+}
+
+.dashboard-search input {
+  border: 0;
+  outline: none;
+  background: transparent;
+  font: inherit;
+  font-size: 0.9375rem;
+  color: #111111;
+  width: 100%;
+}
+
+.dashboard-search input::placeholder {
+  color: #9ca3a3;
+}
+
+/* ─── Greeting row ─── */
+
+.dashboard-greeting-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111111;
+  line-height: 1.2;
+}
+
+.dashboard-balance {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #444444;
+}
+
+.dashboard-balance-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-weight: 700;
+  color: #111111;
+}
+
+/* ─── Welcome banner promo layout ─── */
+
+.dashboard-welcome-grid {
+  display: grid;
+  grid-template-columns: minmax(14rem, 1fr) repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+@media (max-width: 1080px) {
+  .dashboard-welcome-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard-welcome-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dashboard-promo-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.25rem;
+  min-height: 12.5rem;
+  padding: 1.5rem;
+  border-radius: 0.875rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.dashboard-promo-card--peach {
+  background-color: #ffe6d0;
+}
+
+.dashboard-promo-card--purple {
+  background-color: #ece7fb;
+}
+
+.dashboard-promo-card--green {
+  background-color: #e2f3d9;
+}
+
+.dashboard-promo-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #111111;
+  line-height: 1.3;
+}
+
+/* ─── Section header ─── */
+
+.dashboard-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.dashboard-section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111111;
+}
+
+.dashboard-view-all {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #111111;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ─── Mission match cards ─── */
+
+.dashboard-match-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+@media (max-width: 1080px) {
+  .dashboard-match-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard-match-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dashboard-match-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  padding: 1.5rem;
+  border-radius: 0.875rem;
+  border: 1px solid #e0e5e6;
+  background-color: #ffffff;
+  transition: box-shadow 200ms ease, transform 150ms ease;
+}
+
+.dashboard-match-card:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.dashboard-match-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.dashboard-match-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.75rem;
+  background-color: #d8efef;
+  color: #007c7e;
+  flex-shrink: 0;
+}
+
+.dashboard-match-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.dashboard-match-body {
+  flex: 1 1 auto;
+}
+
+.dashboard-match-title {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: #111111;
+  line-height: 1.3;
+}
+
+.dashboard-match-desc {
+  font-size: 0.875rem;
+  color: #6b7575;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.dashboard-match-xp {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111111;
+}
+
+.dashboard-match-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.8125rem;
+  color: #6b7575;
+}
+
+.dashboard-match-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.dashboard-match-divider {
+  height: 1px;
+  background-color: #eef1f2;
+}
+
+/* ─── Toast ─── */
+
+.dashboard-toast {
+  position: fixed;
+  left: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background-color: #1f8f4e;
+  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.dashboard-toast-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboard-toast-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.dashboard-toast-close:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ─── Header utilities ─── */
+
+.dashboard-header-divider {
+  width: 1px;
+  height: 1.5rem;
+  background-color: #111111;
+}
+
+.dashboard-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  color: #111111;
+}
+
+.dashboard-icon-button:hover {
+  background-color: #f3f5f6;
+}
+
+.dashboard-profile-chip {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #111111;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}

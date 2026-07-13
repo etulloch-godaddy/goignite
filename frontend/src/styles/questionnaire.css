@@ -1,0 +1,489 @@
+/* ─── Questionnaire layout ─── */
+
+.q-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #ffffff;
+}
+
+.q-header {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e5e6;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.q-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 1.75rem;
+}
+
+.q-header-logo {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.q-header-logo svg {
+  width: 5.5rem;
+  height: 5.5rem;
+}
+
+.q-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.q-header-divider {
+  width: 1px;
+  height: 1.5rem;
+  background-color: #d6dada;
+}
+
+.q-header-actions .ux-button-square {
+  width: 2.25rem;
+  height: 2.25rem;
+  min-width: 2.25rem;
+  padding: 0;
+}
+
+.q-profile-chip {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #111111;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ─── Step container & transitions ─── */
+
+.q-step-container {
+  position: relative;
+  overflow: hidden;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.q-step {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+}
+
+.q-step--static {
+  position: relative;
+  inset: auto;
+  min-height: 100%;
+}
+
+.q-step-enter {
+  opacity: 0;
+  transform: translateX(60px);
+}
+
+.q-step-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms ease-out, transform 300ms ease-out;
+}
+
+.q-step-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.q-step-exit-active {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: opacity 250ms ease-in, transform 250ms ease-in;
+}
+
+/* ─── Step 1 – Welcome ─── */
+
+.q-welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 4rem);
+  padding: 2rem;
+  text-align: center;
+}
+
+.q-welcome .q-welcome-heading {
+  font-family: var(--font-gd-sage), Georgia, "Times New Roman", serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #111111;
+  margin-bottom: 0.75rem;
+}
+
+.q-welcome-highlight {
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+  padding: 0.05em 0.3em;
+}
+
+.q-welcome-highlight::before {
+  content: "";
+  position: absolute;
+  inset: 0.05em -0.15em;
+  background-color: #00e0d0;
+  transform: skewX(-12deg);
+  border-radius: 2px;
+  z-index: -1;
+}
+
+.q-welcome-sub {
+  font-size: 1.0625rem;
+  color: #444444;
+  max-width: 36rem;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+}
+
+.q-path-cards {
+  display: flex;
+  gap: 1.25rem;
+  justify-content: center;
+  max-width: 68rem;
+  width: 100%;
+}
+
+.q-path-card {
+  flex: 1 1 0;
+  height: 10rem;
+  min-width: 0;
+  padding: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  transition: border-color 200ms ease, box-shadow 200ms ease, transform 150ms ease;
+  display: flex;
+  text-align: left;
+  white-space: normal;
+  background: #ffffff;
+  border-color: transparent;
+}
+
+.q-path-card.ux-button:not(.ux-button-inline) {
+  align-items: stretch;
+  white-space: normal;
+  padding: 0;
+}
+
+.q-path-card .ux-button-text {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: stretch;
+  width: 100%;
+  height: 100%;
+}
+
+.q-path-card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.q-path-card:active,
+.q-path-card[aria-selected="true"] {
+  border-color: #111111;
+}
+
+.q-path-card-body {
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  min-height: 0;
+  z-index: 1;
+}
+
+.q-path-card-label {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #111111;
+  text-align: left;
+  line-height: 1.4;
+}
+
+.q-path-card-img {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  padding: 1.25rem 1.25rem 0 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.q-path-card-img > span {
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: flex-end !important;
+  height: 100% !important;
+  width: auto !important;
+  line-height: 0;
+}
+
+.q-path-card-img img,
+.q-path-card-image {
+  width: auto;
+  height: auto;
+  max-height: 100%;
+  max-width: 10rem;
+  object-fit: contain;
+  object-position: center right;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .q-path-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+  .q-path-card {
+    max-width: 22rem;
+    width: 100%;
+  }
+}
+
+/* ─── Two-column layout (Steps 2–4) ─── */
+
+.q-two-col {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  min-height: calc(100vh - 4rem);
+}
+
+@media (max-width: 768px) {
+  .q-two-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+.q-two-col-form {
+  padding: 3rem 2rem 3rem 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  max-width: 46rem;
+}
+
+.q-two-col-illust {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding: 1rem 2rem;
+}
+
+.q-two-col-illust img {
+  width: 100%;
+  max-width: 100%;
+  max-height: 40rem;
+  object-fit: contain;
+  transform: scaleY(-1) rotate(180deg);
+}
+
+/* ─── Centered layout (Steps 5–8) ─── */
+
+.q-centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 4rem);
+  padding: 2rem;
+  position: relative;
+}
+
+.q-centered-form {
+  max-width: 38rem;
+  width: 100%;
+  z-index: 1;
+}
+
+.q-centered .q-step-heading,
+.q-centered .q-step-sub {
+  text-align: center;
+}
+
+.q-bottom-illust {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 22rem;
+  max-width: 40%;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+.q-bottom-illust--lg {
+  width: 32rem;
+  max-width: 45%;
+}
+
+.q-bottom-illust img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ─── Shared form elements ─── */
+
+.q-step-heading {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #111111;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.q-step-sub {
+  font-size: 0.9375rem;
+  color: #6b7575;
+  margin-bottom: 1.5rem;
+}
+
+.q-chips-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.q-chips-wrap--centered {
+  justify-content: center;
+}
+
+.q-chips-wrap .q-chip-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.q-continue-wrap {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 1rem;
+}
+
+.q-continue-wrap--centered {
+  justify-content: center;
+}
+
+/* ─── Textarea (Step 3) ─── */
+
+.q-textarea {
+  width: 100%;
+  min-height: 7rem;
+  padding: 1rem;
+  border: 1px solid #d6dada;
+  border-radius: 8px;
+  font-family: "GD Sherpa", Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #111111;
+  resize: vertical;
+  margin-bottom: 1.5rem;
+  outline: none;
+  transition: border-color 200ms ease;
+}
+
+.q-textarea:focus {
+  border-color: #00a4a6;
+}
+
+.q-textarea::placeholder {
+  color: #9ca3a3;
+}
+
+/* ─── Pitch submit (Step 3) ─── */
+
+.q-submit-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.q-pitch-submit {
+  width: 2.5rem;
+  height: 2.5rem;
+  min-width: 2.5rem;
+  padding: 0;
+}
+
+/* ─── Range slider rows (Steps 5 & 8) ─── */
+
+.q-range-row {
+  margin-bottom: 2rem;
+}
+
+.q-range-label {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #111111;
+  margin-bottom: 0.75rem;
+}
+
+/* ─── Goal cards (Step 7) ─── */
+
+.q-goal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.q-goal-option {
+  min-height: 5.625rem;
+  width: 100%;
+  justify-content: flex-start;
+  padding: 1.5rem;
+  border-radius: 16px;
+}
+
+/* ─── Progress dots ─── */
+
+.q-progress {
+  display: flex;
+  gap: 0.375rem;
+  justify-content: center;
+  padding: 0.75rem 0;
+}
+
+.q-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background-color: #d6dada;
+  transition: background-color 250ms ease, width 250ms ease;
+}
+
+.q-dot--active {
+  background-color: #00a4a6;
+  width: 1.25rem;
+  border-radius: 999px;
+}
+
+.q-dot--done {
+  background-color: #00a4a6;
+}
