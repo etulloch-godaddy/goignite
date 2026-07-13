@@ -17,20 +17,27 @@
 
 /* Roomier main content: larger outer padding + spacing between sections */
 .dashboard-content {
-  gap: 2.5rem;
-  padding: 2.5rem 3rem;
+  gap: 3.25rem;
+  padding: 3.25rem 5rem;
 }
 
 @media (max-width: 768px) {
   .dashboard-content {
-    gap: 2rem;
-    padding: 1.5rem 1.25rem;
+    gap: 2.25rem;
+    padding: 1.75rem 1.25rem;
   }
 }
 
 .dashboard-header {
   background-color: #ffffff;
   border-bottom: 0;
+  padding-inline: 5rem;
+}
+
+@media (max-width: 768px) {
+  .dashboard-header {
+    padding-inline: 1.25rem;
+  }
 }
 
 /* ─── Nav items ─── */
@@ -84,10 +91,14 @@
 /* ─── Welcome banner ─── */
 
 .dashboard-welcome {
-  background-color: #ffffff;
-  border: 1px solid #e0e5e6;
-  border-radius: 1rem;
-  padding: 2rem;
+  background-color: #f0faf9;
+  border: 1px solid #cdeceb;
+  border-radius: 0.875rem;
+  padding: 2.75rem;
+}
+
+.dashboard-welcome-lockup .ux-text-lockup--title {
+  font-family: var(--font-gd-sage), system-ui, sans-serif;
 }
 
 /* ─── Metric cards ─── */
@@ -95,6 +106,7 @@
 .dashboard-metric-card {
   background-color: #f5f7f8;
   min-height: 10.9375rem;
+  padding: 1.75rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -108,14 +120,15 @@
 
 .dashboard-insights-grid {
   display: grid;
-  grid-template-columns: minmax(12rem, 1fr) minmax(0, 2fr);
-  gap: 1rem;
+  grid-template-columns: minmax(16rem, 1fr) minmax(0, 1.6fr);
+  gap: 1.5rem;
+  align-items: stretch;
 }
 
 .dashboard-insights-stack {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 @media (max-width: 960px) {
@@ -160,10 +173,10 @@
 /* ─── Greeting row ─── */
 
 .dashboard-greeting-title {
-  font-size: 2rem;
+  font-size: 2.75rem;
   font-weight: 700;
   color: #111111;
-  line-height: 1.2;
+  line-height: 1.15;
 }
 
 .dashboard-balance {
@@ -181,55 +194,161 @@
   color: #111111;
 }
 
-/* ─── Welcome banner promo layout ─── */
+/* ─── Welcome hero (one clear starting place) ─── */
 
-.dashboard-welcome-grid {
-  display: grid;
-  grid-template-columns: minmax(14rem, 1fr) repeat(3, minmax(0, 1fr));
-  gap: 1.5rem;
-}
-
-@media (max-width: 1080px) {
-  .dashboard-welcome-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (max-width: 640px) {
-  .dashboard-welcome-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.dashboard-promo-card {
+.dashboard-welcome-hero {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 1.25rem;
-  min-height: 12.5rem;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: left;
+  gap: 1.5rem;
+  padding-block: 2.5rem;
+}
+
+.dashboard-welcome-lockup {
+  max-width: 42rem;
+  text-align: left;
+  margin-inline: 0;
+}
+
+.dashboard-welcome-start {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.625rem;
   padding: 1.5rem;
   border-radius: 0.875rem;
-  overflow: hidden;
-  position: relative;
+  background-color: #f0faf9;
+  border: 1px solid #cdeceb;
+  width: 100%;
 }
 
-.dashboard-promo-card--peach {
-  background-color: #ffe6d0;
+.dashboard-welcome-start-label {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #007c7e;
 }
 
-.dashboard-promo-card--purple {
-  background-color: #ece7fb;
-}
-
-.dashboard-promo-card--green {
-  background-color: #e2f3d9;
-}
-
-.dashboard-promo-title {
-  font-size: 1.125rem;
+.dashboard-welcome-start-title {
+  font-size: 1.1875rem;
   font-weight: 700;
   color: #111111;
   line-height: 1.3;
+}
+
+/* ─── Explore-your-tools shortcut menu ─── */
+
+.dashboard-shortcuts {
+  margin-top: 2.25rem;
+  padding-top: 2rem;
+  border-top: 1px solid #cdeceb;
+}
+
+.dashboard-shortcuts-label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #6b7575;
+  margin-bottom: 1.25rem;
+}
+
+.dashboard-shortcut-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 1rem;
+}
+
+.dashboard-shortcut {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 1rem 1.125rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e0e5e6;
+  background-color: #ffffff;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 150ms ease, box-shadow 200ms ease, transform 150ms ease;
+}
+
+.dashboard-shortcut:hover {
+  border-color: #00a4a6;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
+}
+
+.dashboard-shortcut-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.625rem;
+  background-color: #d8efef;
+  color: #007c7e;
+  flex-shrink: 0;
+}
+
+.dashboard-shortcut-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+}
+
+.dashboard-shortcut-label {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #111111;
+  line-height: 1.3;
+}
+
+.dashboard-shortcut-desc {
+  font-size: 0.8125rem;
+  color: #6b7575;
+  line-height: 1.3;
+}
+
+.dashboard-shortcut-lock {
+  margin-left: auto;
+  color: #9ca3a3;
+  flex-shrink: 0;
+}
+
+.dashboard-shortcut--locked {
+  background-color: #f5f7f8;
+  cursor: default;
+}
+
+.dashboard-shortcut--locked:hover {
+  border-color: #e0e5e6;
+  box-shadow: none;
+  transform: none;
+}
+
+.dashboard-shortcut--locked .dashboard-shortcut-icon {
+  background-color: #eceff0;
+  color: #9ca3a3;
+}
+
+@media (max-width: 720px) {
+  .dashboard-welcome-start {
+    max-width: none;
+    width: 100%;
+  }
+}
+
+/* Focus-area / metric card grids */
+.dashboard-grid-2,
+.dashboard-grid-3 {
+  gap: 2rem;
 }
 
 /* ─── Section header ─── */
@@ -239,12 +358,15 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
-.dashboard-section-title {
-  font-size: 1.25rem;
+.dashboard-content .dashboard-section-head .dashboard-section-title {
+  font-size: 1.5rem;
   font-weight: 700;
   color: #111111;
+  line-height: 1.3;
 }
 
 .dashboard-view-all {
@@ -260,7 +382,7 @@
 .dashboard-match-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.5rem;
+  gap: 2rem;
 }
 
 @media (max-width: 1080px) {
@@ -278,8 +400,8 @@
 .dashboard-match-card {
   display: flex;
   flex-direction: column;
-  gap: 0.875rem;
-  padding: 1.5rem;
+  gap: 1.25rem;
+  padding: 1.875rem;
   border-radius: 0.875rem;
   border: 1px solid #e0e5e6;
   background-color: #ffffff;
@@ -404,6 +526,331 @@
 
 .dashboard-toast-close:hover {
   background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ─── Business overview cards ─── */
+
+.dashboard-overview-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.75rem;
+  border-radius: 0.875rem;
+  border: 1px solid #e0e5e6;
+  background-color: #ffffff;
+}
+
+.dashboard-overview-checklist {
+  height: 100%;
+}
+
+.dashboard-overview-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+}
+
+.dashboard-overview-head-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.dashboard-overview-title {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: #111111;
+  line-height: 1.3;
+}
+
+.dashboard-overview-sub {
+  font-size: 0.875rem;
+  color: #6b7575;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.dashboard-match-logo--peach {
+  background-color: #ffe6d0;
+  color: #b5541c;
+}
+
+.dashboard-match-logo--purple {
+  background-color: #ece7fb;
+  color: #6b4bd1;
+}
+
+/* Checklist */
+.dashboard-checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 1 1 auto;
+}
+
+.dashboard-checklist-item {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: 0.9375rem;
+  color: #111111;
+  line-height: 1.4;
+}
+
+.dashboard-checklist-item.is-done {
+  color: #9ca3a3;
+  text-decoration: line-through;
+}
+
+.dashboard-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.375rem;
+  height: 1.375rem;
+  border-radius: 999px;
+  color: #c2c9c9;
+  flex-shrink: 0;
+}
+
+.dashboard-check--done {
+  background-color: #1f8f4e;
+  color: #ffffff;
+}
+
+.dashboard-overview-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.dashboard-progress-track {
+  height: 0.5rem;
+  border-radius: 999px;
+  background-color: #eef1f2;
+  overflow: hidden;
+}
+
+.dashboard-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #00a4a6, #007c7e);
+}
+
+.dashboard-progress-label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #6b7575;
+}
+
+/* Recommended step highlight */
+.dashboard-overview-rec {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.875rem 1rem;
+  border-radius: 0.625rem;
+  background-color: #f5f7f8;
+  border: 1px solid #eef1f2;
+}
+
+.dashboard-overview-rec-title {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #111111;
+}
+
+.dashboard-overview-rec-desc {
+  font-size: 0.8125rem;
+  color: #6b7575;
+  line-height: 1.5;
+}
+
+.dashboard-overview-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.625rem;
+  margin-top: auto;
+}
+
+/* Business analytics */
+.dashboard-analytics-rings {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.dashboard-analytics-ring {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.875rem 1rem;
+  border-radius: 0.625rem;
+  background-color: #f5f7f8;
+  border: 1px solid #eef1f2;
+}
+
+.dashboard-analytics-ring-label {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #111111;
+}
+
+.dashboard-analytics-ring-help {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #007c7e;
+  text-decoration: none;
+}
+
+.dashboard-analytics-ring-help:hover {
+  text-decoration: underline;
+}
+
+/* ─── AI companion widget ─── */
+
+.dashboard-companion {
+  position: fixed;
+  right: 1.75rem;
+  bottom: 1.75rem;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.875rem;
+}
+
+.dashboard-companion-fab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #00a4a6, #007c7e);
+  color: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 124, 126, 0.35);
+  transition: transform 150ms ease, box-shadow 200ms ease;
+}
+
+.dashboard-companion-fab:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(0, 124, 126, 0.42);
+}
+
+.dashboard-companion-panel {
+  width: 20rem;
+  max-width: calc(100vw - 3rem);
+  background-color: #ffffff;
+  border: 1px solid #e0e5e6;
+  border-radius: 1rem;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.16);
+  overflow: hidden;
+  animation: companion-in 160ms ease-out;
+}
+
+@keyframes companion-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.dashboard-companion-head {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.875rem 1rem;
+  background: linear-gradient(135deg, #00a4a6, #007c7e);
+  color: #ffffff;
+}
+
+.dashboard-companion-head-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboard-companion-head-title {
+  font-weight: 700;
+  font-size: 0.9375rem;
+  flex: 1 1 auto;
+}
+
+.dashboard-companion-close {
+  border: 0;
+  background: transparent;
+  color: #ffffff;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 999px;
+}
+
+.dashboard-companion-close:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.dashboard-companion-body {
+  padding: 1rem;
+}
+
+.dashboard-companion-msg {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #444444;
+  margin: 0;
+}
+
+.dashboard-companion-input {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem 1rem;
+}
+
+.dashboard-companion-input input {
+  flex: 1 1 auto;
+  border: 1px solid #e0e5e6;
+  border-radius: 999px;
+  padding: 0.5rem 0.875rem;
+  font: inherit;
+  font-size: 0.875rem;
+  outline: none;
+}
+
+.dashboard-companion-input input:focus {
+  border-color: #00a4a6;
+}
+
+.dashboard-companion-input button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex-shrink: 0;
+  border: 0;
+  border-radius: 999px;
+  background-color: #111111;
+  color: #ffffff;
+  cursor: pointer;
 }
 
 /* ─── Header utilities ─── */

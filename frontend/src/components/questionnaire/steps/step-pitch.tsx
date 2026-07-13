@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useCallback, type FormEvent } from "react";
-import Image from "next/image";
 import text from "@ux/text";
 import Button from "@ux/button";
 import ArrowRightIcon from "@ux/icon/arrow-right";
@@ -57,16 +56,6 @@ export function StepPitch({ initial, onNext }: StepPitchProps) {
             </Button>
           </div>
         </form>
-      </div>
-
-      <div className="q-two-col-illust">
-        <Image
-          src="/questionnaire/dream-it.gif"
-          alt="Dream it illustration"
-          width={480}
-          height={480}
-          unoptimized
-        />
       </div>
     </div>
   );

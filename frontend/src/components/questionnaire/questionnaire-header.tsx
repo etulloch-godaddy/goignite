@@ -3,14 +3,13 @@
 import BellIcon from "@ux/icon/bell";
 import AppsIcon from "@ux/icon/apps";
 import CartIcon from "@ux/icon/cart";
-import GdLogoIcon from "@ux/icon/gd-logo";
 
 export function QuestionnaireHeader() {
   return (
     <header className="q-header">
       <div className="q-header-inner">
         <span className="q-header-logo">
-          <GdLogoIcon width={115} height={24} title="GoDaddy" />
+          <span className="q-header-wordmark">GoIgnite</span>
         </span>
 
         <div className="q-header-actions">

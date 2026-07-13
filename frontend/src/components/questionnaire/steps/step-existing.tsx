@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import Image from "next/image";
 import text from "@ux/text";
 import Button from "@ux/button";
 import Chip from "@ux/chip";
@@ -55,15 +54,6 @@ export function StepExisting({ initial, onNext }: StepExistingProps) {
             onClick={() => onNext(selected)}
           />
         </div>
-      </div>
-
-      <div className="q-bottom-illust q-bottom-illust--lg">
-        <Image
-          src="/questionnaire/cursor-ride.png"
-          alt="Cursor ride illustration"
-          width={400}
-          height={400}
-        />
       </div>
     </div>
   );
