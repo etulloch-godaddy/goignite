@@ -83,16 +83,6 @@ export function OutreachTracker({ userId }: Props) {
     }
   };
 
-  const statusClass = (status: string) => {
-    const map: Record<string, string> = {
-      sent: "social-badge--sent",
-      replied: "social-badge--replied",
-      deal: "social-badge--deal",
-      no_response: "social-badge--no-response",
-    };
-    return `social-status-badge ${map[status] ?? ""}`;
-  };
-
   return (
     <Box orientation="vertical" gap="lg">
       <Box orientation="horizontal" blockAlignChildren="center">
@@ -179,14 +169,15 @@ export function OutreachTracker({ userId }: Props) {
                   <td><Label as="label" size={2}>{entry.brand}</Label></td>
                   <td>{entry.platform}</td>
                   <td>
-                    <Select
-                      id={`status-${entry.entry_id}`}
-                      label=""
+                    <select
+                      className="social-status-select"
                       value={entry.status}
-                      options={STATUS_OPTIONS}
-                      onChange={(val: string) => handleStatusChange(entry.entry_id, val)}
-                      className={statusClass(entry.status)}
-                    />
+                      onChange={(e) => handleStatusChange(entry.entry_id, e.target.value)}
+                    >
+                      {STATUS_OPTIONS.map((o) => (
+                        <option key={o.value} value={o.value}>{o.label}</option>
+                      ))}
+                    </select>
                   </td>
                   <td className="social-notes-cell">{entry.notes ?? "—"}</td>
                   <td>{new Date(entry.created_at).toLocaleDateString()}</td>

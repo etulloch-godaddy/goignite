@@ -280,6 +280,16 @@ export async function getSocialMissions(
   return data.missions ?? [];
 }
 
+export async function getAllSocialMissions(
+  creatorType?: string,
+): Promise<SocialMission[]> {
+  const params = new URLSearchParams();
+  if (creatorType) params.set("creator_type", creatorType);
+  const qs = params.toString() ? `?${params.toString()}` : "";
+  const data = await request<{ missions: SocialMission[] }>(`/api/social/missions/all${qs}`);
+  return data.missions ?? [];
+}
+
 export async function completeSocialMission(
   missionId: string,
   userId: string,
@@ -358,10 +368,13 @@ export async function getMonetizationAdvice(params: {
 export async function getSeoKeywords(
   creatorType: string,
   platform: SocialPlatform,
+  niche?: string,
+  businessName?: string,
 ): Promise<SeoKeywordsResponse> {
-  return request<SeoKeywordsResponse>(
-    `/api/social/seo/keywords?creator_type=${encodeURIComponent(creatorType)}&platform=${platform}`,
-  );
+  const params = new URLSearchParams({ creator_type: creatorType, platform });
+  if (niche) params.set("niche", niche);
+  if (businessName) params.set("business_name", businessName);
+  return request<SeoKeywordsResponse>(`/api/social/seo/keywords?${params}`);
 }
 
 export async function analyzeSeoProfile(payload: {
