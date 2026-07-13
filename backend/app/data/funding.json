@@ -1,0 +1,271 @@
+[
+  {
+    "id": "tiktok-creator-rewards",
+    "name": "TikTok Creator Rewards Program",
+    "type": "creator_fund",
+    "description": "Earn revenue directly from TikTok based on views, engagement, and watch time. Available to creators who meet follower and view thresholds.",
+    "amount": "$0.02–$0.04 per 1,000 views",
+    "deadline": "Rolling",
+    "eligibility_stages": ["builder", "brand", "investor_ready"],
+    "creator_types": ["all"],
+    "requirements": [
+      "18+ years old",
+      "10,000+ followers",
+      "100,000+ views in last 30 days",
+      "Account in good standing"
+    ],
+    "application_url": "https://www.tiktok.com/creators/creator-portal/",
+    "tags": ["creator fund", "video", "social", "rolling"]
+  },
+  {
+    "id": "youtube-partner-program",
+    "name": "YouTube Partner Program",
+    "type": "creator_fund",
+    "description": "Monetise your YouTube channel through ad revenue, channel memberships, and Super Thanks. The baseline monetisation program for video creators.",
+    "amount": "Ad revenue share (avg $3–$10 RPM)",
+    "deadline": "Rolling",
+    "eligibility_stages": ["builder", "brand", "investor_ready"],
+    "creator_types": ["all"],
+    "requirements": [
+      "1,000+ subscribers",
+      "4,000 watch hours in last 12 months",
+      "Google AdSense account",
+      "Compliant with YouTube monetisation policies"
+    ],
+    "application_url": "https://www.youtube.com/howyoutubeworks/product-features/yt-partner-program/",
+    "tags": ["creator fund", "video", "ad revenue", "rolling"]
+  },
+  {
+    "id": "instagram-reels-play-bonus",
+    "name": "Instagram Reels Play Bonus",
+    "type": "creator_fund",
+    "description": "Earn bonuses based on Reels performance. Meta invites eligible creators — keep your account active and growing to qualify.",
+    "amount": "Up to $10,000/month",
+    "deadline": "Rolling (invite-based)",
+    "eligibility_stages": ["builder", "brand", "investor_ready"],
+    "creator_types": ["fashion", "fitness", "food", "art"],
+    "requirements": [
+      "Creator account or professional account",
+      "Consistent Reels posting cadence",
+      "5,000+ followers recommended",
+      "Located in an eligible country"
+    ],
+    "application_url": "https://creators.instagram.com/",
+    "tags": ["creator fund", "video", "reels", "instagram"]
+  },
+  {
+    "id": "snap-ar-creator-fund",
+    "name": "Snap AR Creator Fund",
+    "type": "creator_fund",
+    "description": "Snap funds developers and creators building augmented reality lenses. Strong fit for gaming and art creators with an interactive edge.",
+    "amount": "Up to $50,000/year",
+    "deadline": "Rolling",
+    "eligibility_stages": ["builder", "brand", "investor_ready"],
+    "creator_types": ["gaming", "art"],
+    "requirements": [
+      "Active Snapchat creator account",
+      "Published AR lens with engagement",
+      "Lens Studio proficiency"
+    ],
+    "application_url": "https://ar.snap.com/lens-studio/ar-creator-fund",
+    "tags": ["creator fund", "AR", "tech", "gaming", "art"]
+  },
+  {
+    "id": "etsy-up-running-grant",
+    "name": "Etsy Up & Running Grant",
+    "type": "grant",
+    "description": "Etsy periodically awards micro-grants to small creative businesses selling handmade, vintage, or digital products. Great for art, fashion, and food creators with a product line.",
+    "amount": "$500–$5,000",
+    "deadline": "Quarterly (check site for current cycle)",
+    "eligibility_stages": ["builder", "brand", "investor_ready"],
+    "creator_types": ["art", "fashion", "food"],
+    "requirements": [
+      "Active Etsy shop",
+      "Under $250,000 annual revenue",
+      "Based in US, UK, Canada, or Australia",
+      "At least 10 product listings"
+    ],
+    "application_url": "https://www.etsy.com/seller-handbook/article/etsy-grants",
+    "tags": ["grant", "e-commerce", "handmade", "small business"]
+  },
+  {
+    "id": "amazon-influencer-program",
+    "name": "Amazon Influencer Program",
+    "type": "revenue_based",
+    "description": "Curate a storefront of recommended products and earn commissions on qualifying purchases. Works across all creator niches with an engaged audience.",
+    "amount": "1–20% commission per sale",
+    "deadline": "Rolling",
+    "eligibility_stages": ["brand", "investor_ready"],
+    "creator_types": ["all"],
+    "requirements": [
+      "Active social media account with engagement",
+      "YouTube, Instagram, TikTok, or Facebook presence",
+      "Consistent posting history",
+      "Apply via Amazon Associates portal"
+    ],
+    "application_url": "https://affiliate-program.amazon.com/influencers",
+    "tags": ["revenue share", "affiliate", "e-commerce", "rolling"]
+  },
+  {
+    "id": "goldman-10ksb",
+    "name": "Goldman Sachs 10,000 Small Businesses",
+    "type": "grant",
+    "description": "A practical business education program paired with grant opportunities for small business owners. Cohort-based curriculum with access to capital upon completion.",
+    "amount": "Up to $25,000",
+    "deadline": "Twice yearly (Spring / Fall cohorts)",
+    "eligibility_stages": ["brand", "investor_ready"],
+    "creator_types": ["all"],
+    "requirements": [
+      "In business for at least 2 years",
+      "At least $150,000 in annual revenue",
+      "At least 4 employees (including owner)",
+      "US-based business"
+    ],
+    "application_url": "https://www.goldmansachs.com/careers/divisions/transaction-banking/10ksb",
+    "tags": ["grant", "business education", "established", "US only"]
+  },
+  {
+    "id": "shopify-compass-grants",
+    "name": "Shopify Compass Grants",
+    "type": "grant",
+    "description": "Shopify periodically awards grants and resources to creators building commerce businesses. Access to merchant resources, mentorship, and growth funding.",
+    "amount": "Up to $15,000 + Shopify credits",
+    "deadline": "Quarterly",
+    "eligibility_stages": ["brand", "investor_ready"],
+    "creator_types": ["fashion", "food", "art"],
+    "requirements": [
+      "Active Shopify store",
+      "At least 6 months of sales history",
+      "Products in fashion, food, or art categories",
+      "Under $500,000 annual revenue"
+    ],
+    "application_url": "https://www.shopify.com/compass",
+    "tags": ["grant", "e-commerce", "product business", "shopify"]
+  },
+  {
+    "id": "national-biz-plan-competition",
+    "name": "National Business Plan Competition",
+    "type": "competition",
+    "description": "Annual competition for early-stage businesses. Submit your pitch deck and business plan for a chance at a significant cash award and national exposure.",
+    "amount": "$100,000 (top prize)",
+    "deadline": "Annual (submissions open January, finals in April)",
+    "eligibility_stages": ["brand", "investor_ready"],
+    "creator_types": ["all"],
+    "requirements": [
+      "Viable business with revenue or strong traction",
+      "Completed business plan (5–15 pages)",
+      "Pitch deck (10–15 slides)",
+      "US-based business or founder"
+    ],
+    "application_url": "https://www.gsea-global.org/",
+    "tags": ["competition", "pitch", "business plan", "annual"]
+  },
+  {
+    "id": "ycombinator",
+    "name": "Y Combinator",
+    "type": "accelerator",
+    "description": "The world's top startup accelerator. YC invests $500K for 7% equity and provides 3 months of intensive mentorship, ending with Demo Day in front of top investors.",
+    "amount": "$500,000 for 7% equity",
+    "deadline": "Cohort-based (applications open Jan & Sep)",
+    "eligibility_stages": ["investor_ready"],
+    "creator_types": ["all"],
+    "requirements": [
+      "Scalable business model (not lifestyle business)",
+      "Compelling growth or traction data",
+      "Full-time commitment from at least one founder",
+      "Ideally incorporated (Delaware C-Corp recommended)"
+    ],
+    "application_url": "https://www.ycombinator.com/apply",
+    "tags": ["accelerator", "equity", "top-tier", "cohort", "silicon valley"]
+  },
+  {
+    "id": "techstars-creator-economy",
+    "name": "Techstars Creator Economy Accelerator",
+    "type": "accelerator",
+    "description": "A 13-week accelerator for creator economy startups backed by major media partners. Provides mentorship from industry veterans and direct investor access.",
+    "amount": "$120,000 ($20K for 6% + optional $100K convertible note)",
+    "deadline": "Annual cohort (applications open spring)",
+    "eligibility_stages": ["investor_ready"],
+    "creator_types": ["all"],
+    "requirements": [
+      "Creator-economy focused business model",
+      "Early product or strong MVP",
+      "Team of 1–4 founders",
+      "Willing to relocate for program duration"
+    ],
+    "application_url": "https://www.techstars.com/accelerators",
+    "tags": ["accelerator", "equity", "cohort", "mentorship", "creator economy"]
+  },
+  {
+    "id": "a16z-creator-fund",
+    "name": "a16z Creator Economy Fund",
+    "type": "angel",
+    "description": "Andreessen Horowitz's dedicated fund for creator economy companies. Invests in tools, platforms, and infrastructure enabling the next generation of creators.",
+    "amount": "$100,000–$500,000 (pre-seed)",
+    "deadline": "Rolling",
+    "eligibility_stages": ["investor_ready"],
+    "creator_types": ["all"],
+    "requirements": [
+      "Creator-economy B2B or B2C platform",
+      "Clear monetisation mechanism",
+      "Founding team with domain expertise",
+      "Pitch deck and financial model required"
+    ],
+    "application_url": "https://a16z.com/creator-economy/",
+    "tags": ["angel", "VC", "pre-seed", "tech platform", "creator economy"]
+  },
+  {
+    "id": "fj-labs",
+    "name": "FJ Labs",
+    "type": "angel",
+    "description": "One of the most active marketplace investors globally. FJ Labs invests in marketplaces, platforms, and creator-monetisation startups at pre-seed and seed.",
+    "amount": "$250,000–$1,000,000",
+    "deadline": "Rolling",
+    "eligibility_stages": ["investor_ready"],
+    "creator_types": ["all"],
+    "requirements": [
+      "Marketplace or platform model",
+      "Some early traction or pilot data",
+      "Clear path to $1M+ ARR",
+      "Deck and intro required"
+    ],
+    "application_url": "https://fjlabs.com/",
+    "tags": ["angel", "marketplace", "pre-seed", "seed", "rolling"]
+  },
+  {
+    "id": "backstage-capital",
+    "name": "Backstage Capital",
+    "type": "angel",
+    "description": "Backstage Capital invests in underrepresented founders across fashion, wellness, fitness, and creative industries. Strong track record with lifestyle and creator brands.",
+    "amount": "$25,000–$250,000",
+    "deadline": "Rolling",
+    "eligibility_stages": ["investor_ready"],
+    "creator_types": ["fashion", "art", "fitness"],
+    "requirements": [
+      "Underrepresented founder (woman, person of color, or LGBTQ+)",
+      "Revenue-generating or strong pre-revenue traction",
+      "Consumer product or platform in creative space",
+      "US or Canada based"
+    ],
+    "application_url": "https://backstagecapital.com/",
+    "tags": ["angel", "underrepresented founders", "consumer", "creative", "rolling"]
+  },
+  {
+    "id": "digital-undivided-grant",
+    "name": "digitalundivided BIG Innovation Awards",
+    "type": "grant",
+    "description": "Annual grant for Black and Latina women entrepreneurs building scalable tech-enabled businesses. Strong track record for gaming, fitness tech, and digital media founders.",
+    "amount": "Up to $50,000",
+    "deadline": "Annual (applications open October)",
+    "eligibility_stages": ["investor_ready"],
+    "creator_types": ["gaming", "fitness", "art"],
+    "requirements": [
+      "Black or Latina woman founder",
+      "Tech-enabled or scalable business model",
+      "Demonstrated traction or customers",
+      "US-based business"
+    ],
+    "application_url": "https://www.digitalundivided.com/",
+    "tags": ["grant", "DEI", "women founders", "tech-enabled", "annual"]
+  }
+]

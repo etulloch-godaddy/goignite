@@ -240,5 +240,16 @@
     "completion_prompt": "Which accelerator did you apply to?",
     "achievement_title": "Applied to Accelerator",
     "achievement_category": "funding"
+  },
+  {
+    "mission_id": "investor-llc",
+    "stage": "investor_ready",
+    "creator_types": ["all"],
+    "title": "Register your LLC via GoDaddy",
+    "description": "Make your business official. Use GoDaddy Airo to form an LLC in minutes — protecting your personal assets and making your brand investor-ready. Visit godaddy.com/airo/register-llc to get started.",
+    "xp_reward": 200,
+    "completion_prompt": "Confirm your LLC has been registered and share your business name",
+    "achievement_title": "Official Business Entity",
+    "achievement_category": "business_setup"
   }
 ]
