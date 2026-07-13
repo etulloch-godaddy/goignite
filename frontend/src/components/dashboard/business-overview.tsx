@@ -1,6 +1,6 @@
 "use client";
 
-import type { ComponentType } from "react";
+import { useEffect, useState, type ComponentType } from "react";
 import Button from "@ux/button";
 import CircularProgress from "@ux/circular-progress";
 import text from "@ux/text";
@@ -14,6 +14,7 @@ import WebsiteIcon from "@ux/icon/website";
 import OnlineStoreIcon from "@ux/icon/online-store";
 import WorldIcon from "@ux/icon/world";
 import type { DashboardUser, Stage } from "@/lib/dashboard-data";
+import { getSocialStats, type SocialStats } from "@/services/api";
 import { DashboardSection } from "./dashboard-section";
 
 const Title = text.span;
@@ -59,6 +60,82 @@ const PRODUCT_BY_STAGE: Record<Stage, GoDaddyProduct> = {
   },
 };
 
+const PLATFORM_COLOR: Record<string, string> = {
+  instagram: "#e1306c",
+  tiktok: "#010101",
+  facebook: "#1877f2",
+};
+
+function fmt(n: number) {
+  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
+  if (n >= 1_000) return `${(n / 1_000).toFixed(1)}k`;
+  return String(n);
+}
+
+function SocialAnalyticsCard({ userId }: { userId: string }) {
+  const [stats, setStats] = useState<SocialStats[]>([]);
+
+  useEffect(() => {
+    getSocialStats(userId).then(setStats).catch(() => {});
+  }, [userId]);
+
+  const connected = stats.filter((s) => s.connected);
+  const totalFollowers = connected.reduce((sum, s) => sum + (s.followers ?? 0), 0);
+
+  return (
+    <div className="dashboard-overview-card">
+      <div className="dashboard-overview-head">
+        <span className="dashboard-match-logo dashboard-match-logo--teal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
+          </svg>
+        </span>
+        <div className="dashboard-overview-head-text">
+          <Heading as="heading" size={0} className="dashboard-overview-title">
+            Social &amp; Marketing
+          </Heading>
+          <Desc as="paragraph" className="dashboard-overview-sub">
+            Your audience reach across connected platforms.
+          </Desc>
+        </div>
+      </div>
+
+      {connected.length === 0 ? (
+        <div className="dashboard-social-empty">
+          <p className="dashboard-social-empty-text">No platforms connected yet.</p>
+          <Button design="secondary" size="sm" text="Connect platforms" href="/social" />
+        </div>
+      ) : (
+        <div className="dashboard-social-stats">
+          <div className="dashboard-social-total">
+            <span className="dashboard-social-total-value">{fmt(totalFollowers)}</span>
+            <span className="dashboard-social-total-label">total followers</span>
+          </div>
+          <div className="dashboard-social-platform-list">
+            {connected.map((s) => (
+              <div key={s.platform} className="dashboard-social-platform-row">
+                <span className="dashboard-social-dot" style={{ background: PLATFORM_COLOR[s.platform] ?? "#6b7575" }} />
+                <span className="dashboard-social-platform-name">{s.platform}</span>
+                <span className="dashboard-social-platform-bar-wrap">
+                  <span
+                    className="dashboard-social-platform-bar"
+                    style={{ width: `${Math.min(100, ((s.followers ?? 0) / Math.max(totalFollowers, 1)) * 100)}%` }}
+                  />
+                </span>
+                <span className="dashboard-social-platform-count">{fmt(s.followers ?? 0)}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div className="dashboard-overview-actions">
+        <Button design="primary" size="sm" text="Open Social Hub" href="/social" />
+      </div>
+    </div>
+  );
+}
+
 export function BusinessOverview({ user }: { user: DashboardUser }) {
   const steps = user.todaysMissions;
   const done = user.completedMissionCount;
@@ -86,7 +163,7 @@ export function BusinessOverview({ user }: { user: DashboardUser }) {
       </div>
 
       <div className="dashboard-insights-grid">
-        {/* Step-by-step checklist + progress (top survey needs) */}
+        {/* Left: step-by-step checklist */}
         <div className="dashboard-overview-card dashboard-overview-checklist">
           <div className="dashboard-overview-head">
             <span className="dashboard-match-logo">
@@ -131,8 +208,10 @@ export function BusinessOverview({ user }: { user: DashboardUser }) {
           </div>
         </div>
 
-        {/* Right column: personalized + guidance */}
+        {/* Right column: Social first, then Business Analytics */}
         <div className="dashboard-insights-stack">
+          {user.userId && <SocialAnalyticsCard userId={user.userId} />}
+
           <div className="dashboard-overview-card">
             <div className="dashboard-overview-head">
               <span className="dashboard-match-logo dashboard-match-logo--peach">
