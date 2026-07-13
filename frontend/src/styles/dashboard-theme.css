@@ -1018,6 +1018,26 @@
   background: #f5f7f8;
 }
 
+.investor-header-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+  margin-top: 1.5rem;
+}
+
+.investor-header-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+@media (max-width: 900px) {
+  .investor-header-row {
+    grid-template-columns: 1fr;
+  }
+}
+
 .investor-header {
   background: #ffffff;
   border-bottom: 1px solid #e0e5e6;
@@ -1048,8 +1068,27 @@
 }
 
 .investor-content {
-  max-width: 860px;
+  max-width: 1400px;
   margin: 0 auto;
+}
+
+.investor-pitch-funding-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.investor-left-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .investor-pitch-funding-row {
+    grid-template-columns: 1fr;
+  }
 }
 
 .investor-section {
@@ -1075,8 +1114,20 @@
 
 .investor-funding-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
+}
+
+@media (max-width: 1100px) {
+  .investor-funding-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .investor-funding-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .investor-funding-card {
@@ -1113,4 +1164,69 @@
   font-size: 0.9rem;
   font-weight: 600;
   color: #111111;
+}
+
+.pitch-slides-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.pitch-slide-card {
+  display: flex;
+  gap: 1rem;
+  background: #f5f7f8;
+  border-radius: 8px;
+  padding: 14px 16px;
+  border-left: 3px solid #00a4a6;
+}
+
+.pitch-slide-number {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  background: #00a4a6;
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.pitch-slide-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.pitch-slide-title {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #00a4a6;
+  margin-bottom: 4px;
+}
+
+.pitch-slide-points {
+  margin: 6px 0 8px 0;
+  padding-left: 18px;
+  font-size: 0.85rem;
+  color: #333;
+  line-height: 1.6;
+}
+
+.pitch-slide-points li {
+  margin-bottom: 2px;
+}
+
+.pitch-slide-notes {
+  font-size: 0.8rem;
+  color: #6b7575;
+  font-style: italic;
+  margin: 0;
+  line-height: 1.5;
 }
