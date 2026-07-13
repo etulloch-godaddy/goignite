@@ -2,7 +2,6 @@
 
 import Box, { box } from "@ux/box";
 import SearchIcon from "@ux/icon/search";
-import MailIcon from "@ux/icon/mail";
 import BookmarkIcon from "@ux/icon/bookmark";
 import BellIcon from "@ux/icon/bell";
 import AppsIcon from "@ux/icon/apps";
@@ -34,9 +33,6 @@ export function DashboardHeader({ user }: { user: DashboardUser }) {
       <Box stretch />
 
       <Box orientation="horizontal" gap="sm" inlineAlignChildren="center">
-        <button type="button" className="dashboard-icon-button" aria-label="Messages">
-          <MailIcon width={18} height={18} />
-        </button>
         <button type="button" className="dashboard-icon-button" aria-label="Saved">
           <BookmarkIcon width={18} height={18} />
         </button>

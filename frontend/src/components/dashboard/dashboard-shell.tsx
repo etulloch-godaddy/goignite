@@ -15,9 +15,9 @@ import { DashboardHeader } from "./dashboard-header";
 import { DashboardLoading } from "./dashboard-loading";
 import { DashboardSidebar } from "./dashboard-sidebar";
 import { DashboardToast } from "./dashboard-toast";
-import { WelcomeBanner } from "./welcome-banner";
-import { MissionMatches } from "./mission-matches";
 import { FocusAreaCards } from "./focus-area-cards";
+import { MissionMatches } from "./mission-matches";
+import { WelcomeBanner } from "./welcome-banner";
 
 const Main = box.main;
 
