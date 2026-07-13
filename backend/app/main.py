@@ -4,7 +4,11 @@ load_dotenv()
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routes import achievements, chat, domains, funding, missions, users
+from app.routes import users, chat
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from app.routes import achievements, chat, domains, funding, missions, pitch, users
 
 app = FastAPI(
     title="GoIgnite API",
@@ -26,6 +30,7 @@ app.include_router(domains.router)
 app.include_router(missions.router)
 app.include_router(achievements.router)
 app.include_router(funding.router)
+app.include_router(pitch.router)
 
 
 @app.get("/health")
