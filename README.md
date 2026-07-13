@@ -247,6 +247,21 @@ This means presentations never need manual updating. Complete missions → open 
 
 ---
 
+## Social Media & Marketing Module
+
+`social_media_service.py` handles OAuth, platform stats, Claude content generation, and achievement writes. The full hub lives in `SocialMediaHub.jsx` across 6 tabs.
+
+- **Platform Connect**: OAuth flow for Instagram, TikTok, and Facebook — set `MOCK_SOCIAL_APIS=true` in `.env` to bypass all external calls for demo
+- **Live Stats**: Follower count, engagement rate, and recent post performance pulled per connected platform
+- **Social Missions**: 19 missions across all 4 stages, filtered by creator type — completions award XP and write achievements with `category: "social_visibility"`
+- **AI Content Plan**: `POST /api/social/content-ideas` calls `claude-sonnet-4-6` to generate a 7-day post calendar with hooks, captions, and hashtags; falls back to a static mock if no API key is set
+- **Outreach Tracker**: Brand deal pipeline with status tracking across Starter → Investor-Ready; entries 7+ days old with status "sent" surface a follow-up reminder; closing a deal auto-fires an achievement
+- **Outreach Templates + Platform Guides**: 9 copy-paste DM/email templates and IG/TikTok/FB/LinkedIn guides, all scoped by stage
+
+Integrator adds one `include_router` call in `main.py` and one `<Route>` in `App.jsx` — no other shared files touched.
+
+---
+
 ## GoDaddy Integration (Hackathon-Scoped)
 
 `godaddy_service.py` returns mocked responses that mirror the real GoDaddy Domains/Email API shape. Frontend shows real upgrade flows:
