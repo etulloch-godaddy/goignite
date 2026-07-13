@@ -1,12 +1,11 @@
 "use client";
 
 import Box, { box } from "@ux/box";
-import Button from "@ux/button";
-import text from "@ux/text";
-import RefreshIcon from "@ux/icon/refresh";
+import SearchIcon from "@ux/icon/search";
+import MailIcon from "@ux/icon/mail";
+import BookmarkIcon from "@ux/icon/bookmark";
 import BellIcon from "@ux/icon/bell";
 import AppsIcon from "@ux/icon/apps";
-import CartIcon from "@ux/icon/cart";
 import type { DashboardUser } from "@/lib/dashboard-data";
 
 const Header = box.header;
@@ -17,19 +16,30 @@ export function DashboardHeader({ user }: { user: DashboardUser }) {
   return (
     <Header
       orientation="horizontal"
-      inlineAlignChildren="end"
+      gap="lg"
       blockAlignChildren="center"
       inlinePadding="lg"
       blockPadding="sm"
       className="dashboard-header"
     >
-      <Box orientation="horizontal" gap="md" inlineAlignChildren="center">
-        <Button design="inline" text="Nav Button" href="#" />
-        <button type="button" className="dashboard-icon-button" aria-label="Refresh">
-          <RefreshIcon width={18} height={18} />
+      <label className="dashboard-search">
+        <SearchIcon width={18} height={18} />
+        <input
+          type="search"
+          placeholder="Search missions, tools, and help…"
+          aria-label="Search"
+        />
+      </label>
+
+      <Box stretch />
+
+      <Box orientation="horizontal" gap="sm" inlineAlignChildren="center">
+        <button type="button" className="dashboard-icon-button" aria-label="Messages">
+          <MailIcon width={18} height={18} />
         </button>
-        <div className="dashboard-header-divider" aria-hidden />
-        <Button design="inline" text="Help Center" href="#" />
+        <button type="button" className="dashboard-icon-button" aria-label="Saved">
+          <BookmarkIcon width={18} height={18} />
+        </button>
         <button type="button" className="dashboard-icon-button" aria-label="Notifications">
           <BellIcon width={18} height={18} />
         </button>
@@ -39,9 +49,6 @@ export function DashboardHeader({ user }: { user: DashboardUser }) {
         <span className="dashboard-profile-chip" aria-label={`${user.firstName}'s profile`}>
           {initials}
         </span>
-        <button type="button" className="dashboard-icon-button" aria-label="Cart">
-          <CartIcon width={18} height={18} />
-        </button>
       </Box>
     </Header>
   );

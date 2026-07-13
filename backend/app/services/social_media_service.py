@@ -1,11 +1,11 @@
 import os
-import uuid
-from datetime import datetime, timezone
 from typing import Optional
 from urllib.parse import urlencode
 
 import httpx
 from dotenv import load_dotenv
+
+from app.models.achievement import Achievement, AchievementCategory
 
 load_dotenv()
 
@@ -250,29 +250,13 @@ async def generate_content_ideas(creator_type: str, stage: str, platform: str, o
         return _json.loads(raw.strip())
 
 
-def build_achievement(user_id: str, mission: dict) -> dict:
-    return {
-        "achievement_id": str(uuid.uuid4()),
-        "user_id": user_id,
-        "title": mission.get("achievement_title", mission["title"]),
-        "date": datetime.now(timezone.utc).isoformat(),
-        "impact": f"Social Visibility · +{mission['xp_reward']} XP",
-        "category": "social_visibility",
-    }
-
-
-async def update_user_xp(user_id: str, xp: int) -> bool:
-    """Best-effort XP update to the users service. Silently skips if unavailable."""
-    try:
-        async with httpx.AsyncClient() as client:
-            resp = await client.patch(
-                f"http://localhost:8000/api/users/{user_id}/xp",
-                json={"xp": xp},
-                timeout=2.0,
-            )
-            return resp.status_code == 200
-    except Exception:
-        return False
+def build_achievement(user_id: str, mission: dict) -> Achievement:
+    return Achievement(
+        user_id=user_id,
+        title=mission.get("achievement_title", mission["title"]),
+        impact=mission["impact"],
+        category=AchievementCategory.monetization,
+    )
 
 
 async def fetch_onboarding_data(user_id: str) -> dict:

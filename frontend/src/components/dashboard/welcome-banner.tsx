@@ -8,39 +8,74 @@ import type { DashboardUser } from "@/lib/dashboard-data";
 import { getStageLabel } from "@/lib/dashboard-data";
 import { DashboardSection } from "./dashboard-section";
 
+type Promo = {
+  id: string;
+  title: string;
+  cta: string;
+  href: string;
+  variant: "peach" | "purple" | "green";
+};
+
+const promos: Promo[] = [
+  {
+    id: "missions",
+    title: "Complete today's missions",
+    cta: "Browse missions",
+    href: "#missions",
+    variant: "peach",
+  },
+  {
+    id: "path",
+    title: "See your growth path",
+    cta: "View path",
+    href: "#roadmap",
+    variant: "purple",
+  },
+  {
+    id: "refer",
+    title: "Refer and earn XP",
+    cta: "Invite friends",
+    href: "#refer",
+    variant: "green",
+  },
+];
+
 export function WelcomeBanner({ user }: { user: DashboardUser }) {
   const Paragraph = text.p;
+  const PromoTitle = text.span;
 
   return (
     <DashboardSection id="overview">
       <Box
+        elevation="raised"
+        rounding="reduced"
         blockPadding="lg"
         inlinePadding="lg"
         className="dashboard-welcome"
       >
-        <Box
-          orientation="horizontal"
-          gap="lg"
-          wrap
-          inlineAlignChildren="center"
-          blockAlignChildren="center"
-        >
-          <Box orientation="vertical" gap="md" stretch className="max-w-3xl">
-            <TextLockup
-              title={`Welcome ${user.firstName}!`}
-              size="lg"
-              textMaxWidth={false}
-            >
+        <div className="dashboard-welcome-grid">
+          <Box orientation="vertical" gap="sm" blockAlignChildren="center">
+            <TextLockup title="Welcome to GoIgnite" size="lg" textMaxWidth={false}>
               <Paragraph as="paragraph" emphasis="passive">
                 You&apos;re building <strong>{user.businessName}</strong> in the{" "}
-                {getStageLabel(user.stage)} stage. One small step today keeps
-                things simple — no business degree required.
+                {getStageLabel(user.stage)} stage. Pick one small step today —
+                no business degree required.
               </Paragraph>
             </TextLockup>
           </Box>
 
-          <Button design="primary" text="Continue mission" href="#missions" />
-        </Box>
+          {promos.map((promo) => (
+            <div
+              key={promo.id}
+              className={`dashboard-promo-card dashboard-promo-card--${promo.variant}`}
+            >
+              <PromoTitle as="heading" size={0} className="dashboard-promo-title">
+                {promo.title}
+              </PromoTitle>
+              <Button design="primary" size="sm" text={promo.cta} href={promo.href} />
+            </div>
+          ))}
+        </div>
       </Box>
     </DashboardSection>
   );

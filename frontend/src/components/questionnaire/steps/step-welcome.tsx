@@ -11,6 +11,8 @@ interface PathCard {
   id: string;
   label: string;
   image: string;
+  width: number;
+  height: number;
 }
 
 const pathCards: PathCard[] = [
@@ -18,16 +20,22 @@ const pathCards: PathCard[] = [
     id: "existing-business",
     label: "I already have a business",
     image: "/questionnaire/information-technology.png",
+    width: 367,
+    height: 314,
   },
   {
     id: "have-idea",
     label: "I have an idea",
     image: "/questionnaire/websites-marketing.png",
+    width: 331,
+    height: 275,
   },
   {
     id: "not-sure",
     label: "I want to start something, but not sure what yet",
     image: "/questionnaire/hosting-artist.png",
+    width: 688,
+    height: 857,
   },
 ];
 
@@ -39,7 +47,8 @@ export function StepWelcome({ onSelect }: StepWelcomeProps) {
   return (
     <div className="q-welcome">
       <Heading as="title" size={0} className="q-welcome-heading">
-        Not sure where to start?{" "}
+        Not sure where to start?
+        <br />
         <span className="q-welcome-highlight">That&apos;s exactly why we&apos;re here.</span>
       </Heading>
 
@@ -65,8 +74,8 @@ export function StepWelcome({ onSelect }: StepWelcomeProps) {
               <Image
                 src={card.image}
                 alt=""
-                width={240}
-                height={160}
+                width={card.width}
+                height={card.height}
                 priority
                 className="q-path-card-image"
               />
