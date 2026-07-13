@@ -177,6 +177,26 @@ hackathon2026/
 | PATCH | `/api/domains/{domain}/records` | Add DNS records | ✓ |
 | PUT | `/api/domains/{domain}/records/{type}` | Replace DNS records by type | ✓ |
 | DELETE | `/api/domains/{domain}/records/{type}/{name}` | Delete DNS records | ✓ |
+| GET | `/api/social/connect/{platform}` | OAuth authorization URL for instagram/tiktok/facebook | ✓ |
+| GET | `/api/social/callback/{platform}` | OAuth code exchange + redirect to frontend | ✓ |
+| GET | `/api/social/mock-oauth/{platform}` | Instant mock connect — returns fake stats, no redirect needed | ✓ |
+| GET | `/api/social/stats/{user_id}` | Connected platform follower/engagement stats | ✓ |
+| GET | `/api/social/missions/{user_id}` | Social missions filtered by stage + creator_type | ✓ |
+| POST | `/api/social/missions/{mission_id}/complete` | Complete social mission, award XP, write achievement | ✓ |
+| GET | `/api/social/templates` | Outreach templates filtered by stage + platform | ✓ |
+| GET | `/api/social/guides` | Platform guides (IG/TikTok/FB/LinkedIn) filtered by stage | ✓ |
+| GET | `/api/social/stage-gate/{stage}` | Social visibility prompt shown at each stage unlock | ✓ |
+| POST | `/api/social/content-ideas` | Claude-generated 7-day content plan | ✓ |
+| GET | `/api/social/outreach/{user_id}` | Brand outreach pipeline log + summary stats | ✓ |
+| POST | `/api/social/outreach/{user_id}` | Log a new brand outreach entry | ✓ |
+| PATCH | `/api/social/outreach/{user_id}/{entry_id}` | Update outreach status; fires achievement on first "deal" | ✓ |
+| GET | `/api/social/achievements/{user_id}` | All social visibility achievements + total XP | ✓ |
+| GET | `/api/social/next-action/{user_id}` | Single highest-impact incomplete mission for the user | ✓ |
+| GET | `/api/social/monetization-advice` | Monetization paths by creator type + follower count | ✓ |
+| POST | `/api/social/growth-plan` | Claude-generated 30-day growth plan personalised to user | ✓ |
+| GET | `/api/social/seo/keywords` | Ranked SEO keywords by creator type + platform | ✓ |
+| POST | `/api/social/seo/profile` | Score + rewrite a bio for SEO discoverability | ✓ |
+| POST | `/api/social/seo/content` | Rewrite a caption for maximum platform discoverability | ✓ |
 
 ---
 
