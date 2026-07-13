@@ -104,11 +104,21 @@ export async function getAchievements(userId: string): Promise<ApiAchievement[]>
   return request<ApiAchievement[]>(`/api/users/${userId}/achievements`);
 }
 
-export const DEMO_ONBOARDING = {
-  first_name: "Maya",
-  business_name: "Glow Studio",
-  creator_type_label: "Fashion & lifestyle",
-  pitch: "",
-  niche: "",
-  social_link: "",
-};
+const USER_ID_KEY = "creatorlevel_user_id";
+
+export async function getOrCreateUserId(): Promise<string> {
+  const cached = localStorage.getItem(USER_ID_KEY);
+
+  if (cached) {
+    try {
+      await getUser(cached);
+      return cached;
+    } catch {
+      localStorage.removeItem(USER_ID_KEY);
+    }
+  }
+
+  const id = await createUser();
+  localStorage.setItem(USER_ID_KEY, id);
+  return id;
+}

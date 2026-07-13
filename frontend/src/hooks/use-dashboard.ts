@@ -6,15 +6,11 @@ import { mapUserToDashboard } from "@/lib/map-dashboard";
 import {
   checkApiHealth,
   completeMission as apiCompleteMission,
-  createUser,
-  DEMO_ONBOARDING,
   getAchievements,
+  getOrCreateUserId,
   getTodayMissions,
   getUser,
-  patchOnboarding,
 } from "@/services/api";
-
-const USER_ID_KEY = "goignite_user_id";
 
 export function useDashboard() {
   const [user, setUser] = useState<DashboardUser | null>(null);
@@ -45,14 +41,7 @@ export function useDashboard() {
     }
 
     try {
-      let id = localStorage.getItem(USER_ID_KEY);
-
-      if (!id) {
-        id = await createUser();
-        await patchOnboarding(id, DEMO_ONBOARDING);
-        localStorage.setItem(USER_ID_KEY, id);
-      }
-
+      const id = await getOrCreateUserId();
       setUserId(id);
       await loadDashboard(id);
     } catch {

@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
+import { getOrCreateUserId, patchOnboarding } from "@/services/api";
 import { QuestionnaireHeader } from "./questionnaire-header";
 import { StepWelcome } from "./steps/step-welcome";
 import { StepBusinessType } from "./steps/step-business-type";
@@ -183,11 +184,33 @@ export function QuestionnaireShell() {
   );
 
   const handleBudget = useCallback(
-    (budget: number) => {
-      setAnswers((prev) => ({ ...prev, budget }));
+    async (budget: number) => {
+      const finalAnswers = { ...answers, budget };
+      setAnswers(finalAnswers);
+
+      try {
+        const userId = await getOrCreateUserId();
+        await patchOnboarding(userId, {
+          starting_point: finalAnswers.path,
+          business_types: finalAnswers.businessTypes,
+          creator_type_label: finalAnswers.businessTypes[0],
+          pitch: finalAnswers.pitch,
+          confusion_areas: finalAnswers.confusion,
+          comfort_business: finalAnswers.comfort.business,
+          comfort_money: finalAnswers.comfort.money,
+          comfort_marketing: finalAnswers.comfort.marketing,
+          existing_assets: finalAnswers.existing,
+          goal: finalAnswers.goal,
+          budget_comfort: finalAnswers.budget,
+        });
+      } catch (error) {
+        // Best-effort persistence — don't block navigation, but surface the failure.
+        console.error("Failed to save onboarding data", error);
+      }
+
       router.push("/dashboard");
     },
-    [router]
+    [answers, router]
   );
 
   const renderStep = () => {

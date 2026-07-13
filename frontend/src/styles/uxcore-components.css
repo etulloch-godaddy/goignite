@@ -6,6 +6,7 @@
 @import "@ux/checkbox/dist/styles.css";
 @import "@ux/chip/dist/styles.css";
 @import "@ux/dialog/dist/styles.css";
+@import "@ux/linear-progress/dist/styles.css";
 @import "@ux/message-overlay/dist/styles.css";
 @import "@ux/modal/dist/styles.css";
 @import "@ux/circular-progress/dist/styles.css";
@@ -18,5 +19,18 @@
 @import "@ux/tag/dist/styles.css";
 @import "@ux/text/dist/styles.css";
 @import "@ux/text-lockup/dist/styles.css";
+@import "@ux/thumb/dist/styles.css";
 @import "@ux/toggle/dist/styles.css";
-@import "@ux/range-input/dist/styles.css";
+
+.ux-range-input:where([data-version="2500"]):has([data-grabbed="true"]) {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.ux-range-input:where([data-version="2500"]):has([data-grabbed="false"]) > .ux-track {
+  cursor: grab;
+}
+
+.ux-range-input:where([data-version="2500"]):has([aria-disabled="true"]) > .ux-track {
+  cursor: not-allowed;
+}
