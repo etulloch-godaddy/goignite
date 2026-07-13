@@ -36,6 +36,20 @@ export type ApiAchievement = {
   category: string;
 };
 
+export type ApiFunding = {
+  id: string;
+  name: string;
+  type: string;
+  description: string;
+  amount: string;
+  deadline: string;
+  eligibility_stages: string[];
+  creator_types: string[];
+  requirements: string[];
+  application_url: string;
+  tags: string[];
+};
+
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(`${API_URL}${path}`, {
     ...init,
@@ -104,6 +118,16 @@ export async function getAchievements(userId: string): Promise<ApiAchievement[]>
   return request<ApiAchievement[]>(`/api/users/${userId}/achievements`);
 }
 
+export async function getFunding(
+  stage?: string,
+  creatorType?: string,
+): Promise<ApiFunding[]> {
+  const params = new URLSearchParams();
+  if (stage) params.set("stage", stage);
+  if (creatorType) params.set("creator_type", creatorType);
+  return request<ApiFunding[]>(`/api/funding?${params}`);
+}
+
 const USER_ID_KEY = "creatorlevel_user_id";
 
 export async function getOrCreateUserId(): Promise<string> {
@@ -131,6 +155,18 @@ export const DEMO_ONBOARDING = {
   niche: "",
   social_link: "",
 };
+
+export async function sendChat(
+  message: string,
+  sessionId: string,
+  userId?: string | null,
+): Promise<string> {
+  const data = await request<{ reply: string }>("/api/chat", {
+    method: "POST",
+    body: JSON.stringify({ message, session_id: sessionId, user_id: userId ?? null }),
+  });
+  return data.reply;
+}
 
 // ─── Social Media API ──────────────────────────────────────────────────────────
 
@@ -351,3 +387,4 @@ export async function optimizeSeoContent(payload: {
     body: JSON.stringify(payload),
   });
 }
+

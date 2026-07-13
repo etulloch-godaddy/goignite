@@ -1,5 +1,6 @@
-from fastapi import APIRouter, HTTPException
 from uuid import uuid4
+
+from fastapi import APIRouter, HTTPException
 
 from app.models.user import (
     CreateNewUserResponse,
@@ -48,7 +49,6 @@ def upsert_onboarding_data(
     user = users.get(user_id)
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
-
     user.onboarding_data.update(payload.data)
     users[user_id] = user
     save_users(users)

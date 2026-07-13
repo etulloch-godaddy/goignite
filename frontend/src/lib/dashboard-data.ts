@@ -76,98 +76,52 @@ export function getStageLabel(stage: Stage): string {
   return STAGE_LABELS[stage];
 }
 
-export const demoUser: DashboardUser = {
-  firstName: "Maya",
-  businessName: "Valentina's Hot Sauce",
-  creatorType: "Fashion & lifestyle",
+export const emptyUser: DashboardUser = {
+  firstName: "",
+  businessName: "",
+  creatorType: "",
   stage: "starter",
-  xpTotal: 125,
+  xpTotal: 0,
   xpToNextStage: 300,
   nextStageLabel: STAGE_LABELS.builder,
   nextUnlock: "Domain registration",
-  completedMissionCount: 2,
+  completedMissionCount: 0,
   focusAreas: [
     {
       id: "idea",
       label: "Your idea",
       description: "Clarify what you create and who it's for",
-      progress: 60,
-      helperText: "2 of 3 basics done",
+      progress: 0,
+      helperText: "Start your first step",
     },
     {
       id: "presence",
       label: "Your presence",
       description: "Build a home for your brand online",
-      progress: 25,
-      helperText: "Link your main social profile",
+      progress: 0,
+      helperText: "Start your first step",
     },
     {
       id: "earnings",
       label: "Your earnings",
       description: "Learn how creators like you make money",
-      progress: 10,
+      progress: 0,
       helperText: "Unlocks as you grow",
     },
   ],
-  todaysMissions: [
-    {
-      id: "starter-pitch",
-      title: "Write your 1-sentence pitch",
-      description:
-        "Distill what you create and who it's for into one clear sentence. No jargon — just you.",
-      xpReward: 50,
-      stage: "starter",
-      completionPrompt: "Paste your pitch below",
-    },
-    {
-      id: "starter-brand-name",
-      title: "Name your brand",
-      description:
-        "Pick something memorable that fits your vibe. You'll use this everywhere.",
-      xpReward: 50,
-      stage: "starter",
-      completionPrompt: "What's your brand name?",
-    },
-    {
-      id: "starter-social",
-      title: "Link your social profile",
-      description:
-        "Connect where you already post so your dashboard can grow with you.",
-      xpReward: 50,
-      stage: "starter",
-      completionPrompt: "Paste your profile URL",
-    },
-  ],
-  achievements: [
-    {
-      id: "demo-1",
-      title: "Named Your Brand",
-      impact: "Named Your Brand · +50 XP",
-      category: "business_setup",
-      date: new Date().toISOString(),
-    },
-    {
-      id: "demo-2",
-      title: "Published Creator Bio",
-      impact: "Published Creator Bio · +25 XP",
-      category: "business_setup",
-      date: new Date().toISOString(),
-    },
-  ],
+  todaysMissions: [],
+  achievements: [],
   profile: {
     pitch: "",
-    bio: "Fashion creator helping college students build confident everyday style.",
-    niche: "Budget-friendly campus fashion",
+    bio: "",
+    niche: "",
     socialLink: "",
     revenueGoal: "",
     domain: "",
   },
   stages: STAGES.map((stage) => ({
     ...stage,
-    status:
-      stage.id === "starter"
-        ? "current"
-        : "incomplete",
+    status: stage.id === "starter" ? "current" : "incomplete",
   })),
 };
 
