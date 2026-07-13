@@ -14,6 +14,7 @@ import { DashboardHeader } from "./dashboard-header";
 import { DashboardLoading } from "./dashboard-loading";
 import { DashboardSidebar } from "./dashboard-sidebar";
 import { DashboardToast } from "./dashboard-toast";
+import { DomainSuggestions } from "./domain-suggestions";
 import { WelcomeBanner } from "./welcome-banner";
 import { MissionMatches } from "./mission-matches";
 import { FocusAreaCards } from "./focus-area-cards";
@@ -72,7 +73,8 @@ function DashboardContent({ user }: { user: DashboardUser }) {
           className="w-full dashboard-content"
         >
           <WelcomeBanner user={user} />
-<BusinessOverview user={user} />
+          <BusinessOverview user={user} />
+          <DomainSuggestions userId={user.userId} />
         </Main>
       </Box>
 
