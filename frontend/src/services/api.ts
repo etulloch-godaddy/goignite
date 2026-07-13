@@ -106,7 +106,7 @@ export async function getAchievements(userId: string): Promise<ApiAchievement[]>
 
 export const DEMO_ONBOARDING = {
   first_name: "Maya",
-  business_name: "Glow Studio",
+  business_name: "Valentina's Hot Sauce",
   creator_type_label: "Fashion & lifestyle",
   pitch: "",
   niche: "",

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import text from "@ux/text";
 import Button from "@ux/button";
 import RangeInput from "@ux/range-input";
@@ -49,15 +48,6 @@ export function StepBudget({ initial, onNext }: StepBudgetProps) {
             onClick={() => onNext(budget)}
           />
         </div>
-      </div>
-
-      <div className="q-bottom-illust">
-        <Image
-          src="/questionnaire/cursor-ride.png"
-          alt="Cursor ride illustration"
-          width={400}
-          height={400}
-        />
       </div>
     </div>
   );

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import Image from "next/image";
 import text from "@ux/text";
 import Button from "@ux/button";
 import RangeInput from "@ux/range-input";
@@ -30,7 +29,7 @@ export function StepComfort({ initial, onNext }: StepComfortProps) {
   }, []);
 
   return (
-    <div className="q-centered">
+    <div className="q-centered q-centered--top">
       <div className="q-centered-form">
         <Heading as="heading" size={1} className="q-step-heading">
           How comfortable are you with…
@@ -86,15 +85,6 @@ export function StepComfort({ initial, onNext }: StepComfortProps) {
             onClick={() => onNext(levels)}
           />
         </div>
-      </div>
-
-      <div className="q-bottom-illust">
-        <Image
-          src="/questionnaire/cursor-ride.png"
-          alt="Cursor ride illustration"
-          width={400}
-          height={400}
-        />
       </div>
     </div>
   );
