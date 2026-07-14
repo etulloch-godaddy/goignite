@@ -13,6 +13,33 @@ import WorldIcon from "@ux/icon/world";
 import { getAiDomainSuggestions, type ApiDomainSuggestion } from "@/services/api";
 import { DashboardSection } from "./dashboard-section";
 
+const GODADDY_PRODUCTS = [
+  {
+    emoji: "🏛️",
+    iconClass: "gd-product-icon--purple",
+    name: "Form an LLC",
+    description: "Make it official. Protect your personal assets and establish your business legally in minutes.",
+    href: "https://www.godaddy.com/business/llc-formation",
+    cta: "Start for free",
+  },
+  {
+    emoji: "✨",
+    iconClass: "gd-product-icon--teal",
+    name: "GoDaddy Airo",
+    description: "AI-powered website, logo, and content — built for your business in minutes.",
+    href: "https://www.godaddy.com/airo",
+    cta: "Try Airo",
+  },
+  {
+    emoji: "📧",
+    iconClass: "gd-product-icon--blue",
+    name: "Business Email",
+    description: "Professional email at your domain. Look credible from the very first message you send.",
+    href: "https://www.godaddy.com/email/professional-business-email",
+    cta: "Get email",
+  },
+];
+
 type State =
   | { status: "loading" }
   | { status: "error" }
@@ -171,6 +198,32 @@ export function DomainSuggestions({ userId }: { userId?: string }) {
           })}
         </div>
       )}
+
+      {/* GoDaddy products */}
+      <div className="gd-products-section">
+        <span className="gd-products-label">Also from GoDaddy</span>
+        <div className="gd-products-grid">
+          {GODADDY_PRODUCTS.map((product) => (
+            <a
+              key={product.name}
+              href={product.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="gd-product-card"
+            >
+              <div className={`gd-product-icon ${product.iconClass}`}>
+                <span role="img" aria-hidden="true">{product.emoji}</span>
+              </div>
+              <div className="gd-product-name">{product.name}</div>
+              <div className="gd-product-desc">{product.description}</div>
+              <div className="gd-product-cta">
+                {product.cta}
+                <ArrowRightIcon width={13} height={13} />
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
     </DashboardSection>
   );
 }

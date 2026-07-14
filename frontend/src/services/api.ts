@@ -365,10 +365,11 @@ export async function updateOutreach(
   entryId: string,
   update: { status?: string; notes?: string },
 ): Promise<OutreachEntry> {
-  return request<OutreachEntry>(`/api/social/outreach/${userId}/${entryId}`, {
+  const data = await request<{ success: boolean; entry: OutreachEntry }>(`/api/social/outreach/${userId}/${entryId}`, {
     method: "PATCH",
     body: JSON.stringify(update),
   });
+  return data.entry;
 }
 
 export async function getGrowthPlan(payload: {
@@ -415,6 +416,8 @@ export async function analyzeSeoProfile(payload: {
   platform: SocialPlatform;
   bio: string;
   creator_type: string;
+  business_name?: string;
+  niche?: string;
 }): Promise<SeoProfileResponse> {
   return request<SeoProfileResponse>("/api/social/seo/profile", {
     method: "POST",
@@ -427,6 +430,8 @@ export async function optimizeSeoContent(payload: {
   platform: SocialPlatform;
   content: string;
   creator_type: string;
+  business_name?: string;
+  niche?: string;
 }): Promise<SeoContentResponse> {
   return request<SeoContentResponse>("/api/social/seo/content", {
     method: "POST",

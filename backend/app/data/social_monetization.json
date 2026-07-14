@@ -1,58 +1,58 @@
 {
   "methods": [
     {
-      "method": "Affiliate Marketing",
-      "description": "Earn commission on sales you drive via a trackable link. No follower minimum — you can start today.",
+      "method": "Direct Online Sales",
+      "description": "Sell your product directly to customers through your own website or a marketplace. Highest margin, full brand control, no middleman.",
       "min_followers": 0,
-      "first_step": "Apply to Amazon Influencer Program (any follower count) or LTK (requires 1k+ on Instagram or TikTok). Add your link to your bio immediately.",
-      "programs": ["Amazon Influencer", "LikeToKnowIt (LTK)", "ShareASale", "Impact"],
-      "creator_types": ["fashion", "fitness", "food", "art", "gaming", "all"]
+      "first_step": "Set up a GoDaddy Online Store or list on Goldbelly (built for artisan food brands). Add your store link to every social profile and post. This is your primary revenue channel.",
+      "programs": ["GoDaddy Online Store", "Goldbelly", "Shopify", "Square Online"],
+      "creator_types": ["food", "art", "fashion", "fitness", "all"]
     },
     {
-      "method": "Sponsored Post or Reel",
-      "description": "A brand pays you to feature their product in a photo, carousel, or short-form video.",
-      "min_followers": 1000,
-      "first_step": "Use the Brand Collab DM template in your Templates tab. Start with small or local brands in your niche — they respond faster and are more open to micro-creators.",
-      "programs": [],
-      "creator_types": ["fashion", "fitness", "food", "art", "all"]
-    },
-    {
-      "method": "Brand Ambassador Program",
-      "description": "An ongoing relationship with one brand — monthly content in exchange for a flat fee and product.",
-      "min_followers": 1000,
-      "first_step": "Use the Affiliate / Ambassador Application template. Target brands you already use and can speak authentically about.",
-      "programs": [],
-      "creator_types": ["fashion", "fitness", "food", "art", "gaming", "all"]
-    },
-    {
-      "method": "Gaming Sponsorship",
-      "description": "Gaming-specific deals: peripherals (Razer, SteelSeries, HyperX), energy drinks (G Fuel, Monster), or chairs (Secretlab). Often includes free gear plus a revenue share.",
-      "min_followers": 500,
-      "first_step": "Apply directly to Razer Streamer Program, HyperX Creator Program, or G Fuel Sponsorship from their websites. Most accept applications at any stream size.",
-      "programs": ["Razer Streamer Program", "HyperX Creator", "G Fuel Sponsorship", "SteelSeries Influencer"],
-      "creator_types": ["gaming"]
-    },
-    {
-      "method": "Twitch Subscriptions & Bits",
-      "description": "Recurring income once you hit Twitch Affiliate. Viewers pay $4.99–$24.99/month to subscribe; you earn 50% (Partners can negotiate 70%).",
+      "method": "Wholesale to Local Restaurants & Retailers",
+      "description": "Get your product on restaurant tables and store shelves. Wholesale accounts create recurring, predictable revenue without relying on social media.",
       "min_followers": 0,
-      "first_step": "Hit the Twitch Affiliate requirements: 50 followers, 500 total minutes broadcast, 7 unique broadcast days, avg 3 concurrent viewers. Track your progress in the Twitch dashboard.",
-      "programs": ["Twitch Affiliate", "Twitch Partner"],
-      "creator_types": ["gaming"]
+      "first_step": "Identify 10 local restaurants or specialty food shops in your area. Use the Brand Collab DM template to pitch your product for wholesale. Offer a free sample case — most buyers need to taste before they commit.",
+      "programs": ["Faire (wholesale marketplace)", "RangeMe", "Local farmers markets"],
+      "creator_types": ["food", "art", "fashion", "all"]
     },
     {
-      "method": "Digital Products",
-      "description": "Sell something you create once and deliver forever — presets, templates, ebooks, workout plans, art brushes. 100% margin, no brand approval needed.",
+      "method": "Farmers Markets & Pop-Up Events",
+      "description": "In-person sales at markets and pop-ups build brand recognition, generate content, and convert buyers into loyal online customers.",
+      "min_followers": 0,
+      "first_step": "Apply to 2–3 local farmers markets or food fairs this month. Each market appearance generates content, new followers, and direct sales. Bring a sign-up sheet for your email list.",
+      "programs": ["Local farmers markets", "Food festivals", "Specialty food fairs"],
+      "creator_types": ["food", "art", "fashion", "all"]
+    },
+    {
+      "method": "Subscription / Recurring Orders",
+      "description": "Turn one-time buyers into monthly revenue with a hot sauce club or subscription box. Predictable cash flow and higher customer lifetime value.",
       "min_followers": 500,
-      "first_step": "Pick one product you can create in a weekend (a Lightroom preset pack, a recipe PDF, a workout template). List it on Gumroad or Stan Store and put the link in your bio.",
-      "programs": ["Gumroad", "Stan Store", "Payhip", "Teachable"],
-      "creator_types": ["fashion", "fitness", "food", "art", "all"]
+      "first_step": "Set up a monthly subscription on your store (GoDaddy or Shopify supports this natively). Start with a 'Hot Sauce of the Month' offering — one new or seasonal flavor each month at a discounted bundle price.",
+      "programs": ["GoDaddy Online Store", "Shopify Subscriptions", "Cratejoy"],
+      "creator_types": ["food", "art", "fashion", "all"]
+    },
+    {
+      "method": "Corporate & Bulk Gifting",
+      "description": "Companies buy branded food products in bulk for client gifts, employee perks, and event giveaways. High-volume orders with minimal marketing effort.",
+      "min_followers": 0,
+      "first_step": "Create a 'Corporate Gifting' page on your website with bulk pricing tiers (12-pack, 24-pack, custom labels). Reach out to local businesses directly via LinkedIn or email — companies order in Q4 especially.",
+      "programs": ["Custom label printing services", "LinkedIn outreach", "Local business directories"],
+      "creator_types": ["food", "art", "all"]
+    },
+    {
+      "method": "Brand Partnerships & Co-Marketing",
+      "description": "Partner with complementary food brands, restaurants, or local businesses for co-branded products, joint promotions, or featured placement.",
+      "min_followers": 1000,
+      "first_step": "Identify 5 brands whose audience matches yours (a local taco shop, a craft beer brand, a BBQ rub company). Propose a co-marketing post, a bundle deal, or a joint giveaway. No payment needed — just audience sharing.",
+      "programs": [],
+      "creator_types": ["food", "fashion", "art", "fitness", "all"]
     }
   ],
   "where_to_start_by_followers": {
-    "0-999":   "You're at the beginning — affiliate marketing is your best move right now. Zero follower requirement, and it teaches you what your audience actually buys.",
-    "1000-9999": "You're ready for brand deals. Send 3 Brand Collab DMs this week using the template — at your stage, engagement rate matters more than follower count.",
-    "10000-99999": "Push for recurring ambassador deals over one-off posts. Predictable monthly income beats sporadic sponsorships.",
-    "100000+": "Diversify beyond brand deals. One digital product launch can outperform 6 months of sponsored posts."
+    "0-999":   "Focus on direct sales first — set up your online store and apply to one local farmers market this month. Every in-person sale builds brand recognition that no ad spend can replicate.",
+    "1000-9999": "You have enough of an audience to pitch wholesale accounts. Send samples to 5 local restaurants this week — wholesale creates the recurring revenue that stabilizes a product business.",
+    "10000-99999": "Launch a subscription option. You have the customer base to sustain a monthly recurring product, and subscription revenue is the most predictable income a product brand can have.",
+    "100000+": "Corporate gifting and national retail are your next channels. At this scale, one retail placement or a single corporate gifting contract can outperform months of direct online sales."
   }
 }

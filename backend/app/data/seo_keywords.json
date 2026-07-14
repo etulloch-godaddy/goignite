@@ -106,28 +106,28 @@
     },
     "food": {
       "instagram": [
-        {"keyword": "FoodPhotography", "search_intent": "discovery", "rank": 1, "tip": "The primary food discoverability tag on Instagram. Always include."},
-        {"keyword": "FoodBlogger", "search_intent": "community", "rank": 2, "tip": "Connects you with food brands and PR agencies actively scouting."},
-        {"keyword": "RecipeIdeas", "search_intent": "how-to", "rank": 3, "tip": "How-to intent. Recipe content drives saves — the highest-value action."},
-        {"keyword": "EasyRecipes", "search_intent": "how-to", "rank": 4, "tip": "High search volume. Simple recipes get 3x more saves than complex ones."},
-        {"keyword": "FoodieContent", "search_intent": "community", "rank": 5, "tip": "Broad but effective community tag for food creators."},
-        {"keyword": "HomeCooking", "search_intent": "community", "rank": 6, "tip": "Relatable and aspirational. Kitchenware brands scout this tag."},
-        {"keyword": "HealthyEating", "search_intent": "how-to", "rank": 7, "tip": "Wellness crossover audience. Doubles your potential follower pool."},
-        {"keyword": "MealPrep", "search_intent": "how-to", "rank": 8, "tip": "Highest save rate in food content. Always use on prep posts."},
-        {"keyword": "RestaurantReview", "search_intent": "discovery", "rank": 9, "tip": "Local SEO tag. Great for restaurant PR partnerships."},
-        {"keyword": "FoodTasting", "search_intent": "discovery", "rank": 10, "tip": "Review and reaction content drives high comment engagement."}
+        {"keyword": "HotSauce", "search_intent": "discovery", "rank": 1, "tip": "The primary hot sauce discovery tag on Instagram. Use on every product post."},
+        {"keyword": "SmallBatchHotSauce", "search_intent": "community", "rank": 2, "tip": "Niche tag that connects you with craft food buyers — exactly your target customer."},
+        {"keyword": "HotSauceLovers", "search_intent": "community", "rank": 3, "tip": "High-engagement community. Followers from this tag are loyal and purchase-ready."},
+        {"keyword": "ArtisanHotSauce", "search_intent": "discovery", "rank": 4, "tip": "Premium positioning tag. Attracts buyers willing to pay more for quality."},
+        {"keyword": "FoodEntrepreneur", "search_intent": "community", "rank": 5, "tip": "Connects you with the food business community and potential wholesale buyers."},
+        {"keyword": "SmallFoodBrand", "search_intent": "community", "rank": 6, "tip": "Supportive community of small food brand founders — great for collabs and press."},
+        {"keyword": "SpicyFoodLovers", "search_intent": "discovery", "rank": 7, "tip": "Broad spicy food discovery tag. Doubles your potential audience beyond hot sauce fans."},
+        {"keyword": "MadeWithLove", "search_intent": "community", "rank": 8, "tip": "Emotional positioning tag. Resonates with buyers who value story and authenticity."},
+        {"keyword": "HotSauceCollection", "search_intent": "purchase", "rank": 9, "tip": "Purchase-intent audience actively building their hot sauce collection."},
+        {"keyword": "CraftCondiment", "search_intent": "discovery", "rank": 10, "tip": "Emerging category tag. Good for differentiation from mass-market hot sauce brands."}
       ],
       "tiktok": [
-        {"keyword": "FoodTok", "search_intent": "community", "rank": 1, "tip": "TikTok's food community hub. Billions of views. Use on everything."},
-        {"keyword": "Cooking", "search_intent": "how-to", "rank": 2, "tip": "Top-level keyword indexed by TikTok search and the FYP algorithm."},
-        {"keyword": "EasyRecipes", "search_intent": "how-to", "rank": 3, "tip": "This exact phrase is searched millions of times on TikTok."},
-        {"keyword": "RecipeTok", "search_intent": "community", "rank": 4, "tip": "Recipe sub-community with strong engagement and high save rates."},
-        {"keyword": "FoodReview", "search_intent": "discovery", "rank": 5, "tip": "Restaurant and food review content gets massive organic reach."},
-        {"keyword": "MealPrep", "search_intent": "how-to", "rank": 6, "tip": "Searched by intent. Meal prep TikToks average 2x saves vs standard food."},
-        {"keyword": "WhatIEatInADay", "search_intent": "community", "rank": 7, "tip": "One of TikTok's most viral food formats. Drives massive views."},
-        {"keyword": "CookingTips", "search_intent": "how-to", "rank": 8, "tip": "Tips format drives saves — signals high-value content to the algorithm."},
-        {"keyword": "HomeCooking", "search_intent": "community", "rank": 9, "tip": "Relatable format. TikTok's algorithm favors authentic home cooking content."},
-        {"keyword": "FoodHacks", "search_intent": "how-to", "rank": 10, "tip": "Hack content goes viral on TikTok. Extremely high share and save rate."}
+        {"keyword": "HotSauceTok", "search_intent": "community", "rank": 1, "tip": "TikTok's dedicated hot sauce community — millions of views. Use on every video."},
+        {"keyword": "HotSauce", "search_intent": "discovery", "rank": 2, "tip": "Top-level keyword indexed by TikTok search and the FYP algorithm."},
+        {"keyword": "SmallBatch", "search_intent": "community", "rank": 3, "tip": "Craft food buyers actively search this. Signals quality and authenticity."},
+        {"keyword": "FoodBusiness", "search_intent": "community", "rank": 4, "tip": "Behind-the-scenes food business content goes viral on TikTok FYP regularly."},
+        {"keyword": "HotSauceReview", "search_intent": "discovery", "rank": 5, "tip": "Hot sauce review content gets massive organic reach — tag when filming taste tests."},
+        {"keyword": "SpicyFood", "search_intent": "discovery", "rank": 6, "tip": "Broader spicy food tag. Great for taste tests and food challenge content."},
+        {"keyword": "FoodTok", "search_intent": "community", "rank": 7, "tip": "TikTok's main food hub. Use to reach audiences beyond the hot sauce niche."},
+        {"keyword": "SmallFoodBusiness", "search_intent": "community", "rank": 8, "tip": "TikTok users love to support small businesses — this tag activates that impulse."},
+        {"keyword": "HotSauceChallenge", "search_intent": "community", "rank": 9, "tip": "Challenge content drives exponential reach. Create or participate in heat challenges."},
+        {"keyword": "GrandmasRecipe", "search_intent": "community", "rank": 10, "tip": "Emotional origin story content goes viral. Your family recipe IS your best content."}
       ]
     }
   }

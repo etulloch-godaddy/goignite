@@ -14,6 +14,7 @@ export function useSocial() {
   const [userId, setUserId] = useState<string | null>(null);
   const [user, setUser] = useState<DashboardUser>(emptyUser);
   const [completedMissionIds, setCompletedMissionIds] = useState<string[]>([]);
+  const [creatorTypeLabel, setCreatorTypeLabel] = useState<string>("");
   const [apiConnected, setApiConnected] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -35,6 +36,7 @@ export function useSocial() {
       const profile: ApiUser = await getUser(id);
       setUser(mapUserToDashboard(profile, [], []));
       setCompletedMissionIds(profile.completed_missions ?? []);
+      setCreatorTypeLabel((profile.onboarding_data?.creator_type_label as string) ?? "");
     } catch {
       setUser(emptyUser);
     } finally {
@@ -46,5 +48,5 @@ export function useSocial() {
     init();
   }, [init]);
 
-  return { userId, user, completedMissionIds, apiConnected, loading };
+  return { userId, user, completedMissionIds, creatorTypeLabel, apiConnected, loading };
 }
