@@ -1,9 +1,16 @@
 from typing import Annotated, Optional
 
-from fastapi import APIRouter, Header, Query
+from fastapi import APIRouter, Header, HTTPException, Query
 
-from app.models.domains import DomainPurchaseRequest, DomainRecord
+from app.models.domains import (
+    AiDomainSuggestResponse,
+    DomainPurchaseRequest,
+    DomainRecord,
+    DomainSuggestion,
+)
+from app.services.domain_ai import API_KEY, generate_domain_candidates
 from app.services.domains import GoDaddyClient, get_client
+from app.services.user_store import load_users
 
 router = APIRouter(prefix="/api/domains", tags=["domains"])
 
@@ -39,6 +46,72 @@ async def suggest(
 ):
     tld_list = tlds.split(",") if tlds else None
     return await _client().suggest(query, tld_list, limit, country, city)
+
+
+@router.get("/ai-suggest/{user_id}", response_model=AiDomainSuggestResponse)
+async def ai_suggest_domains(
+    user_id: str,
+    tlds: str = Query("com,co,io,shop", description="Comma-separated TLD list, e.g. com,co,io"),
+    limit: int = Query(6, ge=1, le=20),
+):
+    users = load_users()
+    user = users.get(user_id)
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    context = {
+        "business_name": user.onboarding_data.get("business_name"),
+        "pitch": user.business_profile.pitch or user.onboarding_data.get("pitch"),
+        "niche": user.onboarding_data.get("niche"),
+        "creator_type": (
+            user.creator_type.value
+            if user.creator_type
+            else user.onboarding_data.get("creator_type_label")
+        ),
+        "goal": user.onboarding_data.get("goal") or user.business_profile.revenue_goal,
+    }
+
+    tld_list = [t.strip().lstrip(".") for t in tlds.split(",") if t.strip()] or ["com"]
+
+    candidates = await generate_domain_candidates(context, count=8)
+    full_domains = [f"{base}.{tld}" for base in candidates for tld in tld_list]
+
+    if not full_domains:
+        return AiDomainSuggestResponse(
+            user_id=user_id, suggestions=[], mock=not API_KEY
+        )
+
+    # Use FULL (authoritative registry check) rather than the default FAST,
+    # which returns cached results that can report already-registered domains
+    # as available.
+    raw = await _client().check_availability_bulk(full_domains, check_type="FULL")
+    results = raw.get("domains", raw) if isinstance(raw, dict) else raw
+    if not isinstance(results, list):
+        results = []
+
+    suggestions: list[DomainSuggestion] = []
+    for entry in results:
+        if not isinstance(entry, dict) or not entry.get("available"):
+            continue
+        # FULL responses mark authoritative results as definitive; skip any
+        # non-definitive entry so we never surface a domain that's actually taken.
+        if entry.get("definitive") is False:
+            continue
+        price = entry.get("price")
+        suggestions.append(
+            DomainSuggestion(
+                domain=entry.get("domain", ""),
+                available=True,
+                price=(price / 1_000_000) if isinstance(price, (int, float)) else None,
+                currency=entry.get("currency"),
+            )
+        )
+
+    return AiDomainSuggestResponse(
+        user_id=user_id,
+        suggestions=suggestions[:limit],
+        mock=not API_KEY,
+    )
 
 
 @router.get("/tlds")

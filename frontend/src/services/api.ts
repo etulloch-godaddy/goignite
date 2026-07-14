@@ -144,6 +144,25 @@ export async function getFunding(
   return request<ApiFunding[]>(`/api/funding?${params}`);
 }
 
+export type ApiDomainSuggestion = {
+  domain: string;
+  available: boolean;
+  price: number | null;
+  currency: string | null;
+};
+
+export type ApiDomainSuggestResponse = {
+  user_id: string;
+  suggestions: ApiDomainSuggestion[];
+  mock: boolean;
+};
+
+export async function getAiDomainSuggestions(
+  userId: string,
+): Promise<ApiDomainSuggestResponse> {
+  return request<ApiDomainSuggestResponse>(`/api/domains/ai-suggest/${userId}`);
+}
+
 const USER_ID_KEY = "creatorlevel_user_id";
 
 export async function getOrCreateUserId(): Promise<string> {

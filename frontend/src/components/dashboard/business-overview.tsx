@@ -208,7 +208,24 @@ export function BusinessOverview({ user }: { user: DashboardUser }) {
           </div>
         </div>
 
-        {/* Right column: Social first, then Business Analytics */}
+        {/* Right column */}
+        <div className="dashboard-insights-stack">
+          {/* Social media — coming soon */}
+          <div className="dashboard-overview-card dashboard-placeholder-card">
+            <div className="dashboard-placeholder-label">Social Media</div>
+            <div className="dashboard-placeholder-body">Set up your social media to start</div>
+          </div>
+
+          {/* Business analytics — coming soon */}
+          <div className="dashboard-overview-card dashboard-placeholder-card">
+            <div className="dashboard-placeholder-label">Business Analytics</div>
+            <div className="dashboard-placeholder-body">Connect your accounts to unlock business analytics</div>
+          </div>
+        </div>
+
+        {/*
+        ORIGINAL RIGHT COLUMN — restore when ready:
+
         <div className="dashboard-insights-stack">
           {user.userId && <SocialAnalyticsCard userId={user.userId} />}
 
@@ -222,11 +239,14 @@ export function BusinessOverview({ user }: { user: DashboardUser }) {
                   Business analytics
                 </Heading>
                 <Desc as="paragraph" className="dashboard-overview-sub">
-                  How <strong>{user.businessName}</strong> is tracking across
-                  the basics.
+                  How <strong>{user.businessName}</strong> is tracking across the basics.
                 </Desc>
               </div>
             </div>
+            <div className="dashboard-analytics-rings">
+              {focusAreas.map((area) => (
+                <div key={area.id} className="dashboard-analytics-ring">
+                  <span className="dashboard-analytics-ring-label">{area.label}</span>
 
             <div className="dashboard-analytics-metrics">
               {analytics.map((metric) => (
@@ -240,7 +260,6 @@ export function BusinessOverview({ user }: { user: DashboardUser }) {
                 </div>
               ))}
             </div>
-
             <div className="dashboard-overview-actions">
               <Button design="primary" size="sm" text="View full report" href="#roadmap" />
             </div>
@@ -282,6 +301,7 @@ export function BusinessOverview({ user }: { user: DashboardUser }) {
             </div>
           </div>
         </div>
+        */}
       </div>
     </DashboardSection>
   );

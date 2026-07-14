@@ -9,12 +9,14 @@ import {
 } from "@/lib/dashboard-data";
 import { useDashboard } from "@/hooks/use-dashboard";
 import { ChatWidget } from "@/components/chat/chat-widget";
-import { AiCompanion } from "./ai-companion";
 import { BusinessOverview } from "./business-overview";
 import { DashboardHeader } from "./dashboard-header";
 import { DashboardLoading } from "./dashboard-loading";
 import { DashboardSidebar } from "./dashboard-sidebar";
 import { DashboardToast } from "./dashboard-toast";
+import { DomainSuggestions } from "./domain-suggestions";
+import { WelcomeBanner } from "./welcome-banner";
+import { MissionMatches } from "./mission-matches";
 import { FocusAreaCards } from "./focus-area-cards";
 import { MissionMatches } from "./mission-matches";
 import { WelcomeBanner } from "./welcome-banner";
@@ -73,12 +75,12 @@ function DashboardContent({ user }: { user: DashboardUser }) {
           className="w-full dashboard-content"
         >
           <WelcomeBanner user={user} />
-<BusinessOverview user={user} />
+          <BusinessOverview user={user} />
+          <DomainSuggestions userId={user.userId} />
         </Main>
       </Box>
 
       <DashboardToast message="You're all set — your dashboard is up to date!" />
-      <AiCompanion businessName={user.businessName} />
     </Box>
   );
 }

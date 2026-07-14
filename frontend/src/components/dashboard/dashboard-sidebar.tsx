@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef, useState } from "react";
 import Box, { box } from "@ux/box";
 import Tag from "@ux/tag";
 import text from "@ux/text";
@@ -17,6 +18,9 @@ import SocialIcon from "@ux/icon/social";
 import ChevronDownIcon from "@ux/icon/chevron-down";
 import SidebarCollapseIcon from "@ux/icon/sidebar-collapse";
 import type { NavItem } from "@/lib/dashboard-data";
+import { patchOnboarding } from "@/services/api";
+
+const USER_ID_KEY = "creatorlevel_user_id";
 
 const Aside = box.aside;
 const Nav = box.nav;
@@ -105,6 +109,31 @@ export function DashboardSidebar({
   const Caption = text.span;
   const Heading = text.span;
 
+  const [editing, setEditing] = useState(false);
+  const [localName, setLocalName] = useState(businessName || "My Business");
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  function startEdit() {
+    setLocalName(localName || businessName);
+    setEditing(true);
+    setTimeout(() => inputRef.current?.select(), 0);
+  }
+
+  async function commitEdit() {
+    setEditing(false);
+    const trimmed = localName.trim() || businessName;
+    setLocalName(trimmed);
+    const userId = localStorage.getItem(USER_ID_KEY);
+    if (userId && trimmed !== businessName) {
+      patchOnboarding(userId, { business_name: trimmed }).catch(() => {});
+    }
+  }
+
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Enter") commitEdit();
+    if (e.key === "Escape") { setLocalName(businessName); setEditing(false); }
+  }
+
   return (
     <Aside
       orientation="vertical"
@@ -129,12 +158,24 @@ export function DashboardSidebar({
         </button>
       </Box>
 
-      <button type="button" className="dashboard-nav-item dashboard-workspace-switcher mb-2">
-        <Heading as="label" className="flex-1 text-left">
-          {businessName}
-        </Heading>
-        <ChevronDownIcon width={16} height={16} />
-      </button>
+      {editing ? (
+        <input
+          ref={inputRef}
+          value={localName}
+          onChange={(e) => setLocalName(e.target.value)}
+          onBlur={commitEdit}
+          onKeyDown={handleKeyDown}
+          placeholder="Your business name"
+          className="dashboard-business-name-input mb-2"
+        />
+      ) : (
+        <button type="button" onClick={startEdit} className="dashboard-nav-item dashboard-workspace-switcher mb-2" title="Click to rename">
+          <Heading as="label" className="flex-1 text-left" style={{ cursor: "text" }}>
+            {localName}
+          </Heading>
+          <ChevronDownIcon width={16} height={16} />
+        </button>
+      )}
 
       <Nav orientation="vertical" gap="sm">
         {primary.map((item) => (

@@ -58,3 +58,16 @@ class DomainDetail(BaseModel):
     auto_renew: Optional[bool] = None
     privacy: Optional[bool] = None
     name_servers: Optional[list[str]] = None
+
+
+class DomainSuggestion(BaseModel):
+    domain: str
+    available: bool
+    price: Optional[float] = None
+    currency: Optional[str] = None
+
+
+class AiDomainSuggestResponse(BaseModel):
+    user_id: str
+    suggestions: list[DomainSuggestion]
+    mock: bool = False
