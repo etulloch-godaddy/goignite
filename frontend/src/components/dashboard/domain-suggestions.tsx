@@ -19,7 +19,7 @@ const GODADDY_PRODUCTS = [
     iconClass: "gd-product-icon--purple",
     name: "Form an LLC",
     description: "Make it official. Protect your personal assets and establish your business legally in minutes.",
-    href: "https://www.godaddy.com/business/llc-formation",
+    href: "https://www.godaddy.com/airo/register-llc",
     cta: "Start for free",
   },
   {
