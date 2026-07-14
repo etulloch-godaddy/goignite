@@ -26,7 +26,7 @@ const TABS = [
 ];
 
 export function SocialShell() {
-  const { userId, user, loading } = useSocial();
+  const { userId, user, completedMissionIds, loading } = useSocial();
   const [activeTab, setActiveTab] = useState("connect");
 
   if (loading) return <DashboardLoading />;
@@ -40,7 +40,7 @@ export function SocialShell() {
       case "connect":
         return <PlatformConnect userId={uid} stage={stage} creatorType={creatorType} />;
       case "missions":
-        return <SocialMissions userId={uid} stage={stage} creatorType={creatorType} />;
+        return <SocialMissions userId={uid} stage={stage} creatorType={creatorType} completedMissionIds={completedMissionIds} />;
       case "content":
         return <ContentIdeas userId={uid} stage={stage} creatorType={creatorType} />;
       case "outreach":
@@ -48,7 +48,7 @@ export function SocialShell() {
       case "grow":
         return <GrowthPlan userId={uid} stage={stage} creatorType={creatorType} />;
       case "seo":
-        return <SeoTools userId={uid} creatorType={creatorType} />;
+        return <SeoTools userId={uid} creatorType={creatorType} niche={user.profile.niche} businessName={user.businessName} />;
       default:
         return null;
     }
@@ -58,8 +58,14 @@ export function SocialShell() {
     <Box orientation="horizontal" stretch className="social-page min-h-screen w-full">
       <DashboardSidebar
         businessName={user.businessName}
-        primary={buildPrimaryNav(user.todaysMissions.length)}
-        growth={buildGrowthNav(stage)}
+        primary={buildPrimaryNav(user.todaysMissions.length).map((item) => ({
+          ...item,
+          href: item.href.startsWith("#") ? `/dashboard${item.href}` : item.href,
+        }))}
+        growth={buildGrowthNav(stage).map((item) => ({
+          ...item,
+          href: item.href.startsWith("#") ? `/dashboard${item.href}` : item.href,
+        }))}
         activeSection="social"
       />
 
@@ -72,6 +78,7 @@ export function SocialShell() {
           className="w-full social-content"
         >
           <div>
+            <a href="/dashboard" className="social-back-btn">← Dashboard</a>
             <h1 className="social-page-title">Social Media Hub</h1>
             <p className="social-page-sub">Manage your platforms, missions, and growth.</p>
           </div>

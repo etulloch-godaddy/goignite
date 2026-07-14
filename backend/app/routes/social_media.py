@@ -81,6 +81,24 @@ def get_stats(user_id: str):
 
 # --- Missions ---
 
+@router.get("/missions/all")
+def get_all_social_missions(
+    stage: Optional[str] = Query(None),
+    creator_type: Optional[str] = Query(None),
+):
+    """Return all social missions without filtering by completion status."""
+    data = _load("social_missions.json")
+    missions = data["missions"]
+    if stage:
+        missions = [m for m in missions if m["stage"] == stage]
+    if creator_type:
+        missions = [
+            m for m in missions
+            if "all" in m["creator_types"] or creator_type in m["creator_types"]
+        ]
+    return {"missions": missions}
+
+
 @router.get("/missions/{user_id}")
 def get_social_missions(
     user_id: str,
@@ -241,7 +259,7 @@ def add_outreach(user_id: str, payload: dict):
         "template_used": payload.get("template_used", ""),
         "status": payload.get("status", "sent"),
         "notes": payload.get("notes", ""),
-        "date": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+        "created_at": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
     }
     _outreach_store.setdefault(user_id, []).append(entry)
     return {"success": True, "entry": entry}
@@ -454,33 +472,42 @@ async def seo_profile_analysis(payload: dict):
 
 
 @router.get("/seo/keywords")
-def get_seo_keywords(
+async def get_seo_keywords(
     creator_type: Optional[str] = Query(None),
     platform: Optional[str] = Query(None),
+    niche: Optional[str] = Query(None),
+    business_name: Optional[str] = Query(None),
 ):
     """
-    Return ranked SEO keywords for a creator type and platform.
-    Query params: creator_type (fashion/gaming/fitness/art/food), platform (instagram/tiktok)
+    Return ranked SEO keywords personalized to the user's business.
+    When niche or business_name is provided, uses AI to generate relevant keywords.
+    Falls back to static lookup by creator_type + platform.
     """
-    if creator_type and creator_type not in _VALID_CREATOR_TYPES:
-        raise HTTPException(status_code=400, detail=f"creator_type must be one of: {', '.join(_VALID_CREATOR_TYPES)}")
-    if platform and platform not in _VALID_PLATFORMS:
-        raise HTTPException(status_code=400, detail=f"platform must be one of: {', '.join(_VALID_PLATFORMS)}")
+    from app.services.social_media_service import generate_seo_keywords
 
+    platform_clean = (platform or "").lower() or "instagram"
+    if platform_clean not in _VALID_PLATFORMS:
+        platform_clean = "instagram"
+
+    creator_clean = (creator_type or "").lower()
+    if creator_clean not in _VALID_CREATOR_TYPES:
+        creator_clean = "fashion"
+
+    # Use AI when user has provided their actual business context
+    if niche or business_name:
+        keywords = await generate_seo_keywords(
+            creator_type=creator_clean,
+            platform=platform_clean,
+            niche=niche or "",
+            business_name=business_name or "",
+        )
+        return {"keywords": keywords, "personalized": True}
+
+    # Fall back to static JSON lookup
     data = _load("seo_keywords.json")
     keywords_db = data["keywords"]
-
-    if not creator_type and not platform:
-        return {"keywords": keywords_db}
-
-    if creator_type and not platform:
-        return {"creator_type": creator_type, "keywords": keywords_db.get(creator_type, {})}
-
-    if platform and not creator_type:
-        return {"platform": platform, "keywords": {ct: keywords_db[ct].get(platform, []) for ct in keywords_db}}
-
-    keywords = keywords_db.get(creator_type, {}).get(platform, [])
-    return {"creator_type": creator_type, "platform": platform, "keywords": keywords, "count": len(keywords)}
+    keywords = keywords_db.get(creator_clean, {}).get(platform_clean, [])
+    return {"creator_type": creator_clean, "platform": platform_clean, "keywords": keywords, "count": len(keywords)}
 
 
 @router.post("/seo/content")
