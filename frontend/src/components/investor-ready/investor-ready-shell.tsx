@@ -9,6 +9,7 @@ import ArrowLeftIcon from "@ux/icon/arrow-left";
 import ShieldCheckIcon from "@ux/icon/shield-check";
 import SparklesFilledIcon from "@ux/icon/sparkles-filled";
 import { getFunding, getOrCreateUserId, type ApiFunding, type PitchOutline, type PitchSlide } from "@/services/api";
+import { CongratsAnimation } from "./congrats-animation";
 
 
 const FUNDING_TYPE_LABELS: Record<string, string> = {
@@ -345,6 +346,7 @@ function FundingSection({ userId }: { userId: string | null }) {
 
 export function InvestorReadyShell() {
   const [userId, setUserId] = useState<string | null>(null);
+  const [showCongrats, setShowCongrats] = useState(true);
   const Heading = text.span;
   const Paragraph = text.p;
 
@@ -354,6 +356,9 @@ export function InvestorReadyShell() {
 
   return (
     <div className="investor-page">
+      {showCongrats && (
+        <CongratsAnimation onDismiss={() => setShowCongrats(false)} />
+      )}
       {/* Header — title + LLC + pitch inline */}
       <div className="investor-header">
         <Box blockPadding="lg" inlinePadding="lg" className="investor-header-inner">
