@@ -13,6 +13,17 @@ interface Message {
 const SESSION_ID =
   typeof crypto !== "undefined" ? crypto.randomUUID() : "session-default";
 
+function stripMarkdown(text: string): string {
+  return text
+    .replace(/#{1,6}\s*/g, "")        // headings
+    .replace(/\*\*(.+?)\*\*/g, "$1")  // bold
+    .replace(/\*(.+?)\*/g, "$1")      // italic
+    .replace(/__(.+?)__/g, "$1")      // bold alt
+    .replace(/_(.+?)_/g, "$1")        // italic alt
+    .replace(/`(.+?)`/g, "$1")        // inline code
+    .replace(/^\s*[-*]\s+/gm, "• ");  // bullets → •
+}
+
 export function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
@@ -46,7 +57,7 @@ export function ChatWidget() {
 
     try {
       const reply = await sendChat(text, SESSION_ID, userId);
-      setMessages((prev) => [...prev, { role: "bot", text: reply }]);
+      setMessages((prev) => [...prev, { role: "bot", text: stripMarkdown(reply) }]);
     } catch {
       setMessages((prev) => [
         ...prev,

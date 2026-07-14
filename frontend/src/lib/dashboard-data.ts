@@ -158,9 +158,15 @@ export function buildPrimaryNav(missionCount: number): NavItem[] {
     },
     {
       id: "profile",
-      label: "Business profile",
+      label: "My Business",
       icon: "content",
       href: "#profile",
+    },
+    {
+      id: "domain",
+      label: "Domain",
+      icon: "domain",
+      href: "#domain",
     },
     {
       id: "achievements",
@@ -183,14 +189,6 @@ export function buildGrowthNav(stage: Stage): NavItem[] {
 
   return [
     {
-      id: "domain",
-      label: "Domain",
-      icon: "domain",
-      href: "#domain",
-      locked: !builderOpen,
-      lockReason: builderOpen ? undefined : "Unlocks at Builder",
-    },
-    {
       id: "website",
       label: "Website",
       icon: "page",
@@ -203,8 +201,6 @@ export function buildGrowthNav(stage: Stage): NavItem[] {
       label: "Funding",
       icon: "lightbulb",
       href: "/investor-ready",
-      locked: !brandOpen,
-      lockReason: brandOpen ? undefined : "Unlocks at Investor Ready",
     },
   ];
 }
