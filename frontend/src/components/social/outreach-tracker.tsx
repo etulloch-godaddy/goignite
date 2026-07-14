@@ -20,9 +20,16 @@ const Label = text.span;
 const STATUS_OPTIONS = [
   { value: "sent", label: "Sent" },
   { value: "replied", label: "Replied" },
-  { value: "deal", label: "Deal 🎉" },
+  { value: "deal", label: "Deal" },
   { value: "no_response", label: "No Response" },
 ];
+
+const STATUS_BADGE: Record<string, string> = {
+  sent: "social-badge--sent",
+  replied: "social-badge--replied",
+  deal: "social-badge--deal",
+  no_response: "social-badge--no-response",
+};
 
 const PLATFORM_OPTIONS = [
   { value: "instagram", label: "Instagram" },
@@ -30,6 +37,13 @@ const PLATFORM_OPTIONS = [
   { value: "facebook", label: "Facebook" },
   { value: "email", label: "Email" },
 ];
+
+const PLATFORM_LABELS: Record<string, string> = {
+  instagram: "Instagram",
+  tiktok: "TikTok",
+  facebook: "Facebook",
+  email: "Email",
+};
 
 interface Props {
   userId: string;
@@ -41,6 +55,8 @@ export function OutreachTracker({ userId }: Props) {
   const [showForm, setShowForm] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({ brand: "", platform: "instagram", status: "sent", notes: "" });
+  const [dealBrand, setDealBrand] = useState<string | null>(null);
+  const [editingNotes, setEditingNotes] = useState<{ id: string; value: string } | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -71,15 +87,31 @@ export function OutreachTracker({ userId }: Props) {
     }
   };
 
-  const handleStatusChange = async (entryId: string, status: string) => {
+  const handleStatusChange = async (entry: OutreachEntry, status: string) => {
     try {
-      const updated = await updateOutreach(userId, entryId, { status });
+      const updated = await updateOutreach(userId, entry.entry_id, { status });
       setLog((prev) => ({
         ...prev,
-        entries: prev.entries.map((e) => (e.entry_id === entryId ? updated : e)),
+        entries: prev.entries.map((e) => (e.entry_id === entry.entry_id ? { ...e, ...updated } : e)),
+      }));
+      if (status === "deal") setDealBrand(entry.brand);
+    } catch {
+      // silent
+    }
+  };
+
+  const handleNotesSave = async (entryId: string) => {
+    if (!editingNotes) return;
+    try {
+      const updated = await updateOutreach(userId, entryId, { notes: editingNotes.value });
+      setLog((prev) => ({
+        ...prev,
+        entries: prev.entries.map((e) => (e.entry_id === entryId ? { ...e, ...updated } : e)),
       }));
     } catch {
       // silent
+    } finally {
+      setEditingNotes(null);
     }
   };
 
@@ -105,6 +137,14 @@ export function OutreachTracker({ userId }: Props) {
           <span className="social-stat-label">Deals</span>
         </div>
       </div>
+
+      {/* Deal banner */}
+      {dealBrand && (
+        <div className="social-deal-banner">
+          <span>Deal logged with <strong>{dealBrand}</strong> — achievement unlocked!</span>
+          <button onClick={() => setDealBrand(null)}>✕</button>
+        </div>
+      )}
 
       {/* Add form */}
       {showForm && (
@@ -167,19 +207,45 @@ export function OutreachTracker({ userId }: Props) {
               {log.entries.map((entry) => (
                 <tr key={entry.entry_id}>
                   <td><Label as="label" size={2}>{entry.brand}</Label></td>
-                  <td>{entry.platform}</td>
+                  <td>{PLATFORM_LABELS[entry.platform] ?? entry.platform}</td>
                   <td>
-                    <select
-                      className="social-status-select"
-                      value={entry.status}
-                      onChange={(e) => handleStatusChange(entry.entry_id, e.target.value)}
-                    >
-                      {STATUS_OPTIONS.map((o) => (
-                        <option key={o.value} value={o.value}>{o.label}</option>
-                      ))}
-                    </select>
+                    <div className="social-status-cell">
+                      <span className={`social-status-badge ${STATUS_BADGE[entry.status] ?? ""}`}>
+                        {STATUS_OPTIONS.find((o) => o.value === entry.status)?.label ?? entry.status}
+                      </span>
+                      <select
+                        className="social-status-select"
+                        value={entry.status}
+                        onChange={(e) => handleStatusChange(entry, e.target.value)}
+                      >
+                        {STATUS_OPTIONS.map((o) => (
+                          <option key={o.value} value={o.value}>{o.label}</option>
+                        ))}
+                      </select>
+                    </div>
                   </td>
-                  <td className="social-notes-cell">{entry.notes ?? "—"}</td>
+                  <td className="social-notes-cell">
+                    {editingNotes?.id === entry.entry_id ? (
+                      <input
+                        autoFocus
+                        className="social-input"
+                        value={editingNotes.value}
+                        onChange={(e) => setEditingNotes({ id: entry.entry_id, value: e.target.value })}
+                        onBlur={() => handleNotesSave(entry.entry_id)}
+                        onKeyDown={(e) => e.key === "Enter" && handleNotesSave(entry.entry_id)}
+                      />
+                    ) : (
+                      <span>
+                        {entry.notes ?? "—"}
+                        <button
+                          className="social-edit-notes-btn"
+                          onClick={() => setEditingNotes({ id: entry.entry_id, value: entry.notes ?? "" })}
+                        >
+                          edit
+                        </button>
+                      </span>
+                    )}
+                  </td>
                   <td>{new Date(entry.created_at).toLocaleDateString()}</td>
                 </tr>
               ))}

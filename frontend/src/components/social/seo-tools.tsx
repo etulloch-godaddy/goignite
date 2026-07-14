@@ -5,7 +5,6 @@ import Box from "@ux/box";
 import Button from "@ux/button";
 import text from "@ux/text";
 import Select from "@ux/select";
-import Tag from "@ux/tag";
 import {
   analyzeSeoProfile,
   optimizeSeoContent,
@@ -46,9 +45,15 @@ interface Props {
   businessName?: string;
 }
 
-export function SeoTools({ userId, creatorType, niche, businessName }: Props) {
-  const normalizedNiche = normalizeCreatorType(creatorType);
+export function SeoTools({ userId, creatorType, niche: nicheProp, businessName: businessNameProp }: Props) {
+  const normalizedNiche = creatorType;
   const [activeTool, setActiveTool] = useState<Tool>("bio");
+
+  // Shared context inputs — user can override what was inferred from questionnaire
+  const [localBusinessName, setLocalBusinessName] = useState(
+    businessNameProp && businessNameProp !== "My Business" ? businessNameProp : ""
+  );
+  const [localNiche, setLocalNiche] = useState(nicheProp ?? "");
 
   // Bio state
   const [bioPlatform, setBioPlatform] = useState<SocialPlatform>("instagram");
@@ -72,7 +77,14 @@ export function SeoTools({ userId, creatorType, niche, businessName }: Props) {
     setBioLoading(true);
     setBioResult(null);
     try {
-      setBioResult(await analyzeSeoProfile({ user_id: userId, platform: bioPlatform, bio, creator_type: normalizedNiche }));
+      setBioResult(await analyzeSeoProfile({
+        user_id: userId,
+        platform: bioPlatform,
+        bio,
+        creator_type: normalizedNiche,
+        business_name: localBusinessName || undefined,
+        niche: localNiche || undefined,
+      }));
     } catch {
       setBioResult({ score: 0, feedback: "Analysis unavailable.", rewrite: bio });
     } finally {
@@ -84,7 +96,7 @@ export function SeoTools({ userId, creatorType, niche, businessName }: Props) {
     setKwLoading(true);
     setKwResult(null);
     try {
-      setKwResult(await getSeoKeywords(normalizedNiche, kwPlatform, niche, businessName));
+      setKwResult(await getSeoKeywords(normalizedNiche, kwPlatform, localNiche || undefined, localBusinessName || undefined));
     } catch {
       setKwResult({ keywords: [] });
     } finally {
@@ -97,7 +109,14 @@ export function SeoTools({ userId, creatorType, niche, businessName }: Props) {
     setCaptionLoading(true);
     setCaptionResult(null);
     try {
-      setCaptionResult(await optimizeSeoContent({ user_id: userId, platform: captionPlatform, content: caption, creator_type: normalizedNiche }));
+      setCaptionResult(await optimizeSeoContent({
+        user_id: userId,
+        platform: captionPlatform,
+        content: caption,
+        creator_type: normalizedNiche,
+        business_name: localBusinessName || undefined,
+        niche: localNiche || undefined,
+      }));
     } catch {
       setCaptionResult({ optimized: caption, tips: ["Optimization unavailable."] });
     } finally {
@@ -109,6 +128,32 @@ export function SeoTools({ userId, creatorType, niche, businessName }: Props) {
 
   return (
     <Box orientation="vertical" gap="lg">
+
+      {/* Business context — used by all tools for personalization */}
+      <div className="seo-context-row">
+        <div className="seo-context-field">
+          <label className="seo-context-label" htmlFor="seo-biz-name">Business name</label>
+          <input
+            id="seo-biz-name"
+            className="seo-context-input"
+            type="text"
+            placeholder="e.g. Fuego Hot Sauce Co."
+            value={localBusinessName}
+            onChange={(e) => setLocalBusinessName(e.target.value)}
+          />
+        </div>
+        <div className="seo-context-field">
+          <label className="seo-context-label" htmlFor="seo-niche">Your niche / product</label>
+          <input
+            id="seo-niche"
+            className="seo-context-input"
+            type="text"
+            placeholder="e.g. small-batch hot sauce"
+            value={localNiche}
+            onChange={(e) => setLocalNiche(e.target.value)}
+          />
+        </div>
+      </div>
 
       {/* Tool picker */}
       <div className="seo-picker">
@@ -167,16 +212,16 @@ export function SeoTools({ userId, creatorType, niche, businessName }: Props) {
 
                 <div className="seo-rewrite-block">
                   <div className="seo-rewrite-label">
-                    <span>✨ Suggested rewrite</span>
+                    <span>Suggested rewrite</span>
                     <button
                       type="button"
                       className="seo-copy-btn"
-                      onClick={() => navigator.clipboard.writeText(bioResult.rewrite)}
+                      onClick={() => navigator.clipboard.writeText((bioResult as Record<string, string>).rewritten_bio ?? bioResult.rewrite)}
                     >
                       Copy
                     </button>
                   </div>
-                  <p className="seo-rewrite-text">{bioResult.rewrite}</p>
+                  <p className="seo-rewrite-text">{(bioResult as Record<string, string>).rewritten_bio ?? bioResult.rewrite}</p>
                 </div>
               </Box>
             )}
@@ -205,7 +250,6 @@ export function SeoTools({ userId, creatorType, niche, businessName }: Props) {
                     <div key={i} className="seo-keyword-chip">
                       <span className="seo-kw-rank">#{i + 1}</span>
                       <span className="seo-kw-text">{kw.keyword}</span>
-                      {kw.relevance && <Tag emphasis="neutral" size="sm">{kw.relevance}</Tag>}
                     </div>
                   ))}
                 </div>
@@ -232,7 +276,7 @@ export function SeoTools({ userId, creatorType, niche, businessName }: Props) {
               <Box orientation="vertical" gap="md" className="seo-result-panel">
                 <div className="seo-rewrite-block">
                   <div className="seo-rewrite-label">
-                    <span>✨ Optimized caption</span>
+                    <span>Optimized caption</span>
                     <button
                       type="button"
                       className="seo-copy-btn"
@@ -244,7 +288,26 @@ export function SeoTools({ userId, creatorType, niche, businessName }: Props) {
                   <p className="seo-rewrite-text">{captionResult.optimized}</p>
                 </div>
 
-                {captionResult.tips.length > 0 && (
+                {(captionResult as Record<string, unknown>).explanation && (
+                  <div className="seo-tips">
+                    <span className="seo-tips-label">What changed</span>
+                    <p style={{ fontSize: "0.875rem", color: "#444", margin: 0, lineHeight: 1.6 }}>
+                      {(captionResult as Record<string, string>).explanation}
+                    </p>
+                  </div>
+                )}
+
+                {Array.isArray((captionResult as Record<string, unknown>).keywords_added) && ((captionResult as Record<string, string[]>).keywords_added).length > 0 && (
+                  <div className="seo-keyword-grid">
+                    {((captionResult as Record<string, string[]>).keywords_added).map((kw, i) => (
+                      <div key={i} className="seo-keyword-chip">
+                        <span className="seo-kw-text">#{kw}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {Array.isArray(captionResult.tips) && captionResult.tips.length > 0 && (
                   <div className="seo-tips">
                     <span className="seo-tips-label">Tips</span>
                     <ul className="seo-tips-list">
