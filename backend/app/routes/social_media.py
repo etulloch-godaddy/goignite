@@ -25,7 +25,7 @@ _outreach_store: dict[str, list] = {}
 
 DATA_DIR = Path(__file__).parent.parent / "data"
 
-_VALID_PLATFORMS = ("instagram", "tiktok")
+_VALID_PLATFORMS = ("instagram", "tiktok", "facebook")
 _VALID_CREATOR_TYPES = ("fashion", "gaming", "fitness", "art", "food")
 
 
@@ -466,7 +466,15 @@ async def seo_profile_analysis(payload: dict):
     if creator_type not in _VALID_CREATOR_TYPES:
         raise HTTPException(status_code=400, detail=f"creator_type must be one of: {', '.join(_VALID_CREATOR_TYPES)}")
 
+    business_name = (payload.get("business_name") or "").strip()
+    niche = (payload.get("niche") or "").strip()
+
     onboarding = await fetch_onboarding_data(user_id) if user_id else {}
+    if business_name:
+        onboarding["business_name"] = business_name
+    if niche:
+        onboarding["niche"] = niche
+
     result = await analyze_seo_profile(platform, bio, creator_type, onboarding=onboarding)
     return {"user_id": user_id, "platform": platform, **result}
 
@@ -528,7 +536,15 @@ async def seo_content_optimization(payload: dict):
     if creator_type not in _VALID_CREATOR_TYPES:
         raise HTTPException(status_code=400, detail=f"creator_type must be one of: {', '.join(_VALID_CREATOR_TYPES)}")
 
+    business_name = (payload.get("business_name") or "").strip()
+    niche = (payload.get("niche") or "").strip()
+
     onboarding = await fetch_onboarding_data(user_id) if user_id else {}
+    if business_name:
+        onboarding["business_name"] = business_name
+    if niche:
+        onboarding["niche"] = niche
+
     result = await optimize_seo_content(platform, content, creator_type, onboarding=onboarding)
     return {"user_id": user_id, "platform": platform, **result}
 

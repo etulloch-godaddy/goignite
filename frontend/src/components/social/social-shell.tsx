@@ -8,45 +8,63 @@ import { DashboardSidebar } from "@/components/dashboard/dashboard-sidebar";
 import { DashboardLoading } from "@/components/dashboard/dashboard-loading";
 import { useSocial } from "@/hooks/use-social";
 import { PlatformConnect } from "./platform-connect";
-import { SocialMissions } from "./social-missions";
 import { ContentIdeas } from "./content-ideas";
 import { OutreachTracker } from "./outreach-tracker";
-import { GrowthPlan } from "./growth-plan";
+import { MonetizationPaths } from "./monetization-paths";
 import { SeoTools } from "./seo-tools";
 
 const Main = box.main;
 
+// Maps every questionnaire business type label to a valid backend creator type.
+// Backend accepts: fashion | gaming | fitness | art | food
+const CREATOR_TYPE_MAP: Record<string, string> = {
+  "clothing & merch":   "fashion",
+  "beauty & wellness":  "fashion",
+  "content & media":    "fashion",
+  "services":           "fashion",
+  "digital products":   "art",
+  "home & handmade":    "art",
+  "art & design":       "art",
+  "food & drink":       "food",
+  "fashion & lifestyle": "fashion",
+  "gaming":             "gaming",
+  "fitness":            "fitness",
+  "something else":     "fashion",
+};
+
+function resolveCreatorType(raw: string): string {
+  return CREATOR_TYPE_MAP[raw.toLowerCase()] ??
+    (["fashion", "gaming", "fitness", "art", "food"].find((t) => raw.toLowerCase().includes(t)) ?? "fashion");
+}
+
 const TABS = [
-  { id: "connect", text: "Connect" },
-  { id: "missions", text: "Missions" },
-  { id: "content", text: "Content" },
+  { id: "connect",  text: "Connect" },
+  { id: "content",  text: "Content" },
+  { id: "seo",      text: "SEO" },
   { id: "outreach", text: "Outreach" },
-  { id: "grow", text: "Grow" },
-  { id: "seo", text: "SEO" },
+  { id: "monetize", text: "Monetize" },
 ];
 
 export function SocialShell() {
-  const { userId, user, completedMissionIds, loading } = useSocial();
+  const { userId, user, creatorTypeLabel, loading } = useSocial();
   const [activeTab, setActiveTab] = useState("connect");
 
   if (loading) return <DashboardLoading />;
 
   const stage = user.stage;
-  const creatorType = user.creatorType ?? "fashion";
+  const creatorType = resolveCreatorType(creatorTypeLabel || user.creatorType || "fashion");
   const uid = userId ?? "demo";
 
   const renderTab = () => {
     switch (activeTab) {
       case "connect":
         return <PlatformConnect userId={uid} stage={stage} creatorType={creatorType} />;
-      case "missions":
-        return <SocialMissions userId={uid} stage={stage} creatorType={creatorType} completedMissionIds={completedMissionIds} />;
       case "content":
         return <ContentIdeas userId={uid} stage={stage} creatorType={creatorType} />;
       case "outreach":
         return <OutreachTracker userId={uid} />;
-      case "grow":
-        return <GrowthPlan userId={uid} stage={stage} creatorType={creatorType} />;
+      case "monetize":
+        return <MonetizationPaths userId={uid} creatorType={creatorType} />;
       case "seo":
         return <SeoTools userId={uid} creatorType={creatorType} niche={user.profile.niche} businessName={user.businessName} />;
       default:

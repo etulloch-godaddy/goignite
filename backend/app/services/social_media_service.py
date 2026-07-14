@@ -27,26 +27,26 @@ MOCK_STATS = {
     "instagram": {
         "platform": "instagram",
         "connected": True,
-        "username": "demo_creator",
+        "username": "valentinas_hotsauce",
         "followers": 2847,
         "posts": 63,
-        "profile_url": "https://instagram.com/demo_creator",
+        "profile_url": "https://instagram.com/valentinas_hotsauce",
     },
     "tiktok": {
         "platform": "tiktok",
         "connected": True,
-        "username": "demo_creator",
+        "username": "valentinas_hotsauce",
         "followers": 5120,
         "videos": 41,
-        "profile_url": "https://tiktok.com/@demo_creator",
+        "profile_url": "https://tiktok.com/@valentinas_hotsauce",
     },
     "facebook": {
         "platform": "facebook",
         "connected": True,
-        "username": "Demo Creator",
+        "username": "Valentina's Hot Sauce",
         "followers": 890,
         "posts": 34,
-        "profile_url": "https://facebook.com/democreator",
+        "profile_url": "https://facebook.com/valentinashotsauce",
     },
 }
 
@@ -190,13 +190,40 @@ async def exchange_code_for_stats(platform: str, code: str) -> dict:
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
 
 MOCK_CONTENT_IDEAS = [
-    {"day": 1, "post_type": "Reel", "hook": "POV: you just started your creator business with zero followers", "caption": "Everyone starts at zero. Here's the one thing I wish someone told me on day one. Save this for when you need it most.", "hashtags": ["#creatortips", "#contentcreator", "#growyouraudience", "#socialmediatips", "#creatoreconomy"], "best_time": "7:00 PM"},
-    {"day": 2, "post_type": "Carousel", "hook": "5 things that actually grew my audience (none of them went viral)", "caption": "Consistency beats virality every time. Here are the 5 unglamorous things that actually moved the needle for me.", "hashtags": ["#audiencegrowth", "#creatortips", "#contentcreator", "#socialmedia", "#growyourbrand"], "best_time": "12:00 PM"},
-    {"day": 3, "post_type": "Story Poll", "hook": "Quick question for you 👇", "caption": "I'm building something new and your opinion actually matters. Drop your vote — takes 2 seconds.", "hashtags": ["#askme", "#community", "#contentcreator", "#creatorlife", "#engagement"], "best_time": "6:00 PM"},
-    {"day": 4, "post_type": "Photo", "hook": "Behind the scenes of how I actually create content", "caption": "Not the highlight reel. The real setup, the real process, the real me. What does your creative space look like?", "hashtags": ["#behindthescenes", "#contentcreator", "#creatorlife", "#mysetup", "#authentic"], "best_time": "11:00 AM"},
-    {"day": 5, "post_type": "Reel", "hook": "I DM'd 10 brands this week — here's what happened", "caption": "Real results, no filters. This is exactly what I said, who responded, and what I learned about pitching as a small creator.", "hashtags": ["#branddeals", "#creatortips", "#influencermarketing", "#pitching", "#makemoneyonline"], "best_time": "7:00 PM"},
-    {"day": 6, "post_type": "Carousel", "hook": "Your link in bio is losing you money — here's the fix", "caption": "Most creators leave serious money on the table because their link in bio does nothing. Here's the 5-minute fix.", "hashtags": ["#linkinbio", "#creatortips", "#monetise", "#contentcreator", "#growyourbusiness"], "best_time": "12:00 PM"},
-    {"day": 7, "post_type": "Photo", "hook": "End of week reflection — what actually worked this week", "caption": "Weekly wins, weekly lessons. I'm sharing mine to keep myself accountable. Drop yours in the comments.", "hashtags": ["#weeklyreflection", "#creatorjourney", "#accountability", "#contentcreator", "#growth"], "best_time": "5:00 PM"},
+    # --- Week 1: Brand Story & Product Education ---
+    {"day": 1, "post_type": "Photo", "hook": "Meet Valentina's Hot Sauce — made from a recipe that was never meant to leave the kitchen", "caption": "My grandmother made this sauce for the family for 40 years. Every batch is still handcrafted the same way — real peppers, real ingredients, no shortcuts. Now it's in a bottle. Order online at the link in bio.", "hashtags": ["#ValentinasHotSauce", "#SmallBatchHotSauce", "#HandcraftedFood", "#HotSauce", "#MadeWithLove"], "best_time": "11:00 AM"},
+    {"day": 2, "post_type": "Carousel", "hook": "The heat guide — find your level", "caption": "Our heat levels are built for different palates. Mild for everyday use. Medium for those who want a real kick. Extra Hot for people who know what they are getting into. Which one is yours? Order at the link in bio.", "hashtags": ["#HotSauce", "#HeatScale", "#SpicyFoodLovers", "#SmallBatchHotSauce", "#ChiliPepper"], "best_time": "12:00 PM"},
+    {"day": 3, "post_type": "Reel", "hook": "What goes into every bottle — and why it matters", "caption": "Fresh chilis. No artificial preservatives. Bottled by hand. Labeled by hand. Every bottle that leaves our kitchen has been touched at least a dozen times. That attention is what you taste.", "hashtags": ["#Ingredients", "#CleanLabel", "#SmallBatch", "#HandcraftedFood", "#HotSauceLovers"], "best_time": "7:00 PM"},
+    {"day": 4, "post_type": "Photo", "hook": "The ingredient we source locally — and why we won't change that", "caption": "We source our chilis from a farm 40 miles from our kitchen. We could get them cheaper elsewhere. We choose not to. The difference is in every bite.", "hashtags": ["#LocalSourcing", "#CleanIngredients", "#SmallBatch", "#FoodQuality", "#ValentinasHotSauce"], "best_time": "10:00 AM"},
+    {"day": 5, "post_type": "Carousel", "hook": "5 things that make Valentina's different from store-bought", "caption": "No mass production. No artificial preservatives. Sourced locally. Made in small batches. And a recipe that has been in the family for 40 years. Slide through to see what each one means for what's in your bottle.", "hashtags": ["#SmallBatch", "#HandcraftedFood", "#HotSauce", "#CleanLabel", "#ValentinasHotSauce"], "best_time": "12:00 PM"},
+    {"day": 6, "post_type": "Photo", "hook": "Your most common questions about Valentina's — answered", "caption": "Is it gluten-free? Yes. Shelf-stable? Yes — no refrigeration needed until opened. Shelf life? 18 months. How hot is Extra Hot? Enough to make you respect it. More questions? DM us anytime.", "hashtags": ["#FAQ", "#HotSauce", "#SmallFoodBrand", "#ValentinasHotSauce", "#CustomerFirst"], "best_time": "11:00 AM"},
+    {"day": 7, "post_type": "Reel", "hook": "Valentina's Hot Sauce — order online, ship anywhere", "caption": "We now ship nationwide. If you have been curious and have not tried it yet, the link in bio takes you straight to the shop. First-time order? Use code FIRSTBATCH for 15% off.", "hashtags": ["#ValentinasHotSauce", "#OrderOnline", "#SmallFoodBrand", "#HotSauce", "#ShipNationwide"], "best_time": "5:00 PM"},
+    # --- Week 2: Use Cases & Recipes ---
+    {"day": 8, "post_type": "Carousel", "hook": "5 ways to use Valentina's this week", "caption": "Eggs. Tacos. Grilled chicken. Avocado toast. Pasta. Yes, pasta. Slide through to see how we use our sauce every day — save this for your next grocery run.", "hashtags": ["#HotSaucePairing", "#RecipeIdeas", "#HotSauce", "#SpicyFood", "#SmallBatchHotSauce"], "best_time": "12:00 PM"},
+    {"day": 9, "post_type": "Reel", "hook": "The fastest way to upgrade any weeknight meal", "caption": "One bottle. Endless uses. Hot sauce is the easiest way to add depth to a dish without changing the whole recipe. Here are our three go-to weeknight moves — try one tonight.", "hashtags": ["#WeekdayMeals", "#HotSauce", "#EasyRecipes", "#SpicyCooking", "#ValentinasHotSauce"], "best_time": "6:00 PM"},
+    {"day": 10, "post_type": "Photo", "hook": "Scrambled eggs will never be the same after this", "caption": "Three drops of our Mild into scrambled eggs changes everything. The heat is subtle. The flavor carries. This is the one we recommend for people who think they don't like hot sauce. Link in bio.", "hashtags": ["#BreakfastIdeas", "#HotSauce", "#EggsRecipe", "#SmallBatch", "#ValentinasHotSauce"], "best_time": "9:00 AM"},
+    {"day": 11, "post_type": "Carousel", "hook": "7 recipes where our hot sauce is the secret ingredient", "caption": "Buffalo dip. Spicy honey glaze. Chili oil pasta. Elote. Smash burgers. Shakshuka. Mango habanero wings. Swipe for the full breakdown on each one — save this post and try one this week.", "hashtags": ["#RecipeIdeas", "#HotSauceRecipe", "#SpicyCooking", "#ValentinasHotSauce", "#WeeklyRecipes"], "best_time": "12:00 PM"},
+    {"day": 12, "post_type": "Reel", "hook": "Hot sauce tacos — the only recipe you need this week", "caption": "Protein. Warm tortilla. Valentina's Extra Hot. Fresh onion and cilantro. That is the whole recipe. No measurement needed — just taste as you go. Link in bio if you want to order a bottle.", "hashtags": ["#TacoRecipe", "#HotSauce", "#SpicyFood", "#ValentinasHotSauce", "#SimpleRecipes"], "best_time": "7:00 PM"},
+    {"day": 13, "post_type": "Photo", "hook": "Our sauce on grilled corn — a pairing we didn't expect to love this much", "caption": "Grilled corn. Butter. Our Medium. A little cotija cheese. We posted this on a Tuesday and it became our most-saved post that month. Save it for your next BBQ.", "hashtags": ["#GrilledCorn", "#HotSauce", "#BBQSeason", "#SmallBatch", "#ValentinasHotSauce"], "best_time": "11:00 AM"},
+    {"day": 14, "post_type": "Carousel", "hook": "Which Valentina's heat level goes with which dish", "caption": "Mild → eggs, seafood, light soups. Medium → tacos, burgers, rice dishes. Extra Hot → wings, BBQ, anything grilled. Use this as your cheat sheet — save it and tag us when you try one.", "hashtags": ["#HotSauceGuide", "#FoodPairing", "#SpicyFood", "#ValentinasHotSauce", "#HotSauceLovers"], "best_time": "12:00 PM"},
+    # --- Week 3: Behind the Scenes & Trust ---
+    {"day": 15, "post_type": "Reel", "hook": "How we make every batch — start to finish", "caption": "Sourcing. Washing. Roasting. Blending. Bottling. Every step done in small batches so the flavor stays consistent. This is not mass production — this is a craft.", "hashtags": ["#HotSauceMaking", "#SmallBatch", "#BehindTheScenes", "#FoodProduction", "#ValentinasHotSauce"], "best_time": "7:00 PM"},
+    {"day": 16, "post_type": "Photo", "hook": "Behind the label — the story we tried to fit on a bottle", "caption": "We designed the label ourselves. Every element has a reason — the color, the font, the grandmother's silhouette. When you pick up a bottle of Valentina's, you are holding a family story. We wanted the packaging to feel like that.", "hashtags": ["#Branding", "#SmallBusiness", "#PackagingDesign", "#HotSauce", "#ValentinasHotSauce"], "best_time": "11:00 AM"},
+    {"day": 17, "post_type": "Reel", "hook": "A morning at the farmers market — packed and ready in 30 seconds", "caption": "Early morning. Boxes loaded. Table set. Farmers market days are some of our favorites — you get to watch people taste it for the first time. Nothing beats that reaction. We're there every Saturday.", "hashtags": ["#FarmersMarket", "#SmallBusiness", "#LocalFood", "#HotSauce", "#ValentinasHotSauce"], "best_time": "8:00 AM"},
+    {"day": 18, "post_type": "Photo", "hook": "The real cost of making a bottle of hot sauce — not what people expect", "caption": "Fresh peppers. Vinegar. Spices. Bottles. Labels. Time. Love. We price our product to reflect its quality — not to compete with mass-produced alternatives. When you buy Valentina's, you are buying something made with intention.", "hashtags": ["#SmallBusiness", "#FoodCost", "#HandcraftedFood", "#ValentinasHotSauce", "#ShopSmall"], "best_time": "10:00 AM"},
+    {"day": 19, "post_type": "Carousel", "hook": "What small-batch actually means — and why it matters to us", "caption": "Small-batch means we make less per run. It also means we catch quality issues early. We taste every batch before it ships. That is the tradeoff we make on purpose. Swipe through to see what our process looks like.", "hashtags": ["#SmallBatch", "#FoodQuality", "#BehindTheScenes", "#HandcraftedFood", "#ValentinasHotSauce"], "best_time": "12:00 PM"},
+    {"day": 20, "post_type": "Photo", "hook": "A customer message that stopped us mid-morning", "caption": "We got this DM on a Tuesday and read it three times. This is why we make what we make. If you have tried Valentina's and have a story, we want to hear it — drop it in the comments or send us a message.", "hashtags": ["#CustomerStory", "#HotSauce", "#SmallBusiness", "#ValentinasHotSauce", "#Community"], "best_time": "11:00 AM"},
+    {"day": 21, "post_type": "Reel", "hook": "What the labeling process actually looks like — yes, we do it by hand", "caption": "Every bottle is labeled by hand. It takes longer. We think it is worth it. Each label goes on straight because someone took the time to make sure it did. That is the kind of business we want to run.", "hashtags": ["#HandLabeled", "#SmallBatch", "#BehindTheScenes", "#FoodBusiness", "#ValentinasHotSauce"], "best_time": "6:00 PM"},
+    # --- Week 4: Promotions & Community ---
+    {"day": 22, "post_type": "Carousel", "hook": "3 ways to give Valentina's as a gift — for any occasion", "caption": "Birthday. Housewarming. Corporate gift basket. Slide through for our most popular bundle ideas. We do custom labels for orders of 12 or more — DM us to talk details.", "hashtags": ["#FoodGift", "#HotSauceGift", "#CorporateGifting", "#ValentinasHotSauce", "#GiftIdeas"], "best_time": "12:00 PM"},
+    {"day": 23, "post_type": "Photo", "hook": "Multi-packs for the ones who go through a bottle a week", "caption": "If you're a regular, the 3-pack and 6-pack save you shipping and keep you stocked. Available at the link in bio. Mix and match heat levels — most people get one of each.", "hashtags": ["#HotSauce", "#BundleDeal", "#SmallFoodBrand", "#ValentinasHotSauce", "#OrderOnline"], "best_time": "10:00 AM"},
+    {"day": 24, "post_type": "Reel", "hook": "Never run out — here is how our monthly subscription works", "caption": "One click. Monthly delivery. 10% off every order. Cancel any time. We ship the first week of each month. If you go through Valentina's regularly, the subscription pays for itself in the first order. Set it up at the link in bio.", "hashtags": ["#Subscription", "#HotSauce", "#SmallFoodBrand", "#ValentinasHotSauce", "#MonthlyDelivery"], "best_time": "7:00 PM"},
+    {"day": 25, "post_type": "Photo", "hook": "We do wholesale — here is how to carry Valentina's in your restaurant or shop", "caption": "If you run a restaurant, cafe, specialty food shop, or market stall and want to carry Valentina's, DM us. We do wholesale minimums of one case. We bring samples first — no commitment to taste.", "hashtags": ["#Wholesale", "#RestaurantSupply", "#SmallFoodBrand", "#ValentinasHotSauce", "#LocalFood"], "best_time": "10:00 AM"},
+    {"day": 26, "post_type": "Carousel", "hook": "Everything in the Valentina's shop right now", "caption": "Single bottles. 3-packs. 6-packs. Monthly subscription. Corporate gift sets. Custom label orders of 12+. We ship nationwide. Local pickup available at the Saturday farmers market. Full shop at the link in bio.", "hashtags": ["#ShopNow", "#ValentinasHotSauce", "#HotSauce", "#OrderOnline", "#SmallFoodBrand"], "best_time": "12:00 PM"},
+    {"day": 27, "post_type": "Reel", "hook": "Tag someone who needs Valentina's in their life", "caption": "You know the person. The one who puts hot sauce on everything. The one who carries a bottle in their bag. Tag them — and we'll pick one to receive a free 3-pack this week.", "hashtags": ["#HotSauceLovers", "#TagAFriend", "#ValentinasHotSauce", "#Giveaway", "#SpicyFood"], "best_time": "5:00 PM"},
+    {"day": 28, "post_type": "Photo", "hook": "Something new is coming — drop a comment if you want the first look", "caption": "We have been working on something we are really excited about. New flavor. New format. Something we have never offered before. Everyone who comments gets early access when it drops.", "hashtags": ["#ComingSoon", "#NewProduct", "#ValentinasHotSauce", "#HotSauce", "#SmallFoodBrand"], "best_time": "11:00 AM"},
+    {"day": 29, "post_type": "Carousel", "hook": "How to find us — online, in person, and wholesale", "caption": "Online: order at the link in bio. In person: we are at the farmers market every Saturday. Wholesale: DM us and we bring samples. Gift orders: DM for custom labels and bulk pricing. We want Valentina's everywhere.", "hashtags": ["#ValentinasHotSauce", "#HowToOrder", "#SmallFoodBrand", "#HotSauce", "#LocalBusiness"], "best_time": "12:00 PM"},
+    {"day": 30, "post_type": "Photo", "hook": "Thank you — and here is what is on the way", "caption": "A new product is in development. More stockists are coming. And we are always at the farmers market on Saturday. Thank you for following along and for every order. Valentina's is built one bottle at a time — and you are part of that.", "hashtags": ["#ValentinasHotSauce", "#ThankYou", "#SmallFoodBrand", "#HotSauce", "#Community"], "best_time": "11:00 AM"},
 ]
 
 
@@ -274,72 +301,148 @@ async def fetch_onboarding_data(user_id: str) -> dict:
     return {}
 
 
-MOCK_SEO_PROFILE_ANALYSIS = {
-    "score": 4,
-    "keywords_present": ["fashion", "creator"],
-    "keywords_missing": ["OOTD", "style tips", "outfit inspo", "collabs open"],
-    "rewritten_bio": "Fashion creator | daily OOTD + style tips ✨ Thrift finds & outfit inspo every week. Collabs open — DM me 📩",
-    "tips": [
-        "Add your city or region — geo-keywords like 'NYC' or 'LA' boost discoverability in local brand searches and Google.",
-        "Put your niche keyword ('OOTD' or 'fashion tips') in the very first line — that's what gets indexed by search engines.",
-        "Include an explicit CTA like 'Collabs open — DM me'. Profiles with a CTA convert 3x better for brand inquiries.",
-        "Mention your posting cadence ('new fits every week') — sets audience expectations and signals active creator status to the algorithm.",
-        "Use a keyword-rich phrase rather than a sentence. 'Daily OOTD + style tips' is more searchable than 'I post outfits every day'."
-    ],
-    "mock": True,
+# ─── Creator-type static data (used in mock mode) ─────────────────────────────
+
+_CREATOR_HASHTAGS: dict = {
+    "food":    ["#ValentinasHotSauce", "#SmallBatchHotSauce", "#HotSauceLovers", "#FoodEntrepreneur", "#HandcraftedFood"],
+    "fashion": ["#FashionBusiness", "#StyleCreator", "#OOTD", "#FashionBrand", "#SmallFashionBusiness"],
+    "art":     ["#ArtBusiness", "#HandmadeArt", "#ArtForSale", "#SmallArtBusiness", "#ArtCreator"],
+    "fitness": ["#FitnessBusiness", "#FitnessCreator", "#HealthCoach", "#WellnessBrand", "#FitnessJourney"],
+    "gaming":  ["#GamingCreator", "#GameStreamer", "#GamingContent", "#GamingCommunity", "#GamingBusiness"],
+}
+_CREATOR_KEYWORDS: dict = {
+    "food":    [{"keyword": "small-batch hot sauce", "relevance": "high"}, {"keyword": "artisan hot sauce", "relevance": "high"}, {"keyword": "hot sauce brand", "relevance": "high"}, {"keyword": "handcrafted condiment", "relevance": "medium"}, {"keyword": "spicy food", "relevance": "medium"}, {"keyword": "food entrepreneur", "relevance": "medium"}, {"keyword": "small food business", "relevance": "low"}],
+    "fashion": [{"keyword": "fashion creator", "relevance": "high"}, {"keyword": "OOTD", "relevance": "high"}, {"keyword": "style tips", "relevance": "high"}, {"keyword": "outfit inspo", "relevance": "medium"}, {"keyword": "fashion brand", "relevance": "medium"}, {"keyword": "thrift finds", "relevance": "medium"}, {"keyword": "small fashion business", "relevance": "low"}],
+    "art":     [{"keyword": "original artwork", "relevance": "high"}, {"keyword": "art for sale", "relevance": "high"}, {"keyword": "handmade art", "relevance": "high"}, {"keyword": "art commission", "relevance": "medium"}, {"keyword": "small art business", "relevance": "medium"}, {"keyword": "illustration", "relevance": "medium"}, {"keyword": "art print", "relevance": "low"}],
+    "fitness": [{"keyword": "fitness tips", "relevance": "high"}, {"keyword": "workout routine", "relevance": "high"}, {"keyword": "wellness coach", "relevance": "high"}, {"keyword": "health journey", "relevance": "medium"}, {"keyword": "fitness business", "relevance": "medium"}, {"keyword": "personal trainer", "relevance": "medium"}, {"keyword": "fit lifestyle", "relevance": "low"}],
+    "gaming":  [{"keyword": "gaming content", "relevance": "high"}, {"keyword": "game streamer", "relevance": "high"}, {"keyword": "game review", "relevance": "high"}, {"keyword": "gaming community", "relevance": "medium"}, {"keyword": "live stream", "relevance": "medium"}, {"keyword": "gaming tips", "relevance": "medium"}, {"keyword": "esports", "relevance": "low"}],
+}
+_CREATOR_BIO_TEMPLATE: dict = {
+    "food":    "{name} | Small-batch {niche} | Grandma's recipe, made with love. Order online — link below 🌶️",
+    "fashion": "{name} | {niche} | Daily fits + styling tips. Shop the link in bio.",
+    "art":     "{name} | Original {niche} | Commissions open. New pieces every week. Link in bio.",
+    "fitness": "{name} | {niche} | Workouts, tips + coaching. DM to start your journey.",
+    "gaming":  "{name} | {niche} content | Live streams + reviews. Join the community below.",
+}
+_CREATOR_BIO_TIPS: dict = {
+    "food": ["Put your product type ('hot sauce', 'small-batch') in the first line — that's what shows in search results.", "Add 'Order online' or 'DM for wholesale' — food brands with a clear purchase CTA convert 3x better.", "Mention your origin story in one line ('Grandma's recipe') — emotional hooks drive follows on product accounts.", "Include your posting cadence ('new batches every Friday') to build anticipation and repeat visits."],
+    "fashion": ["Put your style niche in the first line for search indexing.", "Include a CTA like 'shop the link in bio' — fashion accounts with a shop CTA see higher click-through.", "Mention your posting frequency to signal active creator status to the algorithm.", "Add a personality hook — bios with a unique voice get more follows from profile visitors."],
+    "art": ["State your medium and style in the first line ('watercolor portraits', 'digital illustration').", "Include commission status — 'Commissions open' is the top-searched phrase for art buyers.", "Link to a portfolio or shop — art buyers decide in seconds; give them a direct path.", "Mention turnaround or drop schedule to set buyer expectations."],
+    "fitness": ["Lead with your specialty ('strength training', 'yoga') — that's your search keyword.", "Add credentials or results ('helped 200+ clients') — trust signals matter in wellness.", "Include a clear CTA: 'DM for coaching' or 'free program in link in bio'.", "Mention who you help ('busy moms', 'beginner lifters') to attract your ideal audience."],
+    "gaming": ["State your game genre or main game in the first line — that's what gaming audiences search.", "Include your streaming schedule — consistency drives subscriber retention.", "Add your community angle ('competitive tips', 'chill streams', 'game reviews').", "Link to your Discord or stream — gaming audiences expect a community hub."],
 }
 
-MOCK_SEO_CONTENT_OPTIMIZATION = {
-    "original": "Check out my new fit today! I love this jacket so much.",
-    "optimized": "This thrifted jacket is giving everything right now ✨ Found it at Goodwill for $8 — full OOTD breakdown in my link in bio. Drop a 🔥 if you want the full styling guide. #OOTD #ThriftFinds #FashionTips #OutfitInspo #ThriftedFashion",
-    "keywords_added": ["OOTD", "ThriftFinds", "FashionTips", "OutfitInspo", "ThriftedFashion"],
-    "explanation": "Replaced generic language ('new fit', 'jacket') with searchable terms ('thrifted jacket', 'OOTD', 'styling guide'). Added a specific price point — budget fashion content gets significantly more saves. Placed 5 high-discovery hashtags at the end of the caption per Instagram best practice. Added a CTA that drives link-in-bio traffic without feeling forced.",
-    "mock": True,
+
+def _build_mock_seo_profile(creator_type: str, onboarding: dict) -> dict:
+    name = onboarding.get("business_name") or "Your Business"
+    niche = onboarding.get("niche") or onboarding.get("creator_type_label") or creator_type
+    template = _CREATOR_BIO_TEMPLATE.get(creator_type, _CREATOR_BIO_TEMPLATE["food"])
+    rewrite = template.format(name=name, niche=niche)
+    tips = _CREATOR_BIO_TIPS.get(creator_type, _CREATOR_BIO_TIPS["food"])
+    return {"score": 45, "keywords_present": [], "keywords_missing": [], "rewritten_bio": rewrite, "tips": tips, "mock": True}
+
+
+_CREATOR_HOOKS: dict = {
+    "food": [
+        "This is how Valentina's Hot Sauce gets made — no shortcuts →",
+        "Grandma's secret recipe, now in a bottle →",
+        "Behind the scenes at {name}: batch day 🌶️",
+    ],
+    "fashion": [
+        "Today's look, broken down →",
+        "The piece everyone keeps asking about →",
+        "Style tip that works for any wardrobe →",
+    ],
+    "art": [
+        "This one took {name} 3 weeks to finish →",
+        "New work just dropped →",
+        "Here's what went into making this →",
+    ],
+    "fitness": [
+        "The move most people skip — but shouldn't →",
+        "This changed my clients' results in 2 weeks →",
+        "Quick tip for anyone starting out →",
+    ],
+    "gaming": [
+        "This strategy changed everything →",
+        "Watch until the end — this one's worth it →",
+        "Here's what most players get wrong →",
+    ],
 }
+_CREATOR_CTAS: dict = {
+    "food":    "Order yours at the link in bio. New batches drop every week — DM for wholesale.",
+    "fashion": "Shop the look at the link in bio. DM for sizing.",
+    "art":     "Commissions open — DM to start yours. Prints available at the link in bio.",
+    "fitness": "DM for 1:1 coaching. Free starter guide at the link in bio.",
+    "gaming":  "Follow for daily content. Join the community at the link below.",
+}
+
+
+def _build_mock_caption_result(content: str, creator_type: str, onboarding: dict) -> dict:
+    import random as _random
+    name = onboarding.get("business_name") or "our brand"
+    hashtags = _CREATOR_HASHTAGS.get(creator_type, _CREATOR_HASHTAGS["food"])
+    hooks = _CREATOR_HOOKS.get(creator_type, _CREATOR_HOOKS["food"])
+    hook = hooks[hash(content) % len(hooks)].format(name=name)
+    cta = _CREATOR_CTAS.get(creator_type, _CREATOR_CTAS["food"])
+    hashtag_str = " ".join(hashtags)
+
+    optimized = f"{hook}\n\n{content}\n\n{cta}\n\n{hashtag_str}"
+    keywords_added = [h.lstrip("#") for h in hashtags]
+    explanation = (
+        f"Added a strong opening hook to stop the scroll — the first line is the most important for reach. "
+        f"Moved your caption to the body and added a '{creator_type}'-specific CTA for {name} to drive action. "
+        f"Placed {len(hashtags)} niche hashtags at the end (platform best practice — hashtags in comments or end of caption outperform mid-caption placement)."
+    )
+    return {"original": content, "optimized": optimized, "keywords_added": keywords_added, "explanation": explanation, "mock": True}
+
+
+MOCK_SEO_PROFILE_ANALYSIS = {}   # unused — replaced by _build_mock_seo_profile()
+MOCK_SEO_CONTENT_OPTIMIZATION = {}  # unused — replaced by _build_mock_caption_result()
 
 
 MOCK_GROWTH_PLAN = {
     "plan_horizon": "30 days",
-    "biggest_opportunity": "Your TikTok audience is growing 2x faster than Instagram right now — prioritise short-form video to maximise reach in the next 30 days.",
+    "biggest_opportunity": "Valentina's Hot Sauce has something most brands would pay millions for — a real family origin story. Leaning into that story on TikTok Reels will drive emotional connection and shares faster than any product post alone.",
     "actions": [
         {
             "rank": 1,
-            "title": "Post 3x Reels or TikToks per week",
-            "why": "Short-form video is the highest-reach format on both platforms. 3 posts/week is the minimum threshold to trigger algorithmic distribution.",
+            "title": "Post 3x origin story Reels per week",
+            "why": "Food brands with a personal story grow 2x faster than product-only accounts. Your grandmother's recipe is your biggest differentiator — make it the center of your TikTok and Instagram Reels strategy.",
             "time_estimate": "3–4 hrs/week",
             "expected_impact": "500–1,000 new followers in 30 days",
             "platform": "tiktok"
         },
         {
             "rank": 2,
-            "title": "Send 5 brand collab DMs this week",
-            "why": "At your stage, outreach volume is the fastest path to your first paid deal. 5 DMs typically yields 1–2 responses.",
+            "title": "DM 5 local restaurants about wholesale",
+            "why": "At your stage, wholesale accounts are your fastest path to consistent revenue. Local restaurants love supporting small-batch brands — and 5 outreach DMs per week typically yields 1–2 meetings.",
             "time_estimate": "1 hr total",
-            "expected_impact": "First brand conversation within 2 weeks",
+            "expected_impact": "First wholesale conversation within 2 weeks",
             "platform": "instagram"
         },
         {
             "rank": 3,
-            "title": "Run one audience engagement post (poll or AMA)",
-            "why": "Engagement posts boost your content's reach by 30–50% — the algorithm shows your next post to more people when your last one got comments.",
-            "time_estimate": "15 min",
+            "title": "Film a hot sauce pairing video this week",
+            "why": "Food pairing content gets 2x more saves than standard product posts. Saves are the highest-value action on Instagram and TikTok — they signal quality content and boost your next post's reach by 30–50%.",
+            "time_estimate": "30 min to film + post",
             "expected_impact": "+30% reach on your next post",
             "platform": "instagram"
         },
         {
             "rank": 4,
-            "title": "Cross-post your best content to a second platform",
-            "why": "Repurposing costs zero extra time and doubles your distribution. One TikTok video uploaded to Instagram Reels can reach a completely new audience.",
-            "time_estimate": "5 min per post",
-            "expected_impact": "2x content output with the same effort",
+            "title": "Apply to one local farmers market or pop-up",
+            "why": "Pop-ups build your in-person brand, generate content, and turn Instagram followers into loyal buyers. One weekend market can bring 50–200 new local followers and direct sales with zero ad spend.",
+            "time_estimate": "30 min to apply",
+            "expected_impact": "50–200 new local followers + direct sales",
             "platform": "all"
         },
         {
             "rank": 5,
-            "title": "Apply to one affiliate program this week",
-            "why": "Affiliate income is the fastest monetisation path at your follower count — no minimum requirement and passive income from day one.",
-            "time_estimate": "30 min",
-            "expected_impact": "First affiliate commission within 30 days",
+            "title": "List Valentina's on Goldbelly or Amazon Handmade",
+            "why": "Goldbelly specializes in artisan food brands and comes with built-in traffic from buyers actively looking for small-batch products. One listing can take Valentina's from local to national in under 30 days.",
+            "time_estimate": "1–2 hrs to set up listing",
+            "expected_impact": "First national order within 30 days",
             "platform": "all"
         }
     ],
@@ -425,7 +528,7 @@ async def analyze_seo_profile(
     onboarding: Optional[dict] = None,
 ) -> dict:
     if MOCK_MODE or not ANTHROPIC_API_KEY:
-        return MOCK_SEO_PROFILE_ANALYSIS
+        return _build_mock_seo_profile(creator_type, onboarding or {})
 
     onboarding_context = ""
     if onboarding:
@@ -496,7 +599,7 @@ async def optimize_seo_content(
     onboarding: Optional[dict] = None,
 ) -> dict:
     if MOCK_MODE or not ANTHROPIC_API_KEY:
-        return MOCK_SEO_CONTENT_OPTIMIZATION
+        return _build_mock_caption_result(content, creator_type, onboarding or {})
 
     onboarding_context = ""
     if onboarding:
@@ -580,7 +683,7 @@ async def generate_seo_keywords(
 ) -> list:
     """Generate AI-powered SEO keywords based on the user's actual business context."""
     if MOCK_MODE or not ANTHROPIC_API_KEY:
-        return MOCK_SEO_KEYWORDS
+        return _CREATOR_KEYWORDS.get(creator_type, _CREATOR_KEYWORDS["food"])
 
     context_parts = []
     if business_name:
