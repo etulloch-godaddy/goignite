@@ -13,6 +13,7 @@ import { mapUserToDashboard } from "@/lib/map-dashboard";
 export function useSocial() {
   const [userId, setUserId] = useState<string | null>(null);
   const [user, setUser] = useState<DashboardUser>(emptyUser);
+  const [completedMissionIds, setCompletedMissionIds] = useState<string[]>([]);
   const [apiConnected, setApiConnected] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -33,6 +34,7 @@ export function useSocial() {
       setUserId(id);
       const profile: ApiUser = await getUser(id);
       setUser(mapUserToDashboard(profile, [], []));
+      setCompletedMissionIds(profile.completed_missions ?? []);
     } catch {
       setUser(emptyUser);
     } finally {
@@ -44,5 +46,5 @@ export function useSocial() {
     init();
   }, [init]);
 
-  return { userId, user, apiConnected, loading };
+  return { userId, user, completedMissionIds, apiConnected, loading };
 }

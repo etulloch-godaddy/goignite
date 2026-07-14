@@ -89,7 +89,7 @@ export function GrowthPlan({ userId, stage, creatorType }: Props) {
               >
                 <Box orientation="horizontal" blockAlignChildren="center" gap="sm">
                   <Label as="label" size={1}>{path.method}</Label>
-                  {path.available_now && <Tag emphasis="success" size="sm">Available now</Tag>}
+                  {path.available_now && <span style={{ background: "#dcfce7", color: "#166534", fontSize: "0.75rem", fontWeight: 600, padding: "2px 8px", borderRadius: "999px" }}>Available now</span>}
                 </Box>
                 <Body as="paragraph" emphasis="passive">{path.description}</Body>
                 <Body as="paragraph">{path.first_step}</Body>

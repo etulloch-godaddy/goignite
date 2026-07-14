@@ -5,7 +5,12 @@ import Box from "@ux/box";
 import Button from "@ux/button";
 import text from "@ux/text";
 import Tag from "@ux/tag";
-import { getSocialMissions, completeSocialMission, type SocialMission } from "@/services/api";
+import {
+  getSocialMissions,
+  getAllSocialMissions,
+  completeSocialMission,
+  type SocialMission,
+} from "@/services/api";
 
 const Heading = text.h2;
 const Body = text.p;
@@ -23,26 +28,33 @@ interface Props {
   userId: string;
   stage: string;
   creatorType: string;
+  completedMissionIds: string[];
 }
 
-export function SocialMissions({ userId, stage, creatorType }: Props) {
-  const [missions, setMissions] = useState<SocialMission[]>([]);
+export function SocialMissions({ userId, stage, creatorType, completedMissionIds }: Props) {
+  const [view, setView] = useState<"available" | "completed">("available");
+  const [available, setAvailable] = useState<SocialMission[]>([]);
+  const [completed, setCompleted] = useState<SocialMission[]>([]);
   const [completing, setCompleting] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Load all incomplete missions across all stages (no stage filter)
   const load = useCallback(async () => {
     setLoading(true);
     try {
-      const data = await getSocialMissions(userId, undefined, creatorType);
-      setMissions(data);
+      const [avail, all] = await Promise.all([
+        getSocialMissions(userId, undefined, creatorType),
+        getAllSocialMissions(creatorType),
+      ]);
+      setAvailable(avail);
+      setCompleted(all.filter((m) => completedMissionIds.includes(m.mission_id)));
     } catch {
-      setMissions([]);
+      setAvailable([]);
+      setCompleted([]);
     } finally {
       setLoading(false);
     }
-  }, [userId, creatorType]);
+  }, [userId, creatorType, completedMissionIds]);
 
   useEffect(() => { load(); }, [load]);
 
@@ -63,27 +75,13 @@ export function SocialMissions({ userId, stage, creatorType }: Props) {
         return;
       }
     }
-    setMissions((prev) => prev.filter((m) => m.mission_id !== mission.mission_id));
+    setAvailable((prev) => prev.filter((m) => m.mission_id !== mission.mission_id));
+    setCompleted((prev) => [...prev, mission]);
     setCompleting(null);
-    await load();
   };
 
-  if (loading) {
-    return <Body as="paragraph" emphasis="passive">Loading missions…</Body>;
-  }
+  const missions = view === "available" ? available : completed;
 
-  if (missions.length === 0) {
-    return (
-      <Box blockPadding="lg" inlinePadding="lg" elevation="raised" rounding="md" className="social-all-done">
-        <Label as="label" size={1}>All caught up! 🎉</Label>
-        <Body as="paragraph" emphasis="passive">
-          You&apos;ve completed all social missions. More will unlock as you grow.
-        </Body>
-      </Box>
-    );
-  }
-
-  // Group by stage in order
   const grouped = STAGE_ORDER.reduce<Record<string, SocialMission[]>>((acc, s) => {
     const items = missions.filter((m) => m.stage === s);
     if (items.length) acc[s] = items;
@@ -92,18 +90,50 @@ export function SocialMissions({ userId, stage, creatorType }: Props) {
 
   return (
     <Box orientation="vertical" gap="lg">
-      <Box orientation="horizontal" blockAlignChildren="center">
+      {/* Header + toggle */}
+      <Box orientation="horizontal" blockAlignChildren="center" gap="md">
         <Heading as="heading" size={3} className="flex-1">Social Visibility Missions</Heading>
-        <Tag emphasis="neutral" size="sm">{missions.length} remaining</Tag>
+        <div className="social-view-toggle">
+          <button
+            type="button"
+            className={`social-toggle-btn${view === "available" ? " social-toggle-btn--active" : ""}`}
+            onClick={() => setView("available")}
+          >
+            Available {!loading && <span className="social-toggle-count">{available.length}</span>}
+          </button>
+          <button
+            type="button"
+            className={`social-toggle-btn${view === "completed" ? " social-toggle-btn--active" : ""}`}
+            onClick={() => setView("completed")}
+          >
+            Completed {!loading && <span className="social-toggle-count">{completed.length}</span>}
+          </button>
+        </div>
       </Box>
 
       {error && <Body as="paragraph" className="social-error">{error}</Body>}
 
-      {Object.entries(grouped).map(([s, items]) => (
+      {loading && <Body as="paragraph" emphasis="passive">Loading missions…</Body>}
+
+      {!loading && Object.keys(grouped).length === 0 && (
+        <Box blockPadding="lg" inlinePadding="lg" elevation="raised" rounding="md">
+          <Body as="paragraph" emphasis="passive">
+            {view === "available"
+              ? "No available missions right now. Check back as you grow or switch to Completed to see what you've done."
+              : "You haven't completed any missions yet. Head to Available to get started."}
+          </Body>
+        </Box>
+      )}
+
+      {!loading && Object.entries(grouped).map(([s, items]) => (
         <Box key={s} orientation="vertical" gap="sm">
           <Box orientation="horizontal" blockAlignChildren="center" gap="sm">
             <span className="social-stage-label">{STAGE_LABELS[s] ?? s}</span>
-            {s === stage && <Tag emphasis="highlight" size="sm">Your stage</Tag>}
+            {s === stage && (
+              <span className="social-stage-label" style={{ background: "#f3f5f6", padding: "2px 8px", borderRadius: "999px" }}>
+                Your stage
+              </span>
+            )}
           </Box>
 
           {items.map((m) => (
@@ -116,24 +146,29 @@ export function SocialMissions({ userId, stage, creatorType }: Props) {
               inlinePadding="md"
               elevation="raised"
               rounding="md"
-              className="social-mission-card"
+              className={`social-mission-card${view === "completed" ? " social-mission-card--done" : ""}`}
             >
+              {view === "completed" && (
+                <span className="social-mission-check">✓</span>
+              )}
               <Box orientation="vertical" gap="xs" stretch>
                 <Box orientation="horizontal" blockAlignChildren="center" gap="sm">
                   <Label as="label" size={1}>{m.title}</Label>
-                  {m.xp_reward && <Tag emphasis="highlight" size="sm">+{m.xp_reward} XP</Tag>}
+                  {m.xp_reward && <span className="social-mission-xp">+{m.xp_reward} XP</span>}
                   {m.platform && <Tag emphasis="neutral" size="sm">{m.platform}</Tag>}
                 </Box>
                 <Body as="paragraph" emphasis="passive">{m.description}</Body>
                 {m.time_estimate && <Body as="paragraph" emphasis="passive">⏱ {m.time_estimate}</Body>}
               </Box>
-              <Button
-                design="primary"
-                size="sm"
-                text={completing === m.mission_id ? "Saving…" : "Complete"}
-                disabled={completing !== null}
-                onClick={() => handleComplete(m)}
-              />
+              {view === "available" && (
+                <Button
+                  design="primary"
+                  size="sm"
+                  text={completing === m.mission_id ? "Saving…" : "Complete"}
+                  disabled={completing !== null}
+                  onClick={() => handleComplete(m)}
+                />
+              )}
             </Box>
           ))}
         </Box>
