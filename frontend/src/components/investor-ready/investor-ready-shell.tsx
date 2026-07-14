@@ -5,6 +5,9 @@ import Box from "@ux/box";
 import Button from "@ux/button";
 import TextLockup from "@ux/text-lockup";
 import text from "@ux/text";
+import ArrowLeftIcon from "@ux/icon/arrow-left";
+import ShieldCheckIcon from "@ux/icon/shield-check";
+import SparklesFilledIcon from "@ux/icon/sparkles-filled";
 import { getFunding, getOrCreateUserId, type ApiFunding, type PitchOutline, type PitchSlide } from "@/services/api";
 
 
@@ -18,52 +21,31 @@ const FUNDING_TYPE_LABELS: Record<string, string> = {
 };
 
 function LLCSection() {
+  const Heading = text.span;
   const Paragraph = text.p;
 
   return (
-    <Box
-      elevation="raised"
-      rounding="reduced"
-      blockPadding="lg"
-      inlinePadding="lg"
-      className="investor-section"
-    >
-      <Box orientation="vertical" gap="md">
-        <TextLockup
-          title="Make it official — form your LLC"
-          size="lg"
-          textMaxWidth={false}
-        >
-          <Paragraph as="paragraph" emphasis="passive">
-            Investors and partners check whether you're a real legal entity before they
-            write a check. Forming an LLC takes about 10 minutes, costs as little as
-            $50–$100 in most states, and separates your personal assets from your
-            business. GoDaddy handles the filing, registered agent, and annual
-            compliance so you can focus on building.
-          </Paragraph>
-        </TextLockup>
+    <Box orientation="vertical" gap="md" className="investor-section">
+      <span className="investor-section-icon">
+        <ShieldCheckIcon width={22} height={22} />
+      </span>
 
-        <Box orientation="horizontal" gap="sm" wrap>
-          <div className="investor-benefit-tag">✓ Liability protection</div>
-          <div className="investor-benefit-tag">✓ Credibility with investors</div>
-          <div className="investor-benefit-tag">✓ Tax flexibility</div>
-          <div className="investor-benefit-tag">✓ Professional contracts</div>
-        </Box>
+      <Heading as="heading" size={0} className="investor-section-title">
+        Make it official — form your LLC
+      </Heading>
 
-        <Box orientation="horizontal" gap="md" wrap>
-          <Button
-            design="primary"
-            text="Form your LLC with GoDaddy"
-            href="https://www.godaddy.com/business/llc"
-            target="_blank"
-          />
-          <Button
-            design="secondary"
-            text="Learn more about LLCs"
-            href="https://www.godaddy.com/resources/skills/what-is-an-llc"
-            target="_blank"
-          />
-        </Box>
+      <Paragraph as="paragraph" emphasis="passive">
+        An LLC protects your personal assets and shows investors you&apos;re a real
+        business. GoDaddy handles the filing and compliance.
+      </Paragraph>
+
+      <Box orientation="horizontal" gap="sm" wrap className="investor-section-footer">
+        <Button
+          design="primary"
+          text="Form your LLC with GoDaddy"
+          href="https://www.godaddy.com/airo/register-llc"
+          target="_blank"
+        />
       </Box>
     </Box>
   );
@@ -203,27 +185,32 @@ function PitchGenerator({ userId: _userId }: { userId: string | null }) {
     setTimeout(() => resultRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
   }
 
-  return (
-    <Box
-      elevation="raised"
-      rounding="reduced"
-      blockPadding="lg"
-      inlinePadding="lg"
-      className="investor-section"
-    >
-      <Box orientation="vertical" gap="md">
-        <TextLockup title="Investor pitch generator" size="lg" textMaxWidth={false}>
-          <Paragraph as="paragraph" emphasis="passive">
-            Generates a structured 8-slide pitch deck based on your business profile and milestones.
-          </Paragraph>
-        </TextLockup>
+  const Heading = text.span;
 
+  return (
+    <Box orientation="vertical" gap="md" className="investor-section">
+      <span className="investor-section-icon">
+        <SparklesFilledIcon width={22} height={22} />
+      </span>
+
+      <Heading as="heading" size={0} className="investor-section-title">
+        Investor pitch generator
+      </Heading>
+
+      <Paragraph as="paragraph" emphasis="passive">
+        Generate a structured 8-slide pitch deck from your business profile and
+        milestones.
+      </Paragraph>
+
+      <Box orientation="vertical" gap="md" className="investor-section-footer">
         {!outline && (
-          <Button
-            design="primary"
-            text="Generate Pitch"
-            onClick={handleGenerate}
-          />
+          <Box orientation="horizontal" gap="sm" wrap>
+            <Button
+              design="primary"
+              text="Generate Pitch"
+              onClick={handleGenerate}
+            />
+          </Box>
         )}
 
         {outline && (
@@ -282,11 +269,16 @@ function FundingCard({ opportunity }: { opportunity: ApiFunding }) {
           {opportunity.name}
         </Title>
 
-        <Paragraph as="paragraph" emphasis="passive" size={-1}>
+        <Paragraph
+          as="paragraph"
+          emphasis="passive"
+          size={-1}
+          className="investor-funding-desc"
+        >
           {opportunity.description}
         </Paragraph>
 
-        <Box orientation="horizontal" gap="md" wrap>
+        <Box orientation="vertical" gap="sm">
           <div className="investor-funding-stat">
             <span className="investor-funding-stat-label">Amount</span>
             <span className="investor-funding-stat-value">{opportunity.amount}</span>
@@ -303,6 +295,7 @@ function FundingCard({ opportunity }: { opportunity: ApiFunding }) {
           text="View opportunity"
           href={opportunity.application_url}
           target="_blank"
+          className="investor-funding-cta"
         />
       </Box>
     </Box>
@@ -322,13 +315,7 @@ function FundingSection({ userId }: { userId: string | null }) {
   }, []);
 
   return (
-    <Box
-      elevation="raised"
-      rounding="reduced"
-      blockPadding="lg"
-      inlinePadding="lg"
-      className="investor-section"
-    >
+    <Box className="investor-section">
       <Box orientation="vertical" gap="md">
         <TextLockup title="Funding opportunities" size="lg" textMaxWidth={false}>
           <Paragraph as="paragraph" emphasis="passive">
@@ -370,23 +357,29 @@ export function InvestorReadyShell() {
       {/* Header — title + LLC + pitch inline */}
       <div className="investor-header">
         <Box blockPadding="lg" inlinePadding="lg" className="investor-header-inner">
-          <Button design="secondary" size="sm" text="← Back to dashboard" href="/dashboard" />
+          <Button
+            design="inline"
+            size="sm"
+            href="/dashboard"
+            className="investor-back-link"
+            style={{ alignSelf: "flex-start" }}
+          >
+            <ArrowLeftIcon width={16} height={16} />
+            <span>Back to dashboard</span>
+          </Button>
 
-          <div className="investor-header-row">
-            <Box orientation="vertical" gap="sm" className="investor-hero">
-              <div className="investor-stage-badge">Investor Ready</div>
-              <Heading as="heading" size={2}>
-                Take your business to the next level
-              </Heading>
-              <Paragraph as="paragraph" emphasis="passive">
-                Get legally set up, craft your pitch, and find funding matched to your stage.
-              </Paragraph>
-            </Box>
+          <Box orientation="vertical" gap="sm" className="investor-hero">
+            <Heading as="heading" size={2}>
+              Take your business to the next level
+            </Heading>
+            <Paragraph as="paragraph" emphasis="passive">
+              Get legally set up, craft your pitch, and find funding matched to your stage.
+            </Paragraph>
+          </Box>
 
-            <div className="investor-header-actions">
-              <LLCSection />
-              <PitchGenerator userId={userId} />
-            </div>
+          <div className="investor-header-actions">
+            <LLCSection />
+            <PitchGenerator userId={userId} />
           </div>
         </Box>
       </div>
