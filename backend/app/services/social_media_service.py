@@ -228,7 +228,7 @@ MOCK_CONTENT_IDEAS = [
 
 
 async def generate_content_ideas(creator_type: str, stage: str, platform: str, onboarding: Optional[dict] = None) -> list:
-    if MOCK_MODE or not ANTHROPIC_API_KEY:
+    if not ANTHROPIC_API_KEY:
         return MOCK_CONTENT_IDEAS
 
     onboarding_context = ""
@@ -318,7 +318,7 @@ _CREATOR_KEYWORDS: dict = {
     "gaming":  [{"keyword": "gaming content", "relevance": "high"}, {"keyword": "game streamer", "relevance": "high"}, {"keyword": "game review", "relevance": "high"}, {"keyword": "gaming community", "relevance": "medium"}, {"keyword": "live stream", "relevance": "medium"}, {"keyword": "gaming tips", "relevance": "medium"}, {"keyword": "esports", "relevance": "low"}],
 }
 _CREATOR_BIO_TEMPLATE: dict = {
-    "food":    "{name} | Small-batch {niche} | Grandma's recipe, made with love. Order online — link below 🌶️",
+    "food":    "{name} | {niche} | Grandma's recipe, made with love. Order online — link below 🌶️",
     "fashion": "{name} | {niche} | Daily fits + styling tips. Shop the link in bio.",
     "art":     "{name} | Original {niche} | Commissions open. New pieces every week. Link in bio.",
     "fitness": "{name} | {niche} | Workouts, tips + coaching. DM to start your journey.",
@@ -333,8 +333,18 @@ _CREATOR_BIO_TIPS: dict = {
 }
 
 
-def _build_mock_seo_profile(creator_type: str, onboarding: dict) -> dict:
-    name = onboarding.get("business_name") or "Your Business"
+def _build_mock_seo_profile(creator_type: str, onboarding: dict, bio: str = "") -> dict:
+    import re
+    name = onboarding.get("business_name") or ""
+    if not name and bio:
+        handle = re.match(r'@([\w.]+)', bio.strip())
+        if handle:
+            name = handle.group(1).replace("_", " ").title()
+        else:
+            first_line = bio.strip().split('\n')[0].strip()
+            if len(first_line) < 40:
+                name = first_line
+    name = name or "Your Business"
     niche = onboarding.get("niche") or onboarding.get("creator_type_label") or creator_type
     template = _CREATOR_BIO_TEMPLATE.get(creator_type, _CREATOR_BIO_TEMPLATE["food"])
     rewrite = template.format(name=name, niche=niche)
@@ -457,7 +467,7 @@ async def generate_growth_plan(
     completed_mission_ids: list,
     onboarding: Optional[dict] = None,
 ) -> dict:
-    if MOCK_MODE or not ANTHROPIC_API_KEY:
+    if not ANTHROPIC_API_KEY:
         return MOCK_GROWTH_PLAN
 
     platform_summary = ", ".join(
@@ -527,8 +537,8 @@ async def analyze_seo_profile(
     creator_type: str,
     onboarding: Optional[dict] = None,
 ) -> dict:
-    if MOCK_MODE or not ANTHROPIC_API_KEY:
-        return _build_mock_seo_profile(creator_type, onboarding or {})
+    if not ANTHROPIC_API_KEY:
+        return _build_mock_seo_profile(creator_type, onboarding or {}, bio=bio)
 
     onboarding_context = ""
     if onboarding:
@@ -598,7 +608,7 @@ async def optimize_seo_content(
     creator_type: str,
     onboarding: Optional[dict] = None,
 ) -> dict:
-    if MOCK_MODE or not ANTHROPIC_API_KEY:
+    if not ANTHROPIC_API_KEY:
         return _build_mock_caption_result(content, creator_type, onboarding or {})
 
     onboarding_context = ""
@@ -682,7 +692,7 @@ async def generate_seo_keywords(
     business_name: str = "",
 ) -> list:
     """Generate AI-powered SEO keywords based on the user's actual business context."""
-    if MOCK_MODE or not ANTHROPIC_API_KEY:
+    if not ANTHROPIC_API_KEY:
         return _CREATOR_KEYWORDS.get(creator_type, _CREATOR_KEYWORDS["food"])
 
     context_parts = []
