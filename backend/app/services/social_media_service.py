@@ -558,3 +558,73 @@ async def optimize_seo_content(
             fallback = dict(MOCK_SEO_CONTENT_OPTIMIZATION)
             fallback["parse_error"] = True
             return fallback
+
+
+MOCK_SEO_KEYWORDS = [
+    {"keyword": "content creator", "relevance": "high"},
+    {"keyword": "small business tips", "relevance": "high"},
+    {"keyword": "entrepreneur", "relevance": "high"},
+    {"keyword": "brand building", "relevance": "medium"},
+    {"keyword": "social media growth", "relevance": "medium"},
+    {"keyword": "creator economy", "relevance": "medium"},
+    {"keyword": "side hustle", "relevance": "low"},
+    {"keyword": "online business", "relevance": "low"},
+]
+
+
+async def generate_seo_keywords(
+    creator_type: str,
+    platform: str,
+    niche: str = "",
+    business_name: str = "",
+) -> list:
+    """Generate AI-powered SEO keywords based on the user's actual business context."""
+    if MOCK_MODE or not ANTHROPIC_API_KEY:
+        return MOCK_SEO_KEYWORDS
+
+    context_parts = []
+    if business_name:
+        context_parts.append(f"Business name: {business_name}")
+    if niche:
+        context_parts.append(f"Niche/focus: {niche}")
+    if creator_type:
+        context_parts.append(f"Creator type: {creator_type}")
+    context = "\n".join(context_parts)
+
+    prompt = (
+        f"You are an SEO strategist for social media. Generate 12 high-value SEO keywords "
+        f"for a content creator on {platform}.\n\n"
+        f"{context}\n\n"
+        f"Return a JSON array of 12 objects with these exact keys:\n"
+        f"- keyword (string: the keyword or short phrase, no # symbol)\n"
+        f"- relevance (string: 'high', 'medium', or 'low')\n\n"
+        f"Prioritize keywords specific to their niche and business — not generic creator terms. "
+        f"Return only valid JSON, no explanation."
+    )
+
+    async with httpx.AsyncClient() as client:
+        resp = await client.post(
+            "https://api.anthropic.com/v1/messages",
+            headers={
+                "x-api-key": ANTHROPIC_API_KEY,
+                "anthropic-version": "2023-06-01",
+                "content-type": "application/json",
+            },
+            json={
+                "model": "claude-sonnet-4-6",
+                "max_tokens": 800,
+                "messages": [{"role": "user", "content": prompt}],
+            },
+            timeout=30.0,
+        )
+        resp.raise_for_status()
+        raw = resp.json()["content"][0]["text"].strip()
+        if raw.startswith("```"):
+            raw = raw.split("```")[1]
+            if raw.startswith("json"):
+                raw = raw[4:]
+        import json as _json
+        try:
+            return _json.loads(raw.strip())
+        except _json.JSONDecodeError:
+            return MOCK_SEO_KEYWORDS

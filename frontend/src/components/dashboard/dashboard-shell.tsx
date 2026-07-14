@@ -18,6 +18,8 @@ import { DomainSuggestions } from "./domain-suggestions";
 import { WelcomeBanner } from "./welcome-banner";
 import { MissionMatches } from "./mission-matches";
 import { FocusAreaCards } from "./focus-area-cards";
+import { MissionMatches } from "./mission-matches";
+import { WelcomeBanner } from "./welcome-banner";
 
 const Main = box.main;
 

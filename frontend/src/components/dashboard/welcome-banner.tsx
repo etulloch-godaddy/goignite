@@ -7,6 +7,7 @@ import GraphIcon from "@ux/icon/graph";
 import CheckboxListIcon from "@ux/icon/checkbox-list";
 import ContentIcon from "@ux/icon/content";
 import BullseyeIcon from "@ux/icon/bullseye";
+import ShieldCheckIcon from "@ux/icon/shield-check";
 import DomainIcon from "@ux/icon/domain";
 import PageIcon from "@ux/icon/page";
 import LightbulbIcon from "@ux/icon/lightbulb";
@@ -48,6 +49,7 @@ export function WelcomeBanner({ user }: { user: DashboardUser }) {
     { id: "path", label: "Your path", desc: "See your growth roadmap", icon: GraphIcon, href: "#roadmap" },
     { id: "checklist", label: "Your checklist", desc: "Small steps to grow", icon: CheckboxListIcon, href: "#missions" },
     { id: "profile", label: "Business profile", desc: "Tell your story", icon: ContentIcon, href: "#profile" },
+    { id: "legal", label: "Legal basics", desc: "Understand the essentials", icon: ShieldCheckIcon, href: "#legal" },
     { id: "assistant", label: "AI assistant", desc: "Ask anything, jargon-free", icon: SparklesFilledIcon, href: "#assistant" },
     { id: "achievements", label: "Achievements", desc: "Celebrate your wins", icon: BullseyeIcon, href: "#achievements" },
   ];

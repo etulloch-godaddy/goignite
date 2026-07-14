@@ -19,6 +19,12 @@ import {
 const Body = text.p;
 const Label = text.span;
 
+const VALID_CREATOR_TYPES = ["fashion", "gaming", "fitness", "art", "food"] as const;
+function normalizeCreatorType(raw: string): string {
+  const lower = raw.toLowerCase();
+  return VALID_CREATOR_TYPES.find((t) => lower.includes(t)) ?? "fashion";
+}
+
 const PLATFORM_OPTIONS = [
   { value: "instagram", label: "Instagram" },
   { value: "tiktok", label: "TikTok" },
@@ -36,9 +42,12 @@ const TOOLS: { id: Tool; label: string; description: string }[] = [
 interface Props {
   userId: string;
   creatorType: string;
+  niche?: string;
+  businessName?: string;
 }
 
-export function SeoTools({ userId, creatorType }: Props) {
+export function SeoTools({ userId, creatorType, niche, businessName }: Props) {
+  const normalizedNiche = normalizeCreatorType(creatorType);
   const [activeTool, setActiveTool] = useState<Tool>("bio");
 
   // Bio state
@@ -63,7 +72,7 @@ export function SeoTools({ userId, creatorType }: Props) {
     setBioLoading(true);
     setBioResult(null);
     try {
-      setBioResult(await analyzeSeoProfile({ user_id: userId, platform: bioPlatform, bio, creator_type: creatorType }));
+      setBioResult(await analyzeSeoProfile({ user_id: userId, platform: bioPlatform, bio, creator_type: normalizedNiche }));
     } catch {
       setBioResult({ score: 0, feedback: "Analysis unavailable.", rewrite: bio });
     } finally {
@@ -75,7 +84,7 @@ export function SeoTools({ userId, creatorType }: Props) {
     setKwLoading(true);
     setKwResult(null);
     try {
-      setKwResult(await getSeoKeywords(creatorType, kwPlatform));
+      setKwResult(await getSeoKeywords(normalizedNiche, kwPlatform, niche, businessName));
     } catch {
       setKwResult({ keywords: [] });
     } finally {
@@ -88,7 +97,7 @@ export function SeoTools({ userId, creatorType }: Props) {
     setCaptionLoading(true);
     setCaptionResult(null);
     try {
-      setCaptionResult(await optimizeSeoContent({ user_id: userId, platform: captionPlatform, content: caption, creator_type: creatorType }));
+      setCaptionResult(await optimizeSeoContent({ user_id: userId, platform: captionPlatform, content: caption, creator_type: normalizedNiche }));
     } catch {
       setCaptionResult({ optimized: caption, tips: ["Optimization unavailable."] });
     } finally {

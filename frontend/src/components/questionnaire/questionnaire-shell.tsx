@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { getOrCreateUserId, patchOnboarding } from "@/services/api";
 import { QuestionnaireHeader } from "./questionnaire-header";
+import { QuestionnaireBuilding } from "./questionnaire-building";
 import { StepWelcome } from "./steps/step-welcome";
 import { StepBusinessType } from "./steps/step-business-type";
 import { StepPitch } from "./steps/step-pitch";
@@ -141,13 +142,7 @@ function StepIllustration({ step }: { step: number }) {
       )}
 
       {isCentered && (
-        <div
-          className={
-            "q-bottom-illust" +
-            (step === 4 ? " q-bottom-illust--raised" : "") +
-            (step === 5 ? " q-bottom-illust--lg" : "")
-          }
-        >
+        <div className="q-bottom-illust">
           <Image
             src="/questionnaire/cursor-ride.png"
             alt=""
@@ -164,6 +159,7 @@ export function QuestionnaireShell() {
   const router = useRouter();
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Answers>(defaultAnswers);
+  const [building, setBuilding] = useState(false);
 
   const goTo = useCallback((next: number) => {
     setStep(next);
@@ -213,6 +209,7 @@ export function QuestionnaireShell() {
     async (goal: string) => {
       const finalAnswers = { ...answers, goal };
       setAnswers(finalAnswers);
+      setBuilding(true);
 
       try {
         const userId = await getOrCreateUserId();
@@ -229,11 +226,13 @@ export function QuestionnaireShell() {
       } catch (error) {
         console.error("Failed to save onboarding data", error);
       }
-
-      router.push("/dashboard");
     },
-    [answers, router]
+    [answers]
   );
+
+  const handleBuildComplete = useCallback(() => {
+    router.push("/dashboard");
+  }, [router]);
 
   const renderStep = () => {
     switch (step) {
@@ -257,11 +256,17 @@ export function QuestionnaireShell() {
   return (
     <div className="q-page">
       <QuestionnaireHeader />
-      {step > 0 && <ProgressDots current={step - 1} total={TOTAL_STEPS - 1} />}
-      <div className="q-step-container">
-        <StepIllustration step={step} />
-        <TransitionWrapper stepKey={step}>{renderStep()}</TransitionWrapper>
-      </div>
+      {building ? (
+        <QuestionnaireBuilding onDone={handleBuildComplete} />
+      ) : (
+        <>
+          {step > 0 && <ProgressDots current={step - 1} total={TOTAL_STEPS - 1} />}
+          <div className="q-step-container">
+            <StepIllustration step={step} />
+            <TransitionWrapper stepKey={step}>{renderStep()}</TransitionWrapper>
+          </div>
+        </>
+      )}
     </div>
   );
 }
