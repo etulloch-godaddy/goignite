@@ -1175,7 +1175,7 @@
 /* ─── Investor Ready page ─── */
 .investor-page {
   min-height: 100vh;
-  background: #f5f7f8;
+  background: #ffffff;
 }
 
 .dashboard-business-name-input {
@@ -1224,14 +1224,31 @@
 }
 
 .investor-header-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: stretch;
+  margin-bottom: 2rem;
+}
+
+.investor-header-actions .investor-section {
+  background: #f5f7f8;
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+
+.investor-section-footer {
+  margin-top: auto;
 }
 
 @media (max-width: 900px) {
   .investor-header-row {
     grid-template-columns: 1fr;
+  }
+
+  .investor-header-actions {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 }
 
@@ -1241,32 +1258,38 @@
 }
 
 .investor-header-inner {
-  max-width: 860px;
+  max-width: 1400px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
+.investor-back-link {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.investor-back-link .ux-button-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-family: "GD Sherpa", Arial, Helvetica, sans-serif;
+}
+
+.investor-page .ux-button-text {
+  font-weight: 700;
+}
+
 .investor-hero {
   padding-bottom: 0.5rem;
 }
 
-.investor-stage-badge {
-  display: inline-block;
-  background: #111111;
-  color: #ffffff;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 4px 12px;
-  border-radius: 999px;
-}
-
 .investor-content {
   max-width: 1400px;
-  margin: 0 auto;
+  margin: 2.5rem auto 0;
 }
 
 .investor-pitch-funding-row {
@@ -1290,17 +1313,23 @@
 
 .investor-section {
   width: 100%;
+  height: 100%;
 }
 
-.investor-benefit-tag {
+.investor-section-icon {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  background: #f3f5f6;
-  border: 1px solid #e0e5e6;
-  border-radius: 999px;
-  padding: 4px 12px;
-  font-size: 0.8rem;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.75rem;
+  background: #eef9f8;
+  color: #007c7e;
+}
+
+.investor-section-title {
+  font-size: 1.5rem;
+  line-height: 1.3;
   color: #111111;
 }
 
@@ -1312,6 +1341,7 @@
 .investor-funding-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 1fr;
   gap: 1rem;
 }
 
@@ -1329,6 +1359,24 @@
 
 .investor-funding-card {
   height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.investor-funding-card > * {
+  flex: 1;
+  min-width: 0;
+}
+
+.investor-funding-desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.investor-funding-cta {
+  margin-top: auto;
 }
 
 .investor-funding-type-badge {
