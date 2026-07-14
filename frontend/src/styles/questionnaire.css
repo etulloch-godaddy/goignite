@@ -20,27 +20,13 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 0 1.75rem;
+  padding: 0.75rem 1.75rem;
 }
 
 .q-header-logo {
-  display: inline-flex;
-  align-items: center;
   flex-shrink: 0;
-}
-
-.q-header-logo svg {
-  width: 5.5rem;
-  height: 5.5rem;
-}
-
-.q-header-wordmark {
-  font-family: var(--font-gd-sage), system-ui, sans-serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #111111;
-  letter-spacing: -0.01em;
-  line-height: 1;
+  height: 2.25rem;
+  width: auto;
 }
 
 .q-header-actions {
@@ -359,10 +345,6 @@
   padding-top: 4rem;
 }
 
-.q-bottom-illust--raised {
-  bottom: 3rem;
-}
-
 .q-centered-form {
   max-width: 38rem;
   width: 100%;
@@ -374,6 +356,17 @@
   text-align: center;
 }
 
+@keyframes q-bottom-illust-in {
+  from {
+    opacity: 0;
+    transform: translateY(2.5rem) scale(0.96);
+  }
+  to {
+    opacity: 0.9;
+    transform: translateY(0) scale(1);
+  }
+}
+
 .q-bottom-illust {
   position: absolute;
   bottom: 0;
@@ -382,11 +375,14 @@
   max-width: 40%;
   pointer-events: none;
   opacity: 0.9;
+  transform-origin: bottom left;
+  animation: q-bottom-illust-in 650ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.q-bottom-illust--lg {
-  width: 32rem;
-  max-width: 45%;
+@media (prefers-reduced-motion: reduce) {
+  .q-bottom-illust {
+    animation: none;
+  }
 }
 
 .q-bottom-illust img {
@@ -533,4 +529,113 @@
 
 .q-dot--done {
   background-color: #00a4a6;
+}
+
+/* ─── Building / creating dashboard ─── */
+
+.q-building {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.q-building-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+  max-width: 26rem;
+  animation: q-building-fade-in 400ms ease-out both;
+}
+
+@keyframes q-building-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.q-building-spinner {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+  border: 3px solid #d6ecec;
+  border-top-color: #00a4a6;
+  animation: q-building-spin 800ms linear infinite;
+  margin-bottom: 0.5rem;
+}
+
+@keyframes q-building-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.q-building-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111111;
+}
+
+.q-building-sub {
+  font-size: 0.9375rem;
+  color: #6b7575;
+  margin: 0;
+}
+
+.q-building-steps {
+  list-style: none;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.q-building-step {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: 0.9375rem;
+  color: #9ca3a3;
+  transition: color 300ms ease;
+}
+
+.q-building-step.is-active {
+  color: #111111;
+  font-weight: 600;
+}
+
+.q-building-step.is-done {
+  color: #6b7575;
+}
+
+.q-building-step-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 999px;
+  border: 2px solid #d6dada;
+  color: #ffffff;
+  flex-shrink: 0;
+  transition: background-color 300ms ease, border-color 300ms ease;
+}
+
+.q-building-step.is-active .q-building-step-mark {
+  border-color: #00a4a6;
+}
+
+.q-building-step.is-done .q-building-step-mark {
+  background-color: #00a4a6;
+  border-color: #00a4a6;
 }

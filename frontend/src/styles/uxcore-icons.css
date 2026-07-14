@@ -39,6 +39,7 @@
 @import "@ux/icon/dashboard/index.css";
 @import "@ux/icon/desktop/index.css";
 @import "@ux/icon/diamond/index.css";
+@import "@ux/icon/dollar/index.css";
 @import "@ux/icon/domain/index.css";
 @import "@ux/icon/download/index.css";
 @import "@ux/icon/edit/index.css";
@@ -73,7 +74,9 @@
 @import "@ux/icon/locked/index.css";
 @import "@ux/icon/logout/index.css";
 @import "@ux/icon/mail/index.css";
+@import "@ux/icon/map/index.css";
 @import "@ux/icon/map-pin/index.css";
+@import "@ux/icon/megaphone/index.css";
 @import "@ux/icon/menu/index.css";
 @import "@ux/icon/mic/index.css";
 @import "@ux/icon/mobile-phone/index.css";

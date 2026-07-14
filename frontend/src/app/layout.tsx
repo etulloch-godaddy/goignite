@@ -20,7 +20,7 @@ const gdSage = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "GoIgnite — Your Business Dashboard",
+  title: "GoIgnite",
   description:
     "Build your creator business one step at a time with missions, XP, and a dashboard that grows with you.",
 };
