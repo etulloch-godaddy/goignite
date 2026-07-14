@@ -36,11 +36,11 @@
     "mission_id": "starter-niche",
     "stage": "starter",
     "creator_types": ["all"],
-    "title": "Define your content niche",
-    "description": "Narrow down the specific audience and topic you create for.",
+    "title": "Register your domain",
+    "description": "Claim your business name online — your domain is your home on the web.",
     "xp_reward": 50,
-    "completion_prompt": "Describe your niche in one sentence",
-    "achievement_title": "Nailed Your Niche",
+    "completion_prompt": "What domain did you register?",
+    "achievement_title": "Claimed Your Domain",
     "achievement_category": "business_setup"
   },
   {

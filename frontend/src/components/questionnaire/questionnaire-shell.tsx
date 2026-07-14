@@ -9,12 +9,10 @@ import { StepWelcome } from "./steps/step-welcome";
 import { StepBusinessType } from "./steps/step-business-type";
 import { StepPitch } from "./steps/step-pitch";
 import { StepConfusion } from "./steps/step-confusion";
-import { StepComfort } from "./steps/step-comfort";
 import { StepExisting } from "./steps/step-existing";
 import { StepGoal } from "./steps/step-goal";
-import { StepBudget } from "./steps/step-budget";
 
-const TOTAL_STEPS = 8;
+const TOTAL_STEPS = 6;
 const TRANSITION_MS = 300;
 
 interface Answers {
@@ -22,10 +20,9 @@ interface Answers {
   businessTypes: string[];
   pitch: string;
   confusion: string[];
-  comfort: { business: number; money: number; marketing: number };
   existing: string[];
+  businessName?: string;
   goal: string;
-  budget: number;
 }
 
 const defaultAnswers: Answers = {
@@ -33,10 +30,9 @@ const defaultAnswers: Answers = {
   businessTypes: [],
   pitch: "",
   confusion: [],
-  comfort: { business: 50, money: 50, marketing: 50 },
   existing: [],
+  businessName: undefined,
   goal: "",
-  budget: 50,
 };
 
 function ProgressDots({ current, total }: { current: number; total: number }) {
@@ -205,33 +201,17 @@ export function QuestionnaireShell() {
     [goTo]
   );
 
-  const handleComfort = useCallback(
-    (comfort: { business: number; money: number; marketing: number }) => {
-      setAnswers((prev) => ({ ...prev, comfort }));
+  const handleExisting = useCallback(
+    (existing: string[], businessName?: string) => {
+      setAnswers((prev) => ({ ...prev, existing, businessName }));
       goTo(5);
     },
     [goTo]
   );
 
-  const handleExisting = useCallback(
-    (existing: string[]) => {
-      setAnswers((prev) => ({ ...prev, existing }));
-      goTo(6);
-    },
-    [goTo]
-  );
-
   const handleGoal = useCallback(
-    (goal: string) => {
-      setAnswers((prev) => ({ ...prev, goal }));
-      goTo(7);
-    },
-    [goTo]
-  );
-
-  const handleBudget = useCallback(
-    async (budget: number) => {
-      const finalAnswers = { ...answers, budget };
+    async (goal: string) => {
+      const finalAnswers = { ...answers, goal };
       setAnswers(finalAnswers);
 
       try {
@@ -242,15 +222,11 @@ export function QuestionnaireShell() {
           creator_type_label: finalAnswers.businessTypes[0],
           pitch: finalAnswers.pitch,
           confusion_areas: finalAnswers.confusion,
-          comfort_business: finalAnswers.comfort.business,
-          comfort_money: finalAnswers.comfort.money,
-          comfort_marketing: finalAnswers.comfort.marketing,
           existing_assets: finalAnswers.existing,
           goal: finalAnswers.goal,
-          budget_comfort: finalAnswers.budget,
+          ...(finalAnswers.businessName ? { business_name: finalAnswers.businessName } : {}),
         });
       } catch (error) {
-        // Best-effort persistence — don't block navigation, but surface the failure.
         console.error("Failed to save onboarding data", error);
       }
 
@@ -270,13 +246,9 @@ export function QuestionnaireShell() {
       case 3:
         return <StepConfusion initial={answers.confusion} onNext={handleConfusion} />;
       case 4:
-        return <StepComfort initial={answers.comfort} onNext={handleComfort} />;
-      case 5:
         return <StepExisting initial={answers.existing} onNext={handleExisting} />;
-      case 6:
+      case 5:
         return <StepGoal initial={answers.goal} onNext={handleGoal} />;
-      case 7:
-        return <StepBudget initial={answers.budget} onNext={handleBudget} />;
       default:
         return null;
     }

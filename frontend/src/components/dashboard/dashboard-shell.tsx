@@ -9,7 +9,6 @@ import {
 } from "@/lib/dashboard-data";
 import { useDashboard } from "@/hooks/use-dashboard";
 import { ChatWidget } from "@/components/chat/chat-widget";
-import { AiCompanion } from "./ai-companion";
 import { BusinessOverview } from "./business-overview";
 import { DashboardHeader } from "./dashboard-header";
 import { DashboardLoading } from "./dashboard-loading";
@@ -78,7 +77,6 @@ function DashboardContent({ user }: { user: DashboardUser }) {
       </Box>
 
       <DashboardToast message="You're all set — your dashboard is up to date!" />
-      <AiCompanion businessName={user.businessName} />
     </Box>
   );
 }

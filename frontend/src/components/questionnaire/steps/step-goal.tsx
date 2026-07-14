@@ -16,7 +16,7 @@ const goals = [
 
 interface StepGoalProps {
   initial: string;
-  onNext: (goal: string) => void;
+  onNext: (goal: string) => void | Promise<void>;
 }
 
 export function StepGoal({ initial, onNext }: StepGoalProps) {

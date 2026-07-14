@@ -67,9 +67,9 @@ export function BusinessProfileCard({ profile }: { profile: ProfileSnapshot }) {
             emptyText="Complete the pitch mission to add this"
           />
           <ProfileField
-            label="Niche"
+            label="Domain"
             value={profile.niche}
-            emptyText="Define your niche in a mission"
+            emptyText="Register your domain"
           />
           <ProfileField
             label="Bio"

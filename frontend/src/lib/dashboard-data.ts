@@ -78,7 +78,7 @@ export function getStageLabel(stage: Stage): string {
 
 export const emptyUser: DashboardUser = {
   firstName: "",
-  businessName: "",
+  businessName: "My Business",
   creatorType: "",
   stage: "starter",
   xpTotal: 0,

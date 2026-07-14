@@ -10,7 +10,27 @@
       "pitch": "",
       "revenue_goal": ""
     },
-    "onboarding_data": {},
+    "onboarding_data": {
+      "starting_point": "have-idea",
+      "business_types": [
+        "Food & drink"
+      ],
+      "creator_type_label": "Food & drink",
+      "pitch": "I want to bottle and sell my grandma's hotsauce recipe",
+      "confusion_areas": [
+        "Legal & business setup",
+        "Just knowing what to do next"
+      ],
+      "comfort_business": 50,
+      "comfort_money": 50,
+      "comfort_marketing": 50,
+      "existing_assets": [
+        "Name"
+      ],
+      "goal": "side-income",
+      "budget_comfort": 29,
+      "business_name": "Abuela's Fire"
+    },
     "godaddy_domain": null,
     "created_at": "2026-07-13T22:58:25.736425Z"
   }

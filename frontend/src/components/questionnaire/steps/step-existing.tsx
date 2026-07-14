@@ -8,14 +8,18 @@ import { existingAssetChipOptions } from "@/lib/questionnaire-chips";
 
 const Heading = text.h2;
 const Sub = text.p;
+const Label = text.span;
 
 interface StepExistingProps {
   initial: string[];
-  onNext: (selected: string[]) => void;
+  onNext: (selected: string[], businessName?: string) => void;
 }
 
 export function StepExisting({ initial, onNext }: StepExistingProps) {
   const [selected, setSelected] = useState<string[]>(initial);
+  const [businessName, setBusinessName] = useState("");
+
+  const hasName = selected.includes("Name");
 
   const toggle = useCallback((label: string, isSelected: boolean) => {
     setSelected((prev) =>
@@ -46,12 +50,28 @@ export function StepExisting({ initial, onNext }: StepExistingProps) {
           ))}
         </div>
 
+        {hasName && (
+          <div className="q-name-input-wrap">
+            <Label as="label" size={0} className="q-name-input-label">
+              What&apos;s your business name?
+            </Label>
+            <input
+              type="text"
+              value={businessName}
+              onChange={(e) => setBusinessName(e.target.value)}
+              placeholder="e.g. Glow Studio"
+              className="q-name-input"
+              autoFocus
+            />
+          </div>
+        )}
+
         <div className="q-continue-wrap q-continue-wrap--centered">
           <Button
             design="primary"
             size="md"
             text="Continue"
-            onClick={() => onNext(selected)}
+            onClick={() => onNext(selected, hasName ? businessName.trim() || undefined : undefined)}
           />
         </div>
       </div>
