@@ -36,15 +36,19 @@ const defaultAnswers: Answers = {
   goal: "",
 };
 
-function ProgressDots({ current, total }: { current: number; total: number }) {
+function ProgressBar({ current, total }: { current: number; total: number }) {
+  const pct = Math.min(100, Math.max(0, ((current + 1) / total) * 100));
   return (
-    <div className="q-progress">
-      {Array.from({ length: total }, (_, i) => {
-        let cls = "q-dot";
-        if (i === current) cls += " q-dot--active";
-        else if (i < current) cls += " q-dot--done";
-        return <span key={i} className={cls} />;
-      })}
+    <div
+      className="q-progress"
+      role="progressbar"
+      aria-valuemin={0}
+      aria-valuemax={total}
+      aria-valuenow={current + 1}
+    >
+      <div className="q-progress-track">
+        <div className="q-progress-fill" style={{ width: `${pct}%` }} />
+      </div>
     </div>
   );
 }
@@ -260,7 +264,7 @@ export function QuestionnaireShell() {
         <QuestionnaireBuilding onDone={handleBuildComplete} />
       ) : (
         <>
-          {step > 0 && <ProgressDots current={step - 1} total={TOTAL_STEPS - 1} />}
+          {step > 0 && <ProgressBar current={step - 1} total={TOTAL_STEPS - 1} />}
           <div className="q-step-container">
             <StepIllustration step={step} />
             <TransitionWrapper stepKey={step}>{renderStep()}</TransitionWrapper>
