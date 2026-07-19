@@ -25,7 +25,7 @@
 
 .q-header-logo {
   flex-shrink: 0;
-  height: 2.25rem;
+  height: 5.5rem;
   width: auto;
 }
 
@@ -559,4 +559,136 @@
 
 .q-name-input:focus {
   border-color: #00a4a6;
+}
+
+/* ─── Building / thinking screen ─── */
+
+.q-building {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 100vh;
+  padding-top: 8rem;
+  background-color: #ffffff;
+  font-family: "GD Sherpa", Arial, Helvetica, sans-serif;
+}
+
+.q-building-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  max-width: 26rem;
+  width: 100%;
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+
+/* Spinner ring */
+@keyframes q-spin {
+  to { transform: rotate(360deg); }
+}
+
+.q-building-spinner {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  border: 3px solid #e0e5e6;
+  border-top-color: #00a4a6;
+  animation: q-spin 700ms linear infinite;
+  margin-bottom: 1.75rem;
+  flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .q-building-spinner {
+    animation: none;
+    border-color: #00a4a6;
+  }
+}
+
+.q-building-title {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: #111111;
+  margin-bottom: 0.375rem;
+  line-height: 1.3;
+}
+
+.q-building-sub {
+  font-size: 0.9375rem;
+  color: #6b7575;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+/* Step list */
+.q-building-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+  border: 1px solid #e0e5e6;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+@keyframes q-step-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 164, 166, 0.35); }
+  50%       { box-shadow: 0 0 0 5px rgba(0, 164, 166, 0); }
+}
+
+.q-building-step {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.875rem 1.25rem;
+  font-size: 0.9375rem;
+  color: #6b7575;
+  border-bottom: 1px solid #e0e5e6;
+  transition: color 250ms ease, background-color 250ms ease;
+}
+
+.q-building-step:last-child {
+  border-bottom: none;
+}
+
+.q-building-step.is-active {
+  color: #111111;
+  font-weight: 600;
+  background-color: #f5f7f8;
+}
+
+.q-building-step.is-done {
+  color: #111111;
+}
+
+/* Step indicator dot */
+.q-building-step-mark {
+  width: 1.375rem;
+  height: 1.375rem;
+  border-radius: 50%;
+  border: 2px solid #d6dada;
+  background: #ffffff;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 250ms ease, background-color 250ms ease;
+}
+
+.q-building-step.is-active .q-building-step-mark {
+  border-color: #00a4a6;
+  background: #ffffff;
+  animation: q-step-pulse 1.2s ease-in-out infinite;
+}
+
+.q-building-step.is-done .q-building-step-mark {
+  border-color: #00a4a6;
+  background: #00a4a6;
+  color: #ffffff;
+  animation: none;
 }
