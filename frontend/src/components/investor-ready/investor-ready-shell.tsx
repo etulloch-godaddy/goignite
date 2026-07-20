@@ -305,15 +305,19 @@ function FundingCard({ opportunity }: { opportunity: ApiFunding }) {
 
 function FundingSection({ userId }: { userId: string | null }) {
   const [funding, setFunding] = useState<ApiFunding[]>([]);
+  const [isFallback, setIsFallback] = useState(false);
   const [loading, setLoading] = useState(true);
   const Paragraph = text.p;
 
   useEffect(() => {
-    getFunding("investor_ready")
-      .then(setFunding)
+    getFunding("investor_ready", undefined, userId ?? undefined)
+      .then((res) => {
+        setFunding(res.opportunities);
+        setIsFallback(res.fallback);
+      })
       .catch(() => setFunding([]))
       .finally(() => setLoading(false));
-  }, []);
+  }, [userId]);
 
   return (
     <Box className="investor-section">
@@ -326,6 +330,12 @@ function FundingSection({ userId }: { userId: string | null }) {
 
         {loading && (
           <Paragraph as="paragraph" emphasis="passive" size={-1}>Loading opportunities…</Paragraph>
+        )}
+
+        {!loading && isFallback && (
+          <div className="social-fallback-notice">
+            AI is unavailable — no API key configured. Showing demo data below.
+          </div>
         )}
 
         {!loading && funding.length === 0 && (

@@ -66,6 +66,11 @@ export type ApiFunding = {
   tags: string[];
 };
 
+export type FundingResponse = {
+  opportunities: ApiFunding[];
+  fallback: boolean;
+};
+
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(`${API_URL}${path}`, {
     ...init,
@@ -137,11 +142,13 @@ export async function getAchievements(userId: string): Promise<ApiAchievement[]>
 export async function getFunding(
   stage?: string,
   creatorType?: string,
-): Promise<ApiFunding[]> {
+  userId?: string,
+): Promise<FundingResponse> {
   const params = new URLSearchParams();
   if (stage) params.set("stage", stage);
   if (creatorType) params.set("creator_type", creatorType);
-  return request<ApiFunding[]>(`/api/funding?${params}`);
+  if (userId) params.set("user_id", userId);
+  return request<FundingResponse>(`/api/funding?${params}`);
 }
 
 export type ApiDomainSuggestion = {
