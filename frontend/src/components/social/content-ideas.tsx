@@ -17,8 +17,8 @@ const PLATFORM_OPTIONS = [
 ];
 
 const WEEK_LABELS = [
-  "Brand Story & Product Education",
-  "Use Cases & Recipes",
+  "Brand Story & Introduction",
+  "Value & Use Cases",
   "Behind the Scenes & Trust",
   "Promotions & Community",
 ];
@@ -51,6 +51,7 @@ export function ContentIdeas({ userId, stage, creatorType }: Props) {
   const [platform, setPlatform] = useState<SocialPlatform>("instagram");
   const [ideas, setIdeas] = useState<ContentIdea[] | null>(null);
   const [rawPlan, setRawPlan] = useState<string | null>(null);
+  const [isFallback, setIsFallback] = useState(false);
   const [generating, setGenerating] = useState(false);
   const [openWeeks, setOpenWeeks] = useState<Set<number>>(new Set([0]));
 
@@ -65,10 +66,13 @@ export function ContentIdeas({ userId, stage, creatorType }: Props) {
     setGenerating(true);
     setIdeas(null);
     setRawPlan(null);
+    setIsFallback(false);
     setOpenWeeks(new Set([0]));
     try {
       const result = await getContentIdeas({ user_id: userId, creator_type: creatorType, stage, platform });
       if (result.ideas && result.ideas.length > 0) {
+        const fallback = result.ideas[0]?.fallback === true;
+        setIsFallback(fallback);
         setIdeas(result.ideas);
       } else if (result.raw) {
         setRawPlan(result.raw);
@@ -105,6 +109,14 @@ export function ContentIdeas({ userId, stage, creatorType }: Props) {
           onClick={handleGenerate}
         />
       </Box>
+
+      {isFallback && (
+        <Box blockPadding="sm" inlinePadding="md" elevation="raised" rounding="md" className="social-fallback-notice">
+          <Body as="paragraph" emphasis="passive">
+            AI is unavailable — no API key configured. Showing demo data below.
+          </Body>
+        </Box>
+      )}
 
       {weeks.length > 0 && (
         <div className="social-content-table-wrap">

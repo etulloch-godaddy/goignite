@@ -60,31 +60,33 @@ export function SeoTools({ userId, creatorType, niche: nicheProp, businessName: 
   const [bio, setBio] = useState("");
   const [bioResult, setBioResult] = useState<SeoProfileResponse | null>(null);
   const [bioLoading, setBioLoading] = useState(false);
+  const [bioFallback, setBioFallback] = useState(false);
 
   // Keywords state
   const [kwPlatform, setKwPlatform] = useState<SocialPlatform>("instagram");
   const [kwResult, setKwResult] = useState<SeoKeywordsResponse | null>(null);
   const [kwLoading, setKwLoading] = useState(false);
+  const [kwFallback, setKwFallback] = useState(false);
 
   // Caption state
   const [captionPlatform, setCaptionPlatform] = useState<SocialPlatform>("instagram");
   const [caption, setCaption] = useState("");
   const [captionResult, setCaptionResult] = useState<SeoContentResponse | null>(null);
   const [captionLoading, setCaptionLoading] = useState(false);
+  const [captionFallback, setCaptionFallback] = useState(false);
 
   const handleBioAnalyze = async () => {
     if (!bio.trim()) return;
     setBioLoading(true);
     setBioResult(null);
+    setBioFallback(false);
     try {
-      setBioResult(await analyzeSeoProfile({
-        user_id: userId,
-        platform: bioPlatform,
-        bio,
-        creator_type: normalizedNiche,
-        business_name: localBusinessName || undefined,
-        niche: localNiche || undefined,
-      }));
+      const result = await analyzeSeoProfile({
+        user_id: userId, platform: bioPlatform, bio,
+        creator_type: normalizedNiche, business_name: localBusinessName || undefined, niche: localNiche || undefined,
+      });
+      setBioFallback(result.fallback === true);
+      setBioResult(result);
     } catch {
       setBioResult({ score: 0, feedback: "Analysis unavailable.", rewrite: bio });
     } finally {
@@ -95,8 +97,11 @@ export function SeoTools({ userId, creatorType, niche: nicheProp, businessName: 
   const handleKeywords = async () => {
     setKwLoading(true);
     setKwResult(null);
+    setKwFallback(false);
     try {
-      setKwResult(await getSeoKeywords(normalizedNiche, kwPlatform, localNiche || undefined, localBusinessName || undefined));
+      const result = await getSeoKeywords(normalizedNiche, kwPlatform, localNiche || undefined, localBusinessName || undefined);
+      setKwFallback((result as any).fallback === true);
+      setKwResult(result);
     } catch {
       setKwResult({ keywords: [] });
     } finally {
@@ -108,15 +113,14 @@ export function SeoTools({ userId, creatorType, niche: nicheProp, businessName: 
     if (!caption.trim()) return;
     setCaptionLoading(true);
     setCaptionResult(null);
+    setCaptionFallback(false);
     try {
-      setCaptionResult(await optimizeSeoContent({
-        user_id: userId,
-        platform: captionPlatform,
-        content: caption,
-        creator_type: normalizedNiche,
-        business_name: localBusinessName || undefined,
-        niche: localNiche || undefined,
-      }));
+      const result = await optimizeSeoContent({
+        user_id: userId, platform: captionPlatform, content: caption,
+        creator_type: normalizedNiche, business_name: localBusinessName || undefined, niche: localNiche || undefined,
+      });
+      setCaptionFallback(result.fallback === true);
+      setCaptionResult(result);
     } catch {
       setCaptionResult({ optimized: caption, tips: ["Optimization unavailable."] });
     } finally {
@@ -192,6 +196,11 @@ export function SeoTools({ userId, creatorType, niche: nicheProp, businessName: 
             <textarea className="seo-textarea" placeholder="Paste your current bio here…" rows={4}
               value={bio} onChange={(e) => setBio(e.target.value)} />
 
+            {bioFallback && (
+              <Box blockPadding="sm" inlinePadding="md" elevation="raised" rounding="md" className="social-fallback-notice">
+                <Body as="paragraph" emphasis="passive">AI is unavailable — no API key configured. Showing demo data below.</Body>
+              </Box>
+            )}
             {bioResult && (
               <Box orientation="vertical" gap="md" className="seo-result-panel">
                 {/* Score bar */}
@@ -240,6 +249,11 @@ export function SeoTools({ userId, creatorType, niche: nicheProp, businessName: 
                 onClick={handleKeywords} />
             </Box>
 
+            {kwFallback && (
+              <Box blockPadding="sm" inlinePadding="md" elevation="raised" rounding="md" className="social-fallback-notice">
+                <Body as="paragraph" emphasis="passive">AI is unavailable — no API key configured. Showing demo data below.</Body>
+              </Box>
+            )}
             {kwResult && (
               <Box orientation="vertical" gap="sm" className="seo-result-panel">
                 {kwResult.keywords.length === 0 && (
@@ -272,6 +286,11 @@ export function SeoTools({ userId, creatorType, niche: nicheProp, businessName: 
             <textarea className="seo-textarea" placeholder="Paste your caption here…" rows={4}
               value={caption} onChange={(e) => setCaption(e.target.value)} />
 
+            {captionFallback && (
+              <Box blockPadding="sm" inlinePadding="md" elevation="raised" rounding="md" className="social-fallback-notice">
+                <Body as="paragraph" emphasis="passive">AI is unavailable — no API key configured. Showing demo data below.</Body>
+              </Box>
+            )}
             {captionResult && (
               <Box orientation="vertical" gap="md" className="seo-result-panel">
                 <div className="seo-rewrite-block">

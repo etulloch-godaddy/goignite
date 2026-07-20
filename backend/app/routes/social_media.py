@@ -397,12 +397,22 @@ async def get_monetization_advice(
     Each path includes a concrete first step and specific programs to apply to.
     Pass user_id to enrich advice with onboarding context (revenue_goal, business_name).
     """
-    from app.services.social_media_service import fetch_onboarding_data
+    from app.services.social_media_service import fetch_onboarding_data, generate_monetization_advice
     data = _load("social_monetization.json")
     max_followers = max(instagram_followers, tiktok_followers)
 
     onboarding = await fetch_onboarding_data(user_id) if user_id else {}
 
+    # Try AI-generated advice first
+    ai_result = await generate_monetization_advice(creator_type, max_followers, onboarding)
+    if ai_result and not ai_result.get("fallback"):
+        return {
+            "creator_type": creator_type,
+            "monetization_paths": ai_result.get("monetization_paths", []),
+            "where_to_start": ai_result.get("where_to_start", ""),
+        }
+
+    # Fallback to static JSON
     relevant = [
         m for m in data["methods"]
         if creator_type in m["creator_types"] or "all" in m["creator_types"]
@@ -443,6 +453,7 @@ async def get_monetization_advice(
         "creator_type": creator_type,
         "monetization_paths": paths,
         "where_to_start": where_to_start,
+        "fallback": True,
     }
 
 
@@ -503,13 +514,15 @@ async def get_seo_keywords(
 
     # Use AI when user has provided their actual business context
     if niche or business_name:
-        keywords = await generate_seo_keywords(
+        result = await generate_seo_keywords(
             creator_type=creator_clean,
             platform=platform_clean,
             niche=niche or "",
             business_name=business_name or "",
         )
-        return {"keywords": keywords, "personalized": True}
+        if isinstance(result, dict):
+            return {"keywords": result.get("keywords", []), "personalized": True, "fallback": result.get("fallback", False)}
+        return {"keywords": result, "personalized": True}
 
     # Fall back to static JSON lookup
     data = _load("seo_keywords.json")

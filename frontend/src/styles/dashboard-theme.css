@@ -1920,6 +1920,16 @@ tbody:first-of-type .content-week-header-row td { border-top: none; }
 
 /* ─── Monetization Paths ─────────────────────────────────────────────────── */
 
+.social-fallback-notice {
+  background: #fffbeb;
+  border: 1px solid #f59e0b;
+  border-left: 4px solid #f59e0b;
+  border-radius: 6px;
+  padding: 10px 16px;
+  color: #92400e;
+  font-size: 0.875rem;
+}
+
 .monetize-loading, .monetize-empty {
   padding: 32px;
   text-align: center;

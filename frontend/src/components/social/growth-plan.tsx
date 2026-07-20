@@ -74,6 +74,11 @@ export function GrowthPlan({ userId, stage, creatorType }: Props) {
       <Box orientation="vertical" gap="md">
         <Heading as="heading" size={3}>Monetization Paths</Heading>
         {!advice && <Body as="paragraph" emphasis="passive">Loading advice…</Body>}
+        {advice && (advice as any).fallback === true && (
+          <Box blockPadding="sm" inlinePadding="md" elevation="raised" rounding="md" className="social-fallback-notice">
+            <Body as="paragraph" emphasis="passive">AI is unavailable — no API key configured. Showing demo data below.</Body>
+          </Box>
+        )}
         {advice && Array.isArray(advice.monetization_paths) && (
           <div className="social-advice-grid">
             {advice.monetization_paths.map((path, i) => (
@@ -125,6 +130,14 @@ export function GrowthPlan({ userId, stage, creatorType }: Props) {
           disabled={generating || selectedPlatforms.length === 0}
           onClick={handleGenerate}
         />
+
+        {plan && (plan as any).fallback === true && (
+          <Box blockPadding="sm" inlinePadding="md" elevation="raised" rounding="md" className="social-fallback-notice">
+            <Body as="paragraph" emphasis="passive">
+              AI is unavailable — no API key configured. Showing demo data below.
+            </Body>
+          </Box>
+        )}
 
         {plan && (
           <Box orientation="vertical" gap="md" blockPadding="md" inlinePadding="md" elevation="raised" rounding="md" className="social-plan-result">

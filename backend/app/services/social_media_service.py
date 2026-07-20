@@ -1,9 +1,11 @@
+import json as _json
 import os
 from typing import Optional
 from urllib.parse import urlencode
 
 import httpx
 from dotenv import load_dotenv
+from openai import AsyncOpenAI
 
 from app.models.achievement import Achievement, AchievementCategory
 
@@ -187,7 +189,62 @@ async def exchange_code_for_stats(platform: str, code: str) -> dict:
     return {"platform": platform, "connected": False}
 
 
-ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
+API_KEY = os.getenv("API_KEY", "").strip()
+
+
+def _gocaas() -> AsyncOpenAI:
+    return AsyncOpenAI(
+        base_url="https://caas-gocode-prod.caas-prod.prod.onkatana.net/v1",
+        api_key=API_KEY,
+    )
+
+
+async def _chat(prompt: str, max_tokens: int = 1500) -> str:
+    resp = await _gocaas().chat.completions.create(
+        model="gpt-5.5",
+        messages=[{"role": "user", "content": prompt}],
+        max_tokens=max_tokens,
+    )
+    return (resp.choices[0].message.content or "").strip()
+
+
+def _parse_json(raw: str) -> any:
+    if raw.startswith("```"):
+        raw = raw.split("```")[1]
+        if raw.startswith("json"):
+            raw = raw[4:]
+    return _json.loads(raw.strip())
+
+
+def _build_business_context(onboarding: dict) -> str:
+    """Build a rich, specific business context string from onboarding data."""
+    if not onboarding:
+        return ""
+    goal_labels = {
+        "side-income": "earn side income",
+        "full-time": "replace their full-time job",
+        "passion": "pursue their passion project",
+        "grow existing": "grow an existing business",
+    }
+    parts = []
+    if onboarding.get("business_name"):
+        parts.append(f"Business name: {onboarding['business_name']}")
+    if onboarding.get("pitch"):
+        parts.append(f"What they do: {onboarding['pitch']}")
+    if onboarding.get("goal"):
+        parts.append(f"Their goal: {goal_labels.get(onboarding['goal'], onboarding['goal'])}")
+    if onboarding.get("business_types"):
+        types = onboarding["business_types"]
+        parts.append(f"Business category: {', '.join(types) if isinstance(types, list) else types}")
+    if onboarding.get("existing_assets"):
+        assets = onboarding["existing_assets"]
+        parts.append(f"What they already have: {', '.join(assets) if isinstance(assets, list) else assets}")
+    if onboarding.get("confusion_areas"):
+        areas = onboarding["confusion_areas"]
+        parts.append(f"Pain points: {', '.join(areas) if isinstance(areas, list) else areas}")
+    if not parts:
+        return ""
+    return "About this business:\n" + "\n".join(f"- {p}" for p in parts) + "\n\n"
 
 MOCK_CONTENT_IDEAS = [
     # --- Week 1: Brand Story & Product Education ---
@@ -228,21 +285,27 @@ MOCK_CONTENT_IDEAS = [
 
 
 async def generate_content_ideas(creator_type: str, stage: str, platform: str, onboarding: Optional[dict] = None) -> list:
-    if not ANTHROPIC_API_KEY:
+    if not API_KEY:
         return MOCK_CONTENT_IDEAS
 
-    onboarding_context = ""
-    if onboarding:
-        lines = [f"  - {k}: {v}" for k, v in onboarding.items()]
-        onboarding_context = "Creator's business details:\n" + "\n".join(lines) + "\n\n"
+    business_context = _build_business_context(onboarding or {})
+    business_name = (onboarding or {}).get("business_name", "")
+    name_ref = f" for {business_name}" if business_name else ""
 
     prompt = (
         f"You are a social media strategist for {creator_type} content creators at the '{stage}' stage "
-        f"of building their creator business. Generate exactly 7 post ideas for {platform}. "
-        f"Each idea should be action-oriented, realistic, and under 30 minutes to create.\n\n"
-        f"{onboarding_context}"
-        f"Return a JSON array of 7 objects. Each object must have these exact keys:\n"
-        f"- day (integer 1-7)\n"
+        f"of building their creator business. Generate exactly 30 post ideas{name_ref} for {platform}, "
+        f"organized as 4 weekly themes (7 posts each, with the 4th week having 9 posts).\n\n"
+        f"{business_context}"
+        f"IMPORTANT: Every hook, caption, and hashtag must reflect the actual business described above — "
+        f"not a generic creator. Reference the business name, product, or niche directly.\n\n"
+        f"Structure the 30 posts across 4 thematic weeks:\n"
+        f"- Week 1 (Days 1-7): Brand story and product/service introduction\n"
+        f"- Week 2 (Days 8-14): Use cases and value demonstration\n"
+        f"- Week 3 (Days 15-21): Behind the scenes and trust building\n"
+        f"- Week 4 (Days 22-30): Promotions, community, and calls to action\n\n"
+        f"Return a JSON array of 30 objects. Each object must have these exact keys:\n"
+        f"- day (integer 1-30)\n"
         f"- post_type (string: Photo, Reel, Carousel, Story, or Live)\n"
         f"- hook (string: one punchy opening line under 12 words)\n"
         f"- caption (string: 2-3 sentences, conversational, ends with engagement prompt)\n"
@@ -251,30 +314,12 @@ async def generate_content_ideas(creator_type: str, stage: str, platform: str, o
         f"Return only valid JSON, no explanation."
     )
 
-    async with httpx.AsyncClient() as client:
-        resp = await client.post(
-            "https://api.anthropic.com/v1/messages",
-            headers={
-                "x-api-key": ANTHROPIC_API_KEY,
-                "anthropic-version": "2023-06-01",
-                "content-type": "application/json",
-            },
-            json={
-                "model": "claude-sonnet-4-6",
-                "max_tokens": 2000,
-                "messages": [{"role": "user", "content": prompt}],
-            },
-            timeout=30.0,
-        )
-        resp.raise_for_status()
-        raw = resp.json()["content"][0]["text"].strip()
-        # Strip markdown code fences if present
-        if raw.startswith("```"):
-            raw = raw.split("```")[1]
-            if raw.startswith("json"):
-                raw = raw[4:]
-        import json as _json
-        return _json.loads(raw.strip())
+    try:
+        raw = await _chat(prompt, max_tokens=6000)
+        return _parse_json(raw)
+    except Exception:
+        fallback = [dict(idea, fallback=True) for idea in MOCK_CONTENT_IDEAS]
+        return fallback
 
 
 def build_achievement(user_id: str, mission: dict) -> Achievement:
@@ -467,7 +512,7 @@ async def generate_growth_plan(
     completed_mission_ids: list,
     onboarding: Optional[dict] = None,
 ) -> dict:
-    if not ANTHROPIC_API_KEY:
+    if not API_KEY:
         return MOCK_GROWTH_PLAN
 
     platform_summary = ", ".join(
@@ -477,20 +522,17 @@ async def generate_growth_plan(
         ", ".join(completed_mission_ids) if completed_mission_ids else "none yet"
     )
 
-    onboarding_context = ""
-    if onboarding:
-        lines = [f"  - {k}: {v}" for k, v in onboarding.items()]
-        onboarding_context = "Their onboarding answers:\n" + "\n".join(lines) + "\n\n"
+    business_context = _build_business_context(onboarding or {})
 
     prompt = (
         f"You are a social media growth strategist helping a {creator_type} content creator "
         f"at the '{stage}' stage of their creator business.\n\n"
+        f"{business_context}"
         f"Their current platform stats: {platform_summary}\n"
-        f"Missions they have completed: {completed_summary}\n"
-        f"{onboarding_context}"
+        f"Missions they have completed: {completed_summary}\n\n"
         f"Generate a focused 30-day growth plan with exactly 5 prioritised actions. "
         f"Rank them by expected impact on follower growth and revenue. "
-        f"Be specific — reference their actual platforms, follower counts, and business details in your reasoning. "
+        f"Be specific — reference their actual business name, product, platforms, and follower counts. "
         f"Do not recommend things they have already completed.\n\n"
         f"Return a JSON object with these exact keys:\n"
         f"- plan_horizon: '30 days'\n"
@@ -506,29 +548,13 @@ async def generate_growth_plan(
         f"Return only valid JSON, no explanation."
     )
 
-    async with httpx.AsyncClient() as client:
-        resp = await client.post(
-            "https://api.anthropic.com/v1/messages",
-            headers={
-                "x-api-key": ANTHROPIC_API_KEY,
-                "anthropic-version": "2023-06-01",
-                "content-type": "application/json",
-            },
-            json={
-                "model": "claude-sonnet-4-6",
-                "max_tokens": 1500,
-                "messages": [{"role": "user", "content": prompt}],
-            },
-            timeout=30.0,
-        )
-        resp.raise_for_status()
-        raw = resp.json()["content"][0]["text"].strip()
-        if raw.startswith("```"):
-            raw = raw.split("```")[1]
-            if raw.startswith("json"):
-                raw = raw[4:]
-        import json as _json
-        return _json.loads(raw.strip())
+    try:
+        raw = await _chat(prompt)
+        return _parse_json(raw)
+    except Exception:
+        fallback = dict(MOCK_GROWTH_PLAN)
+        fallback["fallback"] = True
+        return fallback
 
 
 async def analyze_seo_profile(
@@ -537,13 +563,10 @@ async def analyze_seo_profile(
     creator_type: str,
     onboarding: Optional[dict] = None,
 ) -> dict:
-    if not ANTHROPIC_API_KEY:
+    if not API_KEY:
         return _build_mock_seo_profile(creator_type, onboarding or {}, bio=bio)
 
-    onboarding_context = ""
-    if onboarding:
-        lines = [f"  - {k}: {v}" for k, v in onboarding.items()]
-        onboarding_context = "Additional context about this creator:\n" + "\n".join(lines) + "\n\n"
+    business_context = _build_business_context(onboarding or {})
 
     platform_context = (
         f"Instagram bios are indexed by Google. Keywords that people search when looking for "
@@ -560,7 +583,7 @@ async def analyze_seo_profile(
         f"You are an SEO strategist for {platform} social media profiles helping a {creator_type} "
         f"content creator maximize their profile's discoverability.\n\n"
         f"Current bio:\n\"{bio}\"\n\n"
-        f"{onboarding_context}"
+        f"{business_context}"
         f"Platform context: {platform_context}\n\n"
         f"Analyze this bio and return a JSON object with exactly these keys:\n"
         f"- score (integer 1-10: current SEO effectiveness of the bio as written)\n"
@@ -572,34 +595,13 @@ async def analyze_seo_profile(
         f"Return only valid JSON, no explanation, no markdown fences."
     )
 
-    async with httpx.AsyncClient() as client:
-        resp = await client.post(
-            "https://api.anthropic.com/v1/messages",
-            headers={
-                "x-api-key": ANTHROPIC_API_KEY,
-                "anthropic-version": "2023-06-01",
-                "content-type": "application/json",
-            },
-            json={
-                "model": "claude-sonnet-4-6",
-                "max_tokens": 1500,
-                "messages": [{"role": "user", "content": prompt}],
-            },
-            timeout=30.0,
-        )
-        resp.raise_for_status()
-        raw = resp.json()["content"][0]["text"].strip()
-        if raw.startswith("```"):
-            raw = raw.split("```")[1]
-            if raw.startswith("json"):
-                raw = raw[4:]
-        import json as _json
-        try:
-            return _json.loads(raw.strip())
-        except _json.JSONDecodeError:
-            fallback = dict(MOCK_SEO_PROFILE_ANALYSIS)
-            fallback["parse_error"] = True
-            return fallback
+    try:
+        raw = await _chat(prompt)
+        return _parse_json(raw)
+    except Exception:
+        fallback = _build_mock_seo_profile(creator_type, onboarding or {}, bio=bio)
+        fallback["fallback"] = True
+        return fallback
 
 
 async def optimize_seo_content(
@@ -608,13 +610,10 @@ async def optimize_seo_content(
     creator_type: str,
     onboarding: Optional[dict] = None,
 ) -> dict:
-    if not ANTHROPIC_API_KEY:
+    if not API_KEY:
         return _build_mock_caption_result(content, creator_type, onboarding or {})
 
-    onboarding_context = ""
-    if onboarding:
-        lines = [f"  - {k}: {v}" for k, v in onboarding.items()]
-        onboarding_context = "Creator context:\n" + "\n".join(lines) + "\n\n"
+    business_context = _build_business_context(onboarding or {})
 
     platform_rules = (
         "Instagram rules: Use 5–10 hashtags placed at the end of the caption (not 30 — that signals spam). "
@@ -632,7 +631,7 @@ async def optimize_seo_content(
         f"discoverability for a {creator_type} creator. Keep their authentic voice — do not make "
         f"it sound corporate or generic.\n\n"
         f"Original caption:\n\"{content}\"\n\n"
-        f"{onboarding_context}"
+        f"{business_context}"
         f"{platform_rules}\n\n"
         f"Return a JSON object with exactly these keys:\n"
         f"- original (string: the original caption, unchanged)\n"
@@ -643,34 +642,13 @@ async def optimize_seo_content(
         f"Return only valid JSON, no explanation, no markdown fences."
     )
 
-    async with httpx.AsyncClient() as client:
-        resp = await client.post(
-            "https://api.anthropic.com/v1/messages",
-            headers={
-                "x-api-key": ANTHROPIC_API_KEY,
-                "anthropic-version": "2023-06-01",
-                "content-type": "application/json",
-            },
-            json={
-                "model": "claude-sonnet-4-6",
-                "max_tokens": 1500,
-                "messages": [{"role": "user", "content": prompt}],
-            },
-            timeout=30.0,
-        )
-        resp.raise_for_status()
-        raw = resp.json()["content"][0]["text"].strip()
-        if raw.startswith("```"):
-            raw = raw.split("```")[1]
-            if raw.startswith("json"):
-                raw = raw[4:]
-        import json as _json
-        try:
-            return _json.loads(raw.strip())
-        except _json.JSONDecodeError:
-            fallback = dict(MOCK_SEO_CONTENT_OPTIMIZATION)
-            fallback["parse_error"] = True
-            return fallback
+    try:
+        raw = await _chat(prompt)
+        return _parse_json(raw)
+    except Exception:
+        fallback = _build_mock_caption_result(content, creator_type, onboarding or {})
+        fallback["fallback"] = True
+        return fallback
 
 
 MOCK_SEO_KEYWORDS = [
@@ -692,8 +670,8 @@ async def generate_seo_keywords(
     business_name: str = "",
 ) -> list:
     """Generate AI-powered SEO keywords based on the user's actual business context."""
-    if not ANTHROPIC_API_KEY:
-        return _CREATOR_KEYWORDS.get(creator_type, _CREATOR_KEYWORDS["food"])
+    if not API_KEY:
+        return {"keywords": _CREATOR_KEYWORDS.get(creator_type, _CREATOR_KEYWORDS["food"]), "fallback": True}
 
     context_parts = []
     if business_name:
@@ -715,29 +693,44 @@ async def generate_seo_keywords(
         f"Return only valid JSON, no explanation."
     )
 
-    async with httpx.AsyncClient() as client:
-        resp = await client.post(
-            "https://api.anthropic.com/v1/messages",
-            headers={
-                "x-api-key": ANTHROPIC_API_KEY,
-                "anthropic-version": "2023-06-01",
-                "content-type": "application/json",
-            },
-            json={
-                "model": "claude-sonnet-4-6",
-                "max_tokens": 800,
-                "messages": [{"role": "user", "content": prompt}],
-            },
-            timeout=30.0,
-        )
-        resp.raise_for_status()
-        raw = resp.json()["content"][0]["text"].strip()
-        if raw.startswith("```"):
-            raw = raw.split("```")[1]
-            if raw.startswith("json"):
-                raw = raw[4:]
-        import json as _json
-        try:
-            return _json.loads(raw.strip())
-        except _json.JSONDecodeError:
-            return MOCK_SEO_KEYWORDS
+    try:
+        raw = await _chat(prompt, max_tokens=800)
+        return _parse_json(raw)
+    except Exception:
+        return {"keywords": MOCK_SEO_KEYWORDS, "fallback": True}
+
+
+async def generate_monetization_advice(
+    creator_type: str,
+    max_followers: int,
+    onboarding: Optional[dict] = None,
+) -> dict:
+    if not API_KEY:
+        return {"fallback": True}
+
+    business_context = _build_business_context(onboarding or {})
+
+    prompt = (
+        f"You are a business monetization strategist helping a {creator_type} creator "
+        f"with {max_followers:,} total social media followers grow their revenue.\n\n"
+        f"{business_context}"
+        f"Generate 4-6 specific, actionable monetization paths for this exact business. "
+        f"Every method must make sense for their actual product/service — do not suggest irrelevant channels.\n\n"
+        f"Also generate a 'where to start' recommendation based on their follower count and business type.\n\n"
+        f"Return a JSON object with exactly these keys:\n"
+        f"- monetization_paths: array of objects, each with:\n"
+        f"  - method (string: short name of the revenue channel)\n"
+        f"  - description (string: 1-2 sentences explaining this channel for their business)\n"
+        f"  - available_now (boolean: true if achievable at {max_followers:,} followers)\n"
+        f"  - first_step (string: one concrete action they can take this week)\n"
+        f"  - programs (array of strings: specific platforms, marketplaces, or tools to use)\n"
+        f"- where_to_start (string: 1-2 sentence priority recommendation for their current stage)\n"
+        f"- fallback: false\n\n"
+        f"Return only valid JSON, no explanation."
+    )
+
+    try:
+        raw = await _chat(prompt)
+        return _parse_json(raw)
+    except Exception:
+        return {"fallback": True}
