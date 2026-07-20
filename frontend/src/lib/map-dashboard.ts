@@ -42,6 +42,11 @@ const EARNINGS_MISSIONS = new Set([
   "investor_ready-revenue",
 ]);
 
+function asStringArray(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  return value.filter((item): item is string => typeof item === "string");
+}
+
 function asStage(value: string): Stage {
   if (
     value === "starter" ||
@@ -162,6 +167,13 @@ export function mapUserToDashboard(
       socialLink: (onboarding.social_link as string) || "",
       revenueGoal: user.business_profile.revenue_goal || "",
       domain: user.godaddy_domain || "",
+    },
+    onboarding: {
+      startingPoint: (onboarding.starting_point as string) || "",
+      businessTypes: asStringArray(onboarding.business_types),
+      confusionAreas: asStringArray(onboarding.confusion_areas),
+      existingAssets: asStringArray(onboarding.existing_assets),
+      goal: (onboarding.goal as string) || "",
     },
     stages: STAGES.map((stageConfig) => ({
       ...stageConfig,

@@ -56,15 +56,24 @@ function ProgressBar({ current, total }: { current: number; total: number }) {
 interface TransitionWrapperProps {
   stepKey: number;
   children: ReactNode;
+  onDisplayedKeyChange?: (key: number) => void;
 }
 
-function TransitionWrapper({ stepKey, children }: TransitionWrapperProps) {
+function TransitionWrapper({
+  stepKey,
+  children,
+  onDisplayedKeyChange,
+}: TransitionWrapperProps) {
   const [displayed, setDisplayed] = useState<{ key: number; node: ReactNode }>({
     key: stepKey,
     node: children,
   });
   const [phase, setPhase] = useState<"idle" | "exit" | "enter" | "entering">("idle");
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    onDisplayedKeyChange?.(displayed.key);
+  }, [displayed.key, onDisplayedKeyChange]);
 
   useEffect(() => {
     if (stepKey === displayed.key) return;
@@ -162,6 +171,7 @@ function StepIllustration({ step }: { step: number }) {
 export function QuestionnaireShell() {
   const router = useRouter();
   const [step, setStep] = useState(0);
+  const [displayedStep, setDisplayedStep] = useState(0);
   const [answers, setAnswers] = useState<Answers>(defaultAnswers);
   const [building, setBuilding] = useState(false);
 
@@ -264,10 +274,14 @@ export function QuestionnaireShell() {
         <QuestionnaireBuilding onDone={handleBuildComplete} />
       ) : (
         <>
-          {step > 0 && <ProgressBar current={step - 1} total={TOTAL_STEPS - 1} />}
+          {displayedStep > 0 && (
+            <ProgressBar current={displayedStep - 1} total={TOTAL_STEPS - 1} />
+          )}
           <div className="q-step-container">
             <StepIllustration step={step} />
-            <TransitionWrapper stepKey={step}>{renderStep()}</TransitionWrapper>
+            <TransitionWrapper stepKey={step} onDisplayedKeyChange={setDisplayedStep}>
+              {renderStep()}
+            </TransitionWrapper>
           </div>
         </>
       )}
