@@ -44,11 +44,17 @@ export type PitchSlide = {
   speaker_notes: string;
 };
 
+export type PitchPhase = {
+  name: string;
+  slide_numbers: number[];
+};
+
 export type PitchOutline = {
   deck_title: string;
   tagline: string;
   funding_ask: string;
   slides: PitchSlide[];
+  phases?: PitchPhase[];
   mock?: boolean;
 };
 
