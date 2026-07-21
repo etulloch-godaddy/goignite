@@ -40,6 +40,19 @@ class AchievementDB(Base):
     category = Column(String, nullable=False)
 
 
+class OutreachDB(Base):
+    __tablename__ = "outreach"
+
+    entry_id = Column(String, primary_key=True)
+    user_id = Column(String, nullable=False, index=True)
+    brand = Column(String, nullable=False, default="")
+    platform = Column(String, nullable=False, default="")
+    template_used = Column(String, nullable=False, default="")
+    status = Column(String, nullable=False, default="sent")
+    notes = Column(String, nullable=False, default="")
+    created_at = Column(String, nullable=False)
+
+
 def init_db() -> None:
     Base.metadata.create_all(bind=engine)
 
