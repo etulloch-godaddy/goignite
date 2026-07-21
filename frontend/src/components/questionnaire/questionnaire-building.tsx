@@ -14,7 +14,7 @@ const STEP_MS = 1200;
 const FINISH_DELAY_MS = 600;
 
 export function QuestionnaireBuilding({ onDone }: { onDone: () => void }) {
-  const Heading = text.span;
+  const Heading = text.h2;
   const Paragraph = text.p;
   const [active, setActive] = useState(0);
 
