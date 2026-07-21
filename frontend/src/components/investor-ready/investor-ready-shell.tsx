@@ -267,12 +267,6 @@ function FundingSection({ userId }: { userId: string | null }) {
           <Paragraph as="paragraph" emphasis="passive" size={-1}>Loading opportunities…</Paragraph>
         )}
 
-        {!loading && isFallback && (
-          <div className="social-fallback-notice">
-            AI is unavailable — no API key configured. Showing demo data below.
-          </div>
-        )}
-
         {!loading && funding.length === 0 && (
           <Paragraph as="paragraph" emphasis="passive" size={-1}>
             No funding matches found. Make sure the backend is running.

@@ -1,4 +1,5 @@
 import json
+import os
 from pathlib import Path
 from typing import Optional
 
@@ -18,6 +19,11 @@ from app.services.social_media_service import (
     get_oauth_url,
     optimize_seo_content,
 )
+
+router = APIRouter()
+
+DATA_DIR = Path(__file__).parent.parent / "data"
+FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
 
 router = APIRouter()
 
@@ -46,13 +52,13 @@ def connect_platform(platform: str):
 async def oauth_callback(platform: str, code: Optional[str] = None, error: Optional[str] = None):
     """Handle OAuth callback, exchange code for stats, and redirect to frontend."""
     if error or not code:
-        return RedirectResponse(url=f"http://localhost:5173/social?error={error or 'cancelled'}")
+        return RedirectResponse(url=f"{FRONTEND_URL}/social?error={error or 'cancelled'}")
 
     stats = await exchange_code_for_stats(platform, code)
     # In a real app, store the token + stats in DynamoDB here.
     # For hackathon: return the stats directly (frontend stores in sessionStorage).
     return RedirectResponse(
-        url=f"http://localhost:5173/social?platform={platform}&connected=true&username={stats.get('username', '')}&followers={stats.get('followers', 0)}"
+        url=f"{FRONTEND_URL}/social?platform={platform}&connected=true&username={stats.get('username', '')}&followers={stats.get('followers', 0)}"
     )
 
 
@@ -272,10 +278,7 @@ def add_outreach(user_id: str, payload: dict):
         notes=payload.get("notes", ""),
         created_at=datetime.now(timezone.utc).strftime("%Y-%m-%d"),
     )
-    with SessionLocal() as session:
-        session.add(entry)
-        session.commit()
-    return {"success": True, "entry": {
+    entry_out = {
         "entry_id": entry.entry_id,
         "brand": entry.brand,
         "platform": entry.platform,
@@ -283,7 +286,20 @@ def add_outreach(user_id: str, payload: dict):
         "status": entry.status,
         "notes": entry.notes,
         "created_at": entry.created_at,
-    }}
+    }
+    with SessionLocal() as session:
+        session.add(entry)
+        session.commit()
+    return {"success": True, "entry": entry_out}
+
+
+@router.delete("/outreach/{user_id}")
+def clear_outreach(user_id: str):
+    """Delete all outreach entries for a user."""
+    with SessionLocal() as session:
+        session.query(OutreachDB).filter(OutreachDB.user_id == user_id).delete()
+        session.commit()
+    return {"success": True}
 
 
 @router.patch("/outreach/{user_id}/{entry_id}")

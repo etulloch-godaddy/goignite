@@ -47,12 +47,6 @@ export function MonetizationPaths({ userId, creatorType }: Props) {
         </div>
       )}
 
-      {(advice as any).fallback === true && (
-        <div className="social-fallback-notice">
-          AI is unavailable — no API key configured. Showing demo data below.
-        </div>
-      )}
-
       <div className="monetize-grid">
         {advice.monetization_paths.map((path, i) => (
           <div key={i} className={`monetize-card ${path.available_now ? "monetize-card--active" : "monetize-card--locked"}`}>
