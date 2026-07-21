@@ -9,7 +9,7 @@ import {
 } from "@/lib/dashboard-data";
 import { useDashboard } from "@/hooks/use-dashboard";
 import { ChatWidget } from "@/components/chat/chat-widget";
-import { BusinessOverview } from "./business-overview";
+import { BusinessOverviewWidget } from "./business-overview-widget";
 import { DashboardHeader } from "./dashboard-header";
 import { DashboardLoading } from "./dashboard-loading";
 import { DashboardSidebar } from "./dashboard-sidebar";
@@ -73,7 +73,7 @@ function DashboardContent({ user }: { user: DashboardUser }) {
           className="w-full dashboard-content"
         >
           <WelcomeBanner user={user} />
-          <BusinessOverview user={user} />
+          <BusinessOverviewWidget user={user} />
           <DomainSuggestions userId={user.userId} />
         </Main>
       </Box>

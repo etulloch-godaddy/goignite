@@ -8,7 +8,12 @@ import text from "@ux/text";
 import ArrowLeftIcon from "@ux/icon/arrow-left";
 import ShieldCheckIcon from "@ux/icon/shield-check";
 import SparklesFilledIcon from "@ux/icon/sparkles-filled";
+<<<<<<< HEAD
 import { generatePitch, getFunding, getOrCreateUserId, type ApiFunding, type PitchOutline, type PitchSlide } from "@/services/api";
+=======
+import { getFunding, getOrCreateUserId, type ApiFunding, type PitchOutline, type PitchSlide } from "@/services/api";
+import { CongratsAnimation } from "./congrats-animation";
+>>>>>>> origin/main
 
 
 const FUNDING_TYPE_LABELS: Record<string, string> = {
@@ -239,15 +244,19 @@ function FundingCard({ opportunity }: { opportunity: ApiFunding }) {
 
 function FundingSection({ userId }: { userId: string | null }) {
   const [funding, setFunding] = useState<ApiFunding[]>([]);
+  const [isFallback, setIsFallback] = useState(false);
   const [loading, setLoading] = useState(true);
   const Paragraph = text.p;
 
   useEffect(() => {
-    getFunding("investor_ready")
-      .then(setFunding)
+    getFunding("investor_ready", undefined, userId ?? undefined)
+      .then((res) => {
+        setFunding(res.opportunities);
+        setIsFallback(res.fallback);
+      })
       .catch(() => setFunding([]))
       .finally(() => setLoading(false));
-  }, []);
+  }, [userId]);
 
   return (
     <Box className="investor-section">
@@ -260,6 +269,12 @@ function FundingSection({ userId }: { userId: string | null }) {
 
         {loading && (
           <Paragraph as="paragraph" emphasis="passive" size={-1}>Loading opportunities…</Paragraph>
+        )}
+
+        {!loading && isFallback && (
+          <div className="social-fallback-notice">
+            AI is unavailable — no API key configured. Showing demo data below.
+          </div>
         )}
 
         {!loading && funding.length === 0 && (
@@ -280,6 +295,7 @@ function FundingSection({ userId }: { userId: string | null }) {
 
 export function InvestorReadyShell() {
   const [userId, setUserId] = useState<string | null>(null);
+  const [showCongrats, setShowCongrats] = useState(true);
   const Heading = text.span;
   const Paragraph = text.p;
 
@@ -289,6 +305,9 @@ export function InvestorReadyShell() {
 
   return (
     <div className="investor-page">
+      {showCongrats && (
+        <CongratsAnimation onDismiss={() => setShowCongrats(false)} />
+      )}
       {/* Header — title + LLC + pitch inline */}
       <div className="investor-header">
         <Box blockPadding="lg" inlinePadding="lg" className="investor-header-inner">

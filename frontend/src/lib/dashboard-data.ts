@@ -36,6 +36,16 @@ export type ProfileSnapshot = {
   domain: string;
 };
 
+/** Raw answers the user gave during onboarding, used to personalize the
+ *  dashboard "Get started" experience. */
+export type OnboardingAnswers = {
+  startingPoint: string;
+  businessTypes: string[];
+  confusionAreas: string[];
+  existingAssets: string[];
+  goal: string;
+};
+
 export type StageStatus = "complete" | "current" | "incomplete";
 
 export type StageStep = {
@@ -62,6 +72,7 @@ export type DashboardUser = {
   todaysMissions: MissionPreview[];
   achievements: AchievementPreview[];
   profile: ProfileSnapshot;
+  onboarding: OnboardingAnswers;
   stages: StageStep[];
 };
 
@@ -119,6 +130,13 @@ export const emptyUser: DashboardUser = {
     revenueGoal: "",
     domain: "",
   },
+  onboarding: {
+    startingPoint: "",
+    businessTypes: [],
+    confusionAreas: [],
+    existingAssets: [],
+    goal: "",
+  },
   stages: STAGES.map((stage) => ({
     ...stage,
     status: stage.id === "starter" ? "current" : "incomplete",
@@ -160,7 +178,7 @@ export function buildPrimaryNav(missionCount: number): NavItem[] {
       id: "profile",
       label: "My Business",
       icon: "content",
-      href: "#profile",
+      href: "/business",
     },
     {
       id: "domain",

@@ -1,6 +1,5 @@
 import type { ReactElement } from "react";
 import AddFilledIcon from "@ux/icon/add-filled";
-import AppsIcon from "@ux/icon/apps";
 import BullseyeIcon from "@ux/icon/bullseye";
 import ColorPaletteIcon from "@ux/icon/color-palette";
 import DollarIcon from "@ux/icon/dollar";
@@ -10,7 +9,6 @@ import ImageGalleryIcon from "@ux/icon/image-gallery";
 import MapIcon from "@ux/icon/map";
 import MegaphoneIcon from "@ux/icon/megaphone";
 import PlayIcon from "@ux/icon/play";
-import ShieldCheckIcon from "@ux/icon/shield-check";
 import SmBusinessFilledIcon from "@ux/icon/sm-business-filled";
 import SparklesFilledIcon from "@ux/icon/sparkles-filled";
 import UserWavingFilledIcon from "@ux/icon/user-waving-filled";
@@ -40,20 +38,19 @@ export const businessTypeChipOptions: QuestionnaireChipOption[] = [
 ];
 
 export const confusionChipOptions: QuestionnaireChipOption[] = [
-  { label: "Legal & business setup", icon: chipIcon(ShieldCheckIcon) },
-  { label: "Finding customers", icon: chipIcon(BullseyeIcon) },
-  { label: "Pricing & managing money", icon: chipIcon(DollarIcon) },
-  { label: "Marketing & promoting", icon: chipIcon(MegaphoneIcon) },
-  { label: "Just knowing what to do next", icon: chipIcon(MapIcon) },
-  { label: "Building a website / brand", icon: chipIcon(WebsiteIcon) },
-  { label: "Honestly… all of it", icon: chipIcon(AppsIcon) },
+  { label: "Knowing where to start", icon: chipIcon(MapIcon) },
+  { label: "Building my website", icon: chipIcon(WebsiteIcon) },
+  { label: "Branding & design", icon: chipIcon(ColorPaletteIcon) },
+  { label: "Marketing & social media", icon: chipIcon(MegaphoneIcon) },
+  { label: "Getting customers & sales", icon: chipIcon(BullseyeIcon) },
+  { label: "Pricing & making money", icon: chipIcon(DollarIcon) },
 ];
 
 export const existingAssetChipOptions: QuestionnaireChipOption[] = [
-  { label: "Name", icon: chipIcon(PlayIcon) },
-  { label: "Logo", icon: chipIcon(SparklesFilledIcon) },
-  { label: "Social profiles", icon: chipIcon(SmBusinessFilledIcon) },
-  { label: "Clients", icon: chipIcon(UserWavingFilledIcon) },
-  { label: "Website", icon: chipIcon(ImageGalleryIcon) },
-  { label: "Domain", icon: chipIcon(FoodIcon) },
+  { label: "Business name", icon: chipIcon(SmBusinessFilledIcon) },
+  { label: "Logo", icon: chipIcon(ColorPaletteIcon) },
+  { label: "Website", icon: chipIcon(WebsiteIcon) },
+  { label: "Social media", icon: chipIcon(MegaphoneIcon) },
+  { label: "Product photos", icon: chipIcon(ImageGalleryIcon) },
+  { label: "Paying customers", icon: chipIcon(UserWavingFilledIcon) },
 ];
