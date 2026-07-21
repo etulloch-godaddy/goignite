@@ -14,6 +14,17 @@ const Title = text.span;
 const Heading = text.span;
 const Desc = text.p;
 
+const GOAL_LABELS: Record<string, string> = {
+  "side-income": "Side income",
+  "full-time": "Full-time",
+  passion: "Passion/hobby",
+  grow: "Grow existing",
+};
+
+function formatGoal(goal: string): string {
+  return GOAL_LABELS[goal] ?? goal;
+}
+
 function RecapGroup({ label, items }: { label: string; items: string[] }) {
   if (items.length === 0) return null;
   return (
@@ -142,11 +153,11 @@ export function BusinessOverviewPage({ user }: { user: DashboardUser }) {
               </div>
               <div className="business-profile-row">
                 <dt>Niche</dt>
-                <dd>{profile.niche || onboarding.businessTypes[0] || "Not added yet"}</dd>
+                <dd>{profile.niche || "Not added yet"}</dd>
               </div>
               <div className="business-profile-row">
                 <dt>Goal</dt>
-                <dd>{onboarding.goal || "Not set yet"}</dd>
+                <dd>{formatGoal(onboarding.goal || profile.revenueGoal) || "Not set yet"}</dd>
               </div>
               <div className="business-profile-row">
                 <dt>Domain</dt>

@@ -15,7 +15,7 @@ Users progress through four stages — Starter → Builder → Brand → Investo
 | Frontend | Next.js 16 + React 19 + TypeScript | GoDaddy `@ux/*` component library; Tailwind CSS |
 | Backend | Python + FastAPI | Async, lightweight; `uvicorn` server |
 | AI | Claude API (`claude-sonnet-4-6`) | Powers the Q&A business advisor, pitch deck generation, social content ideas, growth plans, SEO optimisation |
-| Data | JSON file store (`users.json`) | DynamoDB Local ready via `store.py` |
+| Data | JSON file store (`users.json`) + SQLite pilot | Users are migrated one at a time into SQLite via `scripts/migrate_user_to_db.py`; unmigrated users still live in `users.json`. See [Database](#database) below. |
 | Auth | JWT (no Cognito for hackathon) | — |
 | GoDaddy | Domains API (real) + Airo LLC tool | `httpx` async wrapper; `sso-key` auth; OTE test env via `GODADDY_OTE=true` |
 
@@ -291,6 +291,44 @@ ANTHROPIC_API_KEY=
 12. Pitch deck generation (`POST /api/ai/generate-pitch`)
 13. Shareable accomplishments link (`/share/{user_id}`)
 14. Demo seed data + walkthrough script
+
+---
+
+## Database
+
+User data currently lives in two places at once, on purpose (an in-progress migration, one user at a time):
+
+- **`backend/data/users.json`** — the original flat-file store. Most users still live here.
+- **`backend/data/goignite.db`** — a local SQLite database, created automatically the first time the backend starts. A small number of pilot users have been moved here.
+
+You don't need to configure anything — `app/services/user_store.py` reads/writes both sources transparently, so every route (`load_users()` / `save_users()`) works the same regardless of which backend a given user is in.
+
+**First-time setup:**
+
+```bash
+cd backend
+python3 -m venv .venv
+.venv\Scripts\python.exe -m pip install -r requirements.txt   # Windows
+# source .venv/bin/activate && pip install -r requirements.txt  # macOS/Linux
+```
+
+> **Windows without Visual C++ Build Tools:** if `pip install -r requirements.txt` fails trying to compile `greenlet` from source, run `pip install --only-binary=:all: greenlet` first (grabs a prebuilt wheel), then re-run the requirements install.
+
+**Run the backend as usual** — `goignite.db` is created automatically on first run, no manual DB setup step:
+
+```bash
+.venv\Scripts\python.exe -m uvicorn app.main:app --reload
+```
+
+**Move a user into the database** (optional — only needed if you're working on the DB migration itself):
+
+```bash
+.venv\Scripts\python.exe -m scripts.migrate_user_to_db <user_id>
+```
+
+This pops that user out of `users.json` and inserts them as a row in `goignite.db`. It's one-way and one user at a time — safe to run against any user_id currently in `users.json`.
+
+`goignite.db` and `.venv/` are gitignored — each teammate generates their own local copy; only `users.json` is checked into git.
 
 ---
 
