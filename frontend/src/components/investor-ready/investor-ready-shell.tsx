@@ -8,12 +8,8 @@ import text from "@ux/text";
 import ArrowLeftIcon from "@ux/icon/arrow-left";
 import ShieldCheckIcon from "@ux/icon/shield-check";
 import SparklesFilledIcon from "@ux/icon/sparkles-filled";
-<<<<<<< HEAD
 import { generatePitch, getFunding, getOrCreateUserId, type ApiFunding, type PitchOutline, type PitchSlide } from "@/services/api";
-=======
-import { getFunding, getOrCreateUserId, type ApiFunding, type PitchOutline, type PitchSlide } from "@/services/api";
 import { CongratsAnimation } from "./congrats-animation";
->>>>>>> origin/main
 
 
 const FUNDING_TYPE_LABELS: Record<string, string> = {

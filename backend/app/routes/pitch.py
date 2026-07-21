@@ -1,13 +1,8 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
-<<<<<<< HEAD
-from app.services import store
-from app.services.pitch_service import generate_pitch_outline, generate_pitch_phase
-=======
 from app.services.achievement_store import load_achievements
-from app.services.pitch_service import generate_pitch_outline
->>>>>>> origin/main
+from app.services.pitch_service import generate_pitch_outline, generate_pitch_phase
 from app.services.user_store import load_users
 
 router = APIRouter(prefix="/api/pitch", tags=["pitch"])
@@ -43,5 +38,5 @@ async def create_pitch_phase(body: PitchPhaseRequest):
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
 
-    achievements = store.ACHIEVEMENTS_STORE.get(body.user_id, [])
+    achievements = load_achievements(body.user_id)
     return await generate_pitch_phase(body.phase_number, user, achievements, user.onboarding_data)

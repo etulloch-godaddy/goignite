@@ -133,13 +133,8 @@
     "godaddy_domain": null,
     "created_at": "2026-07-14T03:42:13.220793Z"
   },
-<<<<<<< HEAD
   "5e48d687-922d-4d66-b567-79c324791381": {
     "user_id": "5e48d687-922d-4d66-b567-79c324791381",
-=======
-  "f94dc76c-bef1-445a-8fa0-20a3c3c152d1": {
-    "user_id": "f94dc76c-bef1-445a-8fa0-20a3c3c152d1",
->>>>>>> origin/main
     "creator_type": null,
     "stage": "starter",
     "xp_total": 0,
@@ -149,7 +144,6 @@
       "pitch": "",
       "revenue_goal": ""
     },
-<<<<<<< HEAD
     "onboarding_data": {
       "starting_point": "have-idea",
       "business_types": [
@@ -166,10 +160,20 @@
     },
     "godaddy_domain": null,
     "created_at": "2026-07-19T02:58:31.978987Z"
-=======
+  },
+  "f94dc76c-bef1-445a-8fa0-20a3c3c152d1": {
+    "user_id": "f94dc76c-bef1-445a-8fa0-20a3c3c152d1",
+    "creator_type": null,
+    "stage": "starter",
+    "xp_total": 0,
+    "completed_missions": [],
+    "business_profile": {
+      "bio": "",
+      "pitch": "",
+      "revenue_goal": ""
+    },
     "onboarding_data": {},
     "godaddy_domain": null,
     "created_at": "2026-07-20T19:45:17.454398Z"
->>>>>>> origin/main
   }
 }
