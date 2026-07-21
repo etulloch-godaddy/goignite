@@ -6,6 +6,7 @@ from fastapi import APIRouter, HTTPException, Query
 from fastapi.responses import RedirectResponse
 
 from app.services.achievement_store import load_achievements, save_achievements
+from app.services.db import OutreachDB, SessionLocal
 from app.services.user_store import load_users, save_users
 from app.services.social_media_service import (
     analyze_seo_profile,
@@ -19,9 +20,6 @@ from app.services.social_media_service import (
 )
 
 router = APIRouter()
-
-# In-memory store — keyed by user_id. Swap for DynamoDB without changing route signatures.
-_outreach_store: dict[str, list] = {}
 
 DATA_DIR = Path(__file__).parent.parent / "data"
 
@@ -236,7 +234,19 @@ async def get_content_ideas(payload: dict):
 @router.get("/outreach/{user_id}")
 def get_outreach(user_id: str):
     """Return the outreach log for a user."""
-    entries = _outreach_store.get(user_id, [])
+    with SessionLocal() as session:
+        entries = [
+            {
+                "entry_id": r.entry_id,
+                "brand": r.brand,
+                "platform": r.platform,
+                "template_used": r.template_used,
+                "status": r.status,
+                "notes": r.notes,
+                "created_at": r.created_at,
+            }
+            for r in session.query(OutreachDB).filter(OutreachDB.user_id == user_id).all()
+        ]
     contacted = len(entries)
     replied = sum(1 for e in entries if e["status"] in ("replied", "deal"))
     deals = sum(1 for e in entries if e["status"] == "deal")
@@ -252,46 +262,74 @@ def add_outreach(user_id: str, payload: dict):
     """Log a new outreach entry."""
     import uuid as _uuid
     from datetime import datetime, timezone
-    entry = {
-        "entry_id": str(_uuid.uuid4()),
-        "brand": payload.get("brand", ""),
-        "platform": payload.get("platform", ""),
-        "template_used": payload.get("template_used", ""),
-        "status": payload.get("status", "sent"),
-        "notes": payload.get("notes", ""),
-        "created_at": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
-    }
-    _outreach_store.setdefault(user_id, []).append(entry)
-    return {"success": True, "entry": entry}
+    entry = OutreachDB(
+        entry_id=str(_uuid.uuid4()),
+        user_id=user_id,
+        brand=payload.get("brand", ""),
+        platform=payload.get("platform", ""),
+        template_used=payload.get("template_used", ""),
+        status=payload.get("status", "sent"),
+        notes=payload.get("notes", ""),
+        created_at=datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+    )
+    with SessionLocal() as session:
+        session.add(entry)
+        session.commit()
+    return {"success": True, "entry": {
+        "entry_id": entry.entry_id,
+        "brand": entry.brand,
+        "platform": entry.platform,
+        "template_used": entry.template_used,
+        "status": entry.status,
+        "notes": entry.notes,
+        "created_at": entry.created_at,
+    }}
 
 
 @router.patch("/outreach/{user_id}/{entry_id}")
 def update_outreach_status(user_id: str, entry_id: str, payload: dict):
     """Update the status of an outreach entry. When set to 'deal', fires an achievement."""
-    entries = _outreach_store.get(user_id, [])
-    entry = next((e for e in entries if e["entry_id"] == entry_id), None)
-    if not entry:
-        raise HTTPException(status_code=404, detail="Entry not found")
+    from app.models.achievement import Achievement, AchievementCategory
+    with SessionLocal() as session:
+        entry = session.query(OutreachDB).filter(
+            OutreachDB.user_id == user_id,
+            OutreachDB.entry_id == entry_id,
+        ).first()
+        if not entry:
+            raise HTTPException(status_code=404, detail="Entry not found")
 
-    new_status = payload.get("status", entry["status"])
-    entry["status"] = new_status
-    if payload.get("notes") is not None:
-        entry["notes"] = payload["notes"]
+        new_status = payload.get("status", entry.status)
+        entry.status = new_status
+        if payload.get("notes") is not None:
+            entry.notes = payload["notes"]
 
-    achievement = None
-    if new_status == "deal" and sum(1 for e in entries if e["status"] == "deal") == 1:
-        import uuid as _uuid
-        from datetime import datetime, timezone
-        achievement = {
-            "achievement_id": str(_uuid.uuid4()),
-            "user_id": user_id,
-            "title": f"First Brand Deal Logged — {entry['brand']}",
-            "date": datetime.now(timezone.utc).isoformat(),
-            "impact": "Social Visibility · First Brand Deal",
-            "category": "social_visibility",
+        achievement = None
+        deal_count = session.query(OutreachDB).filter(
+            OutreachDB.user_id == user_id,
+            OutreachDB.status == "deal",
+        ).count()
+        if new_status == "deal" and deal_count == 0:
+            a = Achievement(
+                user_id=user_id,
+                title=f"First Brand Deal — {entry.brand}",
+                impact="Social Visibility · First Brand Deal",
+                category=AchievementCategory.monetization,
+            )
+            save_achievements([a])
+            achievement = a.model_dump(mode="json")
+
+        session.commit()
+        entry_out = {
+            "entry_id": entry.entry_id,
+            "brand": entry.brand,
+            "platform": entry.platform,
+            "template_used": entry.template_used,
+            "status": entry.status,
+            "notes": entry.notes,
+            "created_at": entry.created_at,
         }
 
-    return {"success": True, "entry": entry, "achievement": achievement}
+    return {"success": True, "entry": entry_out, "achievement": achievement}
 
 
 # --- Stage Gate ---
