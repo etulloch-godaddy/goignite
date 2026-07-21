@@ -47,6 +47,10 @@ function asStringArray(value: unknown): string[] {
   return value.filter((item): item is string => typeof item === "string");
 }
 
+function asString(value: unknown): string {
+  return typeof value === "string" ? value : "";
+}
+
 function asStage(value: string): Stage {
   if (
     value === "starter" ||
@@ -137,16 +141,28 @@ export function mapUserToDashboard(
   const stage = asStage(user.stage);
   const nextStage = getNextStage(stage);
   const onboarding = user.onboarding_data;
+  const businessTypes = asStringArray(onboarding.business_types);
+  const onboardingPitch = asString(onboarding.pitch);
+  const onboardingGoal = asString(onboarding.goal);
+  const onboardingNiche =
+    asString(onboarding.niche) ||
+    asString(onboarding.creator_type_label) ||
+    businessTypes[0] ||
+    "";
+  const onboardingSocialLink = asString(onboarding.social_link);
+  const onboardingRevenueGoal =
+    asString(onboarding.revenue_goal) || asString(onboarding.monthly_revenue);
+  const onboardingDomain = asString(onboarding.domain);
 
   const creatorType =
-    (onboarding.creator_type_label as string) ||
+    asString(onboarding.creator_type_label) ||
     (user.creator_type ? CREATOR_LABELS[user.creator_type] : null) ||
     "Creator";
 
   return {
     userId: user.user_id,
-    firstName: (onboarding.first_name as string) || "Creator",
-    businessName: (onboarding.business_name as string) || "My Business",
+    firstName: asString(onboarding.first_name) || "Creator",
+    businessName: asString(onboarding.business_name) || "My Business",
     creatorType,
     stage,
     xpTotal: user.xp_total,
@@ -158,22 +174,19 @@ export function mapUserToDashboard(
     todaysMissions: mapMissions(missions),
     achievements: mapAchievements(achievements),
     profile: {
-      pitch:
-        user.business_profile.pitch ||
-        (onboarding.pitch as string) ||
-        "",
-      bio: user.business_profile.bio || "",
-      niche: (onboarding.niche as string) || "",
-      socialLink: (onboarding.social_link as string) || "",
-      revenueGoal: user.business_profile.revenue_goal || "",
-      domain: user.godaddy_domain || "",
+      pitch: user.business_profile.pitch || onboardingPitch || "",
+      bio: user.business_profile.bio || asString(onboarding.bio) || "",
+      niche: onboardingNiche,
+      socialLink: onboardingSocialLink,
+      revenueGoal: user.business_profile.revenue_goal || onboardingRevenueGoal || "",
+      domain: user.godaddy_domain || onboardingDomain || "",
     },
     onboarding: {
-      startingPoint: (onboarding.starting_point as string) || "",
-      businessTypes: asStringArray(onboarding.business_types),
+      startingPoint: asString(onboarding.starting_point),
+      businessTypes,
       confusionAreas: asStringArray(onboarding.confusion_areas),
       existingAssets: asStringArray(onboarding.existing_assets),
-      goal: (onboarding.goal as string) || "",
+      goal: onboardingGoal,
     },
     stages: STAGES.map((stageConfig) => ({
       ...stageConfig,

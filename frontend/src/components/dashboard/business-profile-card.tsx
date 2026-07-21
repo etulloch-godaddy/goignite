@@ -68,7 +68,7 @@ export function BusinessProfileCard({ profile }: { profile: ProfileSnapshot }) {
           />
           <ProfileField
             label="Domain"
-            value={profile.niche}
+            value={profile.domain}
             emptyText="Register your domain"
           />
           <ProfileField
