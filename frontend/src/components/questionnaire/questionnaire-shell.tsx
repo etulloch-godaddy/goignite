@@ -11,9 +11,8 @@ import { StepBusinessType } from "./steps/step-business-type";
 import { StepPitch } from "./steps/step-pitch";
 import { StepConfusion } from "./steps/step-confusion";
 import { StepExisting } from "./steps/step-existing";
-import { StepGoal } from "./steps/step-goal";
 
-const TOTAL_STEPS = 6;
+const TOTAL_STEPS = 5;
 const TRANSITION_MS = 300;
 
 interface Answers {
@@ -21,9 +20,7 @@ interface Answers {
   businessTypes: string[];
   pitch: string;
   confusion: string[];
-  existing: string[];
   businessName?: string;
-  goal: string;
 }
 
 const defaultAnswers: Answers = {
@@ -31,9 +28,7 @@ const defaultAnswers: Answers = {
   businessTypes: [],
   pitch: "",
   confusion: [],
-  existing: [],
   businessName: undefined,
-  goal: "",
 };
 
 function ProgressBar({ current, total }: { current: number; total: number }) {
@@ -128,7 +123,7 @@ function TransitionWrapper({
 /**
  * Illustrations render in a persistent layer that lives OUTSIDE the step
  * transition, so they don't fade/vanish when navigating between steps.
- * Steps 1–3 share the two-column gif; steps 4–7 share the bottom illustration.
+ * Steps 1–3 share the two-column gif; step 4+ share the bottom illustration.
  */
 function StepIllustration({ step }: { step: number }) {
   const isTwoCol = step >= 1 && step <= 3;
@@ -211,17 +206,9 @@ export function QuestionnaireShell() {
     [goTo]
   );
 
-  const handleExisting = useCallback(
-    (existing: string[], businessName?: string) => {
-      setAnswers((prev) => ({ ...prev, existing, businessName }));
-      goTo(5);
-    },
-    [goTo]
-  );
-
-  const handleGoal = useCallback(
-    async (goal: string) => {
-      const finalAnswers = { ...answers, goal };
+  const handleBusinessName = useCallback(
+    async (businessName?: string) => {
+      const finalAnswers = { ...answers, businessName };
       setAnswers(finalAnswers);
       setBuilding(true);
 
@@ -233,8 +220,6 @@ export function QuestionnaireShell() {
           creator_type_label: finalAnswers.businessTypes[0],
           pitch: finalAnswers.pitch,
           confusion_areas: finalAnswers.confusion,
-          existing_assets: finalAnswers.existing,
-          goal: finalAnswers.goal,
           ...(finalAnswers.businessName ? { business_name: finalAnswers.businessName } : {}),
         });
       } catch (error) {
@@ -259,9 +244,14 @@ export function QuestionnaireShell() {
       case 3:
         return <StepConfusion initial={answers.confusion} onNext={handleConfusion} />;
       case 4:
-        return <StepExisting initial={answers.existing} onNext={handleExisting} />;
-      case 5:
-        return <StepGoal initial={answers.goal} onNext={handleGoal} />;
+        return (
+          <StepExisting
+            initial={answers.businessName}
+            pitch={answers.pitch}
+            businessTypes={answers.businessTypes}
+            onNext={handleBusinessName}
+          />
+        );
       default:
         return null;
     }

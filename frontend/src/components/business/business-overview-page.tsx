@@ -1,6 +1,5 @@
 "use client";
 
-import { type ComponentType } from "react";
 import Button from "@ux/button";
 import text from "@ux/text";
 import CheckboxListIcon from "@ux/icon/checkbox-list";
@@ -8,56 +7,12 @@ import CheckmarkIcon from "@ux/icon/checkmark";
 import CircleIcon from "@ux/icon/circle";
 import ContentIcon from "@ux/icon/content";
 import BullseyeIcon from "@ux/icon/bullseye";
-import ArrowRightIcon from "@ux/icon/arrow-right";
-import DomainIcon from "@ux/icon/domain";
-import WebsiteIcon from "@ux/icon/website";
-import OnlineStoreIcon from "@ux/icon/online-store";
-import WorldIcon from "@ux/icon/world";
-import { getStageLabel, type DashboardUser, type Stage } from "@/lib/dashboard-data";
+import { getStageLabel, type DashboardUser } from "@/lib/dashboard-data";
 import { DashboardSection } from "@/components/dashboard/dashboard-section";
 
 const Title = text.span;
 const Heading = text.span;
 const Desc = text.p;
-
-type GoDaddyProduct = {
-  icon: ComponentType<{ width?: number; height?: number }>;
-  name: string;
-  desc: string;
-  cta: string;
-  href: string;
-};
-
-const PRODUCT_BY_STAGE: Record<Stage, GoDaddyProduct> = {
-  starter: {
-    icon: DomainIcon,
-    name: "Claim your domain",
-    desc: "Lock in your business name with a custom domain before someone else takes it.",
-    cta: "Search domains",
-    href: "https://www.godaddy.com/domains/domain-name-search",
-  },
-  builder: {
-    icon: WebsiteIcon,
-    name: "Build your website",
-    desc: "Turn your idea into a real online home with Websites + Marketing.",
-    cta: "Start your site",
-    href: "https://www.godaddy.com/websites/website-builder",
-  },
-  brand: {
-    icon: OnlineStoreIcon,
-    name: "Open your online store",
-    desc: "Start selling and take payments with a GoDaddy online store.",
-    cta: "Sell online",
-    href: "https://www.godaddy.com/online-store",
-  },
-  investor_ready: {
-    icon: WorldIcon,
-    name: "Grow with the full suite",
-    desc: "Add professional email, marketing, and commerce tools as you scale.",
-    cta: "Explore products",
-    href: "https://www.godaddy.com/",
-  },
-};
 
 function RecapGroup({ label, items }: { label: string; items: string[] }) {
   if (items.length === 0) return null;
@@ -81,8 +36,6 @@ export function BusinessOverviewPage({ user }: { user: DashboardUser }) {
   const total = done + steps.length;
   const pct = total > 0 ? Math.round((done / total) * 100) : 0;
 
-  const product = PRODUCT_BY_STAGE[user.stage];
-  const ProductIcon = product.icon;
   const { onboarding, profile } = user;
 
   const hasRecap =
@@ -211,58 +164,6 @@ export function BusinessOverviewPage({ user }: { user: DashboardUser }) {
             </div>
           </div>
 
-          {/* GoDaddy next step */}
-          <div className="dashboard-overview-card">
-            <div className="dashboard-overview-head">
-              <span className="dashboard-match-logo dashboard-match-logo--purple">
-                <ProductIcon width={20} height={20} />
-              </span>
-              <div className="dashboard-overview-head-text">
-                <Heading as="heading" size={0} className="dashboard-overview-title">
-                  Ready for the next step?
-                </Heading>
-                <Desc as="paragraph" className="dashboard-overview-sub">
-                  When you&apos;re ready, take <strong>{user.businessName}</strong>{" "}
-                  further with GoDaddy.
-                </Desc>
-              </div>
-            </div>
-
-            <div className="dashboard-overview-rec">
-              <span className="dashboard-overview-rec-title">{product.name}</span>
-              <span className="dashboard-overview-rec-desc">{product.desc}</span>
-            </div>
-
-            <div className="dashboard-overview-actions">
-              <Button design="primary" size="sm" href={product.href} external>
-                <span>{product.cta}</span>
-                <ArrowRightIcon width={15} height={15} />
-              </Button>
-            </div>
-          </div>
-
-          {/* Placeholders — Social & Analytics */}
-          <div className="dashboard-overview-card dashboard-placeholder-card">
-            <div className="dashboard-placeholder-label">Social Media</div>
-            <div className="dashboard-placeholder-body">
-              Connect your accounts to track reach and growth.
-            </div>
-            <div className="dashboard-overview-actions">
-              <Button
-                design="secondary"
-                size="sm"
-                text="Connect platforms"
-                href="/social"
-              />
-            </div>
-          </div>
-
-          <div className="dashboard-overview-card dashboard-placeholder-card">
-            <div className="dashboard-placeholder-label">Business Analytics</div>
-            <div className="dashboard-placeholder-body">
-              Connect your accounts to unlock business analytics.
-            </div>
-          </div>
         </div>
       </DashboardSection>
 
