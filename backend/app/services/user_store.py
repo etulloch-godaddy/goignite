@@ -83,6 +83,8 @@ def _load_db_users() -> dict[str, User]:
 
 
 def load_users() -> dict[str, User]:
+    # DB is the primary store. JSON users are legacy — merge them in so they
+    # still work, but any save() will migrate them to SQLite automatically.
     json_users = _load_json_users()
     db_users = _load_db_users()
     return {**json_users, **db_users}
@@ -90,17 +92,11 @@ def load_users() -> dict[str, User]:
 
 def save_users(users: dict[str, User]) -> None:
     with SessionLocal() as session:
-        db_ids = {row.user_id for row in session.query(UserDB.user_id).all()}
-
-        json_users = {}
         for user_id, user in users.items():
-            if user_id in db_ids:
-                row = session.get(UserDB, user_id)
+            row = session.get(UserDB, user_id)
+            if row is not None:
                 for key, value in _user_to_row_fields(user).items():
                     setattr(row, key, value)
             else:
-                json_users[user_id] = user
-
+                session.add(UserDB(**_user_to_row_fields(user)))
         session.commit()
-
-    _save_json_users(json_users)

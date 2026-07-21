@@ -6,7 +6,7 @@ from pydantic import BaseModel
 
 from app.models.achievement import Achievement, AchievementCategory
 from app.models.mission import Mission
-from app.services import store
+from app.services.achievement_store import save_achievements
 from app.services.user_store import load_users, save_users
 from app.services.xp_service import award_xp
 
@@ -69,7 +69,7 @@ def complete_mission(mission_id: str, body: CompleteMissionRequest) -> CompleteM
 
     all_achievements = [mission_achievement] + milestone_achievements
 
-    store.ACHIEVEMENTS_STORE.setdefault(user.user_id, []).extend(all_achievements)
+    save_achievements(all_achievements)
     user.completed_missions.append(mission_id)
     users[user.user_id] = user
     save_users(users)

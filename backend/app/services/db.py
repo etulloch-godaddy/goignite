@@ -29,6 +29,17 @@ class UserDB(Base):
     created_at = Column(DateTime, nullable=False, default=lambda: datetime.now(timezone.utc))
 
 
+class AchievementDB(Base):
+    __tablename__ = "achievements"
+
+    achievement_id = Column(String, primary_key=True)
+    user_id = Column(String, nullable=False, index=True)
+    title = Column(String, nullable=False)
+    date = Column(DateTime, nullable=False, default=lambda: datetime.now(timezone.utc))
+    impact = Column(String, nullable=False)
+    category = Column(String, nullable=False)
+
+
 def init_db() -> None:
     Base.metadata.create_all(bind=engine)
 
