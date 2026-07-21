@@ -1,0 +1,164 @@
+{
+  "entries": [
+    {
+      "id": "pitch-cover",
+      "type": "pitch",
+      "keywords": ["cover", "title slide", "first slide", "tagline", "first impression", "opening slide", "hook"],
+      "question": "What makes a great cover slide?",
+      "answer": "The cover slide has one job: make investors want to hear more. It needs three things: (1) Your business name and a one-sentence tagline that explains what you do and why it matters — not a clever slogan, a clear statement. (2) The founder's name and one credibility marker (follower count, revenue milestone, niche). (3) The ask in plain language: 'Seeking $30,000 seed'. No logo-only slides. No walls of text. Investors see 50 decks a week — your cover is your first and sometimes only impression. Formula: '[Business] — [what it is] for [who it serves], built by [founder credential].'",
+      "godaddy_products": []
+    },
+    {
+      "id": "pitch-problem",
+      "type": "pitch",
+      "keywords": ["problem", "pain point", "customer pain", "market gap", "problem statement", "insight", "why now"],
+      "question": "How do I frame the problem slide?",
+      "answer": "The best problem slides start with a specific, relatable moment — not an abstract market trend. 'Every week, 10,000 small food creators try to sell their product and hit the same wall: no shelf space, no distributor, no brand recognition' is stronger than 'the food industry is fragmented.' Structure: (1) The specific person experiencing the pain (your customer). (2) The specific friction point they hit. (3) Why existing solutions fail them. Avoid: overstating the problem, inventing a problem the market doesn't feel, or combining two unrelated problems on one slide. The problem slide earns the right to show your solution — make investors feel the pain before you solve it.",
+      "godaddy_products": []
+    },
+    {
+      "id": "pitch-solution",
+      "type": "pitch",
+      "keywords": ["solution", "product", "what you do", "product description", "how it works", "value proposition"],
+      "question": "How do I present my solution without being generic?",
+      "answer": "Your solution slide should be one clear sentence followed by three concrete proof points. Avoid: 'We are a platform that connects X with Y' — that's a category, not a solution. Instead: 'We sell [specific product] directly to [specific customer] through [specific channel], and our [specific proof] shows it works.' Three things to cover: (1) What you actually sell or do. (2) The channel or mechanism (DTC, retail, app, service). (3) One early signal that proves it fits the market (a sale, a waitlist, a viral post). Creator founders have a natural advantage: your content IS market validation. A video with 100,000 views is a proof of demand slide in itself.",
+      "godaddy_products": []
+    },
+    {
+      "id": "pitch-market",
+      "type": "pitch",
+      "keywords": ["market", "market size", "tam", "sam", "som", "total addressable market", "market opportunity", "industry size", "comparable"],
+      "question": "How do I size my market credibly?",
+      "answer": "Use the TAM/SAM/SOM framework but don't make up numbers — cite a source. TAM (Total Addressable Market): the whole industry if you captured every customer. SAM (Serviceable Addressable Market): the segment you can realistically reach with your model. SOM (Serviceable Obtainable Market): what you'll capture in 3 years. Example for a fashion creator brand: TAM = $400B global apparel, SAM = $15B US direct-to-consumer fashion, SOM = $2M in year 3 targeting 20,000 followers. Include one comparable company that already succeeded in your niche — investors pattern-match. Avoid citing trillion-dollar TAMs for a business that sells locally; investors will stop trusting your numbers.",
+      "godaddy_products": []
+    },
+    {
+      "id": "pitch-traction",
+      "type": "pitch",
+      "keywords": ["traction", "proof", "metrics", "growth", "revenue", "customers", "users", "milestones", "mom", "month over month"],
+      "question": "What traction metrics matter most to early-stage investors?",
+      "answer": "For pre-revenue or early-revenue founders, investors look for evidence of demand — not profit. The strongest traction signals in order: (1) Revenue (even $500 in sales beats any projection). (2) Month-over-month growth rate in any metric. (3) Social proof — follower count, video views, waitlist signups. (4) Customer retention — repeat buyers, return visitors. (5) Proof of distribution — a retail shelf, a brand deal, a wholesale order. For creator-founders specifically: engagement rate matters more than follower count. A 5% engagement rate on 10,000 followers is stronger than 0.5% on 100,000. Include at least one concrete number on the traction slide — no traction slide should have only words.",
+      "godaddy_products": []
+    },
+    {
+      "id": "pitch-business-model",
+      "type": "pitch",
+      "keywords": ["business model", "revenue model", "revenue streams", "how you make money", "pricing", "margins", "unit economics", "ltv", "cac"],
+      "question": "How do I explain my business model on one slide?",
+      "answer": "Your business model slide answers one question: 'How does money flow in?' Keep it simple: list your 2-3 revenue streams, the price point for each, and the margin. Example: 'DTC at $25/unit, 70% gross margin — Wholesale at $12/unit, 40% gross margin — Brand partnerships at $500-2,000/post.' If you have unit economics, show them: Customer Acquisition Cost (CAC) vs Lifetime Value (LTV). Investors want LTV:CAC > 3:1. For early-stage, it's OK to show projections if you label them clearly. One common mistake: mixing revenue streams with business activities ('we also do workshops'). List only the streams where money actually enters. Keep the slide scannable in 10 seconds.",
+      "godaddy_products": []
+    },
+    {
+      "id": "pitch-financials",
+      "type": "pitch",
+      "keywords": ["financials", "funding ask", "ask", "use of funds", "seed round", "how much", "raise", "budget", "financial projections", "runway"],
+      "question": "How do I structure the financials and ask slide?",
+      "answer": "The ask slide has a formula: state the amount, show exactly where it goes, and tie it to a milestone. Structure: '$X to achieve [specific milestone] by [specific date].' Then break it down: '$15,000 → production run (reduces COGS by 30%), $8,000 → distributor and retail broker fees, $5,000 → LLC via GoDaddy Airo + certifications + working capital.' Avoid: vague buckets ('$10,000 for marketing'), asking for too much without proof, or not naming a milestone. Investors fund milestones, not burn rates. For pre-seed/seed, $25k-$100k is common for creator brands. Include a 12-18 month revenue target that the raise enables — this shows you've thought through the logic.",
+      "godaddy_products": ["GoDaddy Airo LLC Registration"]
+    },
+    {
+      "id": "pitch-next-steps",
+      "type": "pitch",
+      "keywords": ["next steps", "roadmap", "milestones", "call to action", "what's next", "plan", "close", "ask investors"],
+      "question": "How do I close my pitch with a strong next steps slide?",
+      "answer": "The next steps slide is your close — it should leave investors knowing exactly what you'll do with the money and when. Include 3-4 concrete milestones with timeframes: '(1) LLC registered via GoDaddy Airo — month 1. (2) 20 retail doors by Q3. (3) Techstars Food & Bev application submitted. (4) First wholesale PO of 500 units shipped.' End with a specific call to action: 'We're raising $40,000 on a SAFE at a $400,000 cap. Closing in 45 days.' Don't end with a question or a vague 'we're excited to work with you.' Tell them exactly what happens next if they say yes. A confident close signals that you've done this before — or at least thought it through.",
+      "godaddy_products": ["GoDaddy Airo LLC Registration"]
+    },
+    {
+      "id": "pitch-storytelling",
+      "type": "pitch",
+      "keywords": ["story", "narrative", "founder story", "why you", "why now", "origin story", "personal", "background", "motivation"],
+      "question": "How do I weave a compelling narrative through my pitch?",
+      "answer": "Investors fund people as much as they fund ideas. Your narrative thread should answer: Why this problem? Why you? Why now? The best founder stories follow this arc: (1) A specific moment where you personally felt the pain. (2) Why you're uniquely positioned to solve it (domain expertise, audience, lived experience, distribution advantage). (3) What has already happened that proves the idea is real. Creator founders have an edge: your origin story is often your content — 'I filmed myself doing X and 200,000 people watched it' is a market validation story. Weave this through the whole deck, not just one slide. By the time you hit traction, investors should feel like they already know you.",
+      "godaddy_products": []
+    },
+    {
+      "id": "pitch-investor-readiness",
+      "type": "pitch",
+      "keywords": ["investor ready", "what investors want", "red flags", "due diligence", "term sheet", "safe", "convertible note", "angel investor", "pitch deck tips"],
+      "question": "What do early-stage investors actually look for?",
+      "answer": "Early-stage investors (angels, pre-seed funds, accelerators) make decisions on: (1) Founder quality — resilience, self-awareness, coachability. (2) Market size — is the opportunity big enough to matter? (3) Traction — any signal that the market wants this. (4) Unfair advantage — why can you win this that others can't? The most common red flags: vague use of funds, no traction slide, projected numbers without explanation, passive language ('we hope to' vs 'we will'), and ignoring competition. Common mistakes on the deck itself: too many slides (10 is better than 20), tiny font, inconsistent visual style. You don't need a lawyer to raise under $250K — a standard SAFE (Simple Agreement for Future Equity) is a one-page instrument used by most angels.",
+      "godaddy_products": []
+    },
+    {
+      "id": "pitch-creator-economy",
+      "type": "pitch",
+      "keywords": ["creator", "creator economy", "influencer", "content creator", "social following", "audience", "engagement rate", "brand deal", "tiktok", "instagram", "youtube", "creator brand"],
+      "question": "What makes a creator-founded business pitch different?",
+      "answer": "Creator founders have a built-in distribution advantage that traditional founders don't — your audience is your marketing channel, your product launch platform, and your social proof all in one. Make this explicit in your pitch. Key metrics investors care about for creator brands: (1) Engagement rate (aim for 3-8% on Instagram, 5-15% on TikTok — show this). (2) Audience-to-customer conversion rate — what % of followers have bought from you. (3) Content-driven sales — 'this video generated $X in DTC sales within 48 hours.' (4) Brand deal history — brands pay creators because the audience is real; past deals prove this. The risk for creator brands: founder dependency. Address it directly: 'Our brand is bigger than my personal account — here's our standalone brand content strategy.'",
+      "godaddy_products": []
+    },
+    {
+      "id": "pitch-llc-entity",
+      "type": "pitch",
+      "keywords": ["llc", "entity", "incorporate", "legal entity", "business structure", "investor ready entity", "airo", "godaddy airo", "register business"],
+      "question": "Why does having an LLC matter when pitching investors?",
+      "answer": "Investors cannot legally invest in a sole proprietorship — they need a legal entity to write a check to. Forming an LLC is the minimum requirement to receive investment. It also signals seriousness: 'I have a real business, not a side hustle.' An LLC gives you: (1) A legal separation between your personal and business finances. (2) A formal entity that can sign contracts, open business bank accounts, and issue equity. (3) Credibility in due diligence — investors always verify the business exists. GoDaddy Airo handles the full LLC formation process online in minutes, including registered agent service. Investors will ask 'are you incorporated?' early in the conversation — have the answer ready and have it done before you pitch anyone writing checks over $10,000.",
+      "godaddy_products": ["GoDaddy Airo LLC Registration", "GoDaddy Airo Business Formation"]
+    },
+    {
+      "id": "pitch-funding-types",
+      "type": "pitch",
+      "keywords": ["angel", "vc", "accelerator", "grant", "revenue based financing", "bootstrapping", "funding types", "seed fund", "pre-seed", "friends and family", "crowdfunding"],
+      "question": "What type of funding should I be seeking?",
+      "answer": "Match your ask to your stage and needs. Friends & Family ($5k-$25k): the easiest early capital, but document it properly (use a SAFE or promissory note, even with family). Angels ($10k-$100k): individual investors who write personal checks — typically found via warm introductions, AngelList, or pitch competitions. Accelerators (equity for $100k-$200k + support): programs like Techstars, Y Combinator, and niche accelerators (Food-X, fashion accelerators) for founders ready to scale. Grants: non-dilutive capital from government programs, foundations, or corporations — slower but you keep equity. Revenue-Based Financing: you repay from a percentage of monthly revenue — good if you already have consistent revenue. For creator brands at the Starter-Builder stage, start with grants and angels. Don't pitch VCs until you have $250k+ ARR.",
+      "godaddy_products": []
+    },
+    {
+      "id": "pitch-ask-sizing",
+      "type": "pitch",
+      "keywords": ["how much to raise", "ask amount", "seed ask", "valuation", "safe cap", "convertible note", "dilution", "equity", "valuation cap", "pre-money"],
+      "question": "How do I figure out the right amount to ask for?",
+      "answer": "Work backwards from milestones, not from expenses. The ask should fund you to a specific value-creating milestone that justifies a future, larger raise. Formula: (1) Identify the milestone: '20 retail doors' or '$150k ARR' or 'product launch'. (2) Calculate what it costs to reach that milestone. (3) Add 20-30% buffer for surprises. That's your ask. Common mistake: raising too little (you run out before the milestone) or too much (investors worry you'll spend without focus). For early-stage creator brands, $25k-$75k is typical. On structure: a SAFE with a valuation cap of 5-10x your ask is standard for angels — e.g., $40k raise on a $400k cap. The cap says 'I'll sell equity at this max valuation in the next priced round.'",
+      "godaddy_products": []
+    },
+    {
+      "id": "pitch-deck-length",
+      "type": "pitch",
+      "keywords": ["deck length", "how many slides", "slide count", "pitch deck format", "short pitch", "10 slides", "8 slides", "what to include"],
+      "question": "How long should my pitch deck be?",
+      "answer": "8-12 slides is the sweet spot for early-stage. The standard structure that works: (1) Cover. (2) Problem. (3) Solution. (4) Market. (5) Traction. (6) Business Model. (7) Financials & Ask. (8) Next Steps / Team. What to cut: a 'How it works' deep-dive (save for due diligence), a separate team slide if you're a solo founder (weave it into cover and story), a detailed financial model (show the ask and milestone, not 5-year projections). One slide per section — don't let any single slide carry more than 3-4 bullet points. The best pitch decks are read in under 4 minutes and leave the investor with one clear question they want to ask, not a dozen they already answered.",
+      "godaddy_products": []
+    },
+    {
+      "id": "pitch-domain-brand",
+      "type": "pitch",
+      "keywords": ["domain", "website", "online presence", "brand credibility", "website url", "web address", "professional website", "brand legitimacy"],
+      "question": "Does having a domain and website matter when pitching investors?",
+      "answer": "Yes — a custom domain is a basic credibility signal. An investor who googles your business name and finds nothing (or a generic free website) will wonder how serious you are. Your domain is the foundation of your online brand: it goes on the cover slide, in your email signature, and on every piece of marketing material. For a pitch, your website doesn't need to be elaborate — a clean landing page that explains the business, shows the product, and collects email signups is enough. Professional email (hello@yourbrand.com vs yourname@gmail.com) also signals you treat this as a real business. GoDaddy offers both the domain and professional email workspace. If you're pitching and your email is @gmail, fix that before you send the first deck.",
+      "godaddy_products": ["GoDaddy Domain Registration", "GoDaddy Professional Email", "GoDaddy Website Builder"]
+    },
+    {
+      "id": "pitch-competition",
+      "type": "pitch",
+      "keywords": ["competition", "competitors", "competitive landscape", "why better", "differentiation", "moat", "unfair advantage", "market position"],
+      "question": "How do I handle the competition slide?",
+      "answer": "Never say 'we have no competition' — it tells investors you haven't done your homework. Every business has direct competitors (same product, same customer) and indirect competitors (different product, same job-to-be-done). The competition slide should show a 2x2 matrix or comparison table where your position is clearly differentiated — not just 'we're better,' but 'we win on [specific dimension] that matters to [specific customer].' For creator brands, your unfair advantage is often distribution: 'Our 18,000 engaged followers are a customer acquisition channel that our competitors have to pay $2 CAC to replicate.' Frame competition as market validation: if big companies are in your space, the market is real. If no one is, explain why.",
+      "godaddy_products": []
+    },
+    {
+      "id": "pitch-team",
+      "type": "pitch",
+      "keywords": ["team", "founder", "co-founder", "team slide", "who we are", "background", "experience", "why us", "founder market fit"],
+      "question": "What should I include about myself on the team slide?",
+      "answer": "For solo founders, your team slide is really a 'why me' slide — and it should answer one question: why are you uniquely positioned to win this specific market? Include: (1) One credential that shows market expertise (10 years in food industry, 18,000 followers in your niche, co-packer relationship already in place). (2) One proof of execution (launched product in 3 months, viral video, first revenue). (3) One honest gap and how you're filling it ('I'm outsourcing legal and accounting so I can focus on product and growth'). Avoid: listing every job you've had, over-credentialing with irrelevant experience, or apologizing for what you don't know. Investors back people who know their market and know themselves.",
+      "godaddy_products": []
+    },
+    {
+      "id": "pitch-social-proof",
+      "type": "pitch",
+      "keywords": ["social proof", "testimonials", "press", "media coverage", "awards", "partnerships", "endorsements", "validation"],
+      "question": "How do I show social proof in my pitch?",
+      "answer": "Social proof is evidence that people outside your immediate circle believe in your business. In order of investor weight: (1) Revenue from paying strangers (strongest). (2) A partnership or LOI (letter of intent) from a credible company. (3) Press coverage in a recognized publication. (4) Accelerator acceptance or competition win. (5) Endorsements from recognized experts in your niche. (6) Social media reach and engagement from real followers. For creator founders, your content performance is social proof: views, shares, saves, and comments from people who don't know you personally. One specific data point beats ten vague statements — 'featured in Eater.com' is stronger than 'we've received significant media attention.'",
+      "godaddy_products": []
+    },
+    {
+      "id": "pitch-design",
+      "type": "pitch",
+      "keywords": ["deck design", "pitch deck design", "visual design", "slides look", "presentation design", "fonts", "colors", "branding"],
+      "question": "How important is design for a pitch deck?",
+      "answer": "Design matters more than most founders think — not because investors are shallow, but because a well-designed deck signals professionalism and brand awareness. The baseline requirements: (1) Consistent color palette (2-3 colors max). (2) One font family. (3) Enough white space — never fill every pixel. (4) One visual per slide if possible (chart, photo, or product shot). (5) No clip art, no stock photos of handshakes. For creator brands, your deck should look like your brand — if your Instagram aesthetic is clean and minimal, your deck should be too. Tools: Canva (free, templates available), Pitch.com (made for startups), or PowerPoint/Keynote with a custom theme. Spend 2-4 hours on design — it's worth it.",
+      "godaddy_products": []
+    }
+  ]
+}
