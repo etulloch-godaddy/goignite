@@ -51,24 +51,16 @@ function NavLink({
   active?: boolean;
 }) {
   const Label = text.span;
-  const Caption = text.span;
 
   if (item.locked) {
     return (
-      <Box orientation="vertical" gap="sm">
-        <button type="button" disabled className="dashboard-nav-item">
-          <NavIcon name={item.icon} />
-          <Label as="label" className="flex-1 text-left">
-            {item.label}
-          </Label>
-          <LockedIcon width={14} height={14} />
-        </button>
-        {item.lockReason && (
-          <Caption as="caption" emphasis="passive" className="ml-3 block">
-            {item.lockReason}
-          </Caption>
-        )}
-      </Box>
+      <button type="button" disabled className="dashboard-nav-item">
+        <NavIcon name={item.icon} />
+        <Label as="label" className="flex-1 text-left">
+          {item.label}
+        </Label>
+        <LockedIcon width={14} height={14} />
+      </button>
     );
   }
 
@@ -147,7 +139,13 @@ export function DashboardSidebar({
         blockAlignChildren="center"
         className="mb-8 px-1"
       >
-        <GdTheGoIcon width={24} height={24} />
+        <a
+          href="/dashboard"
+          className="dashboard-logo-link"
+          aria-label="Go to dashboard"
+        >
+          <GdTheGoIcon width={24} height={24} />
+        </a>
         <Box stretch />
         <button
           type="button"

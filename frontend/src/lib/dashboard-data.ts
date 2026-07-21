@@ -169,7 +169,7 @@ export function buildPrimaryNav(missionCount: number): NavItem[] {
     },
     {
       id: "missions",
-      label: "Today's missions",
+      label: "Missions",
       icon: "checkbox-list",
       href: "#missions",
       badge: missionCount > 0 ? String(missionCount) : undefined,
@@ -203,7 +203,8 @@ export function buildPrimaryNav(missionCount: number): NavItem[] {
 
 export function buildGrowthNav(stage: Stage): NavItem[] {
   const builderOpen = stage !== "starter";
-  const brandOpen = stage === "brand" || stage === "investor_ready";
+  const investorOpen = stage === "investor_ready";
+  const lockReason = "Unlocks at Investor Ready";
 
   return [
     {
@@ -212,13 +213,15 @@ export function buildGrowthNav(stage: Stage): NavItem[] {
       icon: "page",
       href: "#website",
       locked: !builderOpen,
-      lockReason: builderOpen ? undefined : "Unlocks at Investor Ready",
+      lockReason: builderOpen ? undefined : lockReason,
     },
     {
       id: "funding",
       label: "Funding",
       icon: "lightbulb",
       href: "/investor-ready",
+      locked: !investorOpen,
+      lockReason: investorOpen ? undefined : lockReason,
     },
   ];
 }

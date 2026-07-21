@@ -632,14 +632,21 @@
 .q-name-input-wrap {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   gap: 0.5rem;
   width: 100%;
-  max-width: 22rem;
+  max-width: 24rem;
   margin-inline: auto;
-  margin-top: 1.25rem;
+  margin-top: 0.5rem;
   overflow: hidden;
   animation: q-name-input-in 400ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.q-name-input-wrap--static {
+  animation: none;
+  overflow: visible;
+  margin-top: 0.25rem;
+  max-width: none;
 }
 
 .q-name-input-wrap.q-name-input-wrap--closing {
@@ -656,7 +663,7 @@
 .q-name-input-label {
   font-weight: 600;
   color: #111111;
-  text-align: center;
+  text-align: left;
 }
 
 .q-name-input {
@@ -670,10 +677,64 @@
   background: #ffffff;
   outline: none;
   transition: border-color 150ms ease;
+  box-sizing: border-box;
 }
 
 .q-name-input:focus {
-  border-color: #00a4a6;
+  border-color: #022627;
+}
+
+.q-name-ideas {
+  margin-top: 2.75rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.q-name-ideas-label {
+  margin: 0 0 0.75rem;
+  color: #6b7575;
+  font-size: 0.875rem;
+}
+
+.q-name-ideas-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.q-name-idea {
+  appearance: none;
+  border: 1.5px solid #d6dada;
+  background: #ffffff;
+  color: #111111;
+  border-radius: 999px;
+  padding: 0.5rem 0.95rem;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+.q-name-idea:hover {
+  border-color: #111111;
+}
+
+.q-name-idea--selected {
+  background: #111111;
+  border-color: #111111;
+  color: #ffffff;
+}
+
+.q-name-step .q-continue-wrap {
+  margin-top: 1.75rem;
+}
+
+/* The centered block sits inside the step container (below the header +
+   progress bar), so nudge it up slightly to optically center on the page. */
+.q-name-step {
+  transform: translateY(-2rem);
 }
 
 /* ─── Building / thinking screen ─── */

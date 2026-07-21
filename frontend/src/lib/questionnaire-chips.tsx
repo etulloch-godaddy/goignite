@@ -45,12 +45,3 @@ export const confusionChipOptions: QuestionnaireChipOption[] = [
   { label: "Getting customers & sales", icon: chipIcon(BullseyeIcon) },
   { label: "Pricing & making money", icon: chipIcon(DollarIcon) },
 ];
-
-export const existingAssetChipOptions: QuestionnaireChipOption[] = [
-  { label: "Business name", icon: chipIcon(SmBusinessFilledIcon) },
-  { label: "Logo", icon: chipIcon(ColorPaletteIcon) },
-  { label: "Website", icon: chipIcon(WebsiteIcon) },
-  { label: "Social media", icon: chipIcon(MegaphoneIcon) },
-  { label: "Product photos", icon: chipIcon(ImageGalleryIcon) },
-  { label: "Paying customers", icon: chipIcon(UserWavingFilledIcon) },
-];
