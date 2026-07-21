@@ -27,6 +27,9 @@ export function QuestionnaireHeader() {
         </a>
 
         <div className="q-header-actions">
+          <a href="https://www.godaddy.com/help" className="q-header-help">
+            Help Center
+          </a>
           <button type="button" className="q-icon-button" aria-label="Notifications">
             <BellIcon width={18} height={18} />
           </button>

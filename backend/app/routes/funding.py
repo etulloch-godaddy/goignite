@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from typing import Optional
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Query
 
 from app.models.funding import FundingOpportunity
 
@@ -14,20 +14,48 @@ _FUNDING: list[FundingOpportunity] = [
 ]
 
 
-@router.get("", response_model=list[FundingOpportunity])
-def get_funding_opportunities(
-    stage: Optional[str] = None,
-    creator_type: Optional[str] = None,
-) -> list[FundingOpportunity]:
+def _static_fallback(stage: Optional[str], creator_type: Optional[str]) -> list[dict]:
     results = _FUNDING
-
     if stage:
         results = [f for f in results if stage in f.eligibility_stages]
-
     if creator_type:
-        results = [
-            f for f in results
-            if "all" in f.creator_types or creator_type in f.creator_types
-        ]
+        results = [f for f in results if "all" in f.creator_types or creator_type in f.creator_types]
+    return [f.dict() for f in results]
 
-    return results
+
+@router.get("")
+async def get_funding_opportunities(
+    stage: Optional[str] = None,
+    creator_type: Optional[str] = None,
+    user_id: Optional[str] = Query(None),
+):
+    from app.services.funding_service import generate_funding_opportunities
+    from app.services.user_store import load_users
+
+    onboarding = {}
+    inferred_creator_type = creator_type
+    if user_id:
+        try:
+            users = load_users()
+            user = users.get(user_id)
+            if user:
+                onboarding = user.onboarding_data or {}
+                if not inferred_creator_type:
+                    label = onboarding.get("creator_type_label", "")
+                    inferred_creator_type = label.lower() if label else creator_type
+        except Exception:
+            pass
+
+    ai_results = await generate_funding_opportunities(
+        stage=stage or "investor_ready",
+        creator_type=inferred_creator_type or "all",
+        onboarding=onboarding,
+    )
+
+    if ai_results:
+        return {"opportunities": ai_results, "fallback": False}
+
+    return {
+        "opportunities": _static_fallback(stage, creator_type),
+        "fallback": True,
+    }

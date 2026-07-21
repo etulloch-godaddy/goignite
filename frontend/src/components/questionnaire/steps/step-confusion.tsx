@@ -9,7 +9,7 @@ import { confusionChipOptions } from "@/lib/questionnaire-chips";
 const Heading = text.h2;
 const Sub = text.p;
 
-const MAX_SELECTIONS = 2;
+const MAX_SELECTIONS = 3;
 
 interface StepConfusionProps {
   initial: string[];
@@ -36,7 +36,7 @@ export function StepConfusion({ initial, onNext }: StepConfusionProps) {
           What feels the most confusing right now?
         </Heading>
         <Sub as="paragraph" className="q-step-sub">
-          Pick your top 1–2
+          Pick up to 3
         </Sub>
 
         <div className="q-chips-wrap">

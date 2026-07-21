@@ -36,15 +36,19 @@ const defaultAnswers: Answers = {
   goal: "",
 };
 
-function ProgressDots({ current, total }: { current: number; total: number }) {
+function ProgressBar({ current, total }: { current: number; total: number }) {
+  const pct = Math.min(100, Math.max(0, ((current + 1) / total) * 100));
   return (
-    <div className="q-progress">
-      {Array.from({ length: total }, (_, i) => {
-        let cls = "q-dot";
-        if (i === current) cls += " q-dot--active";
-        else if (i < current) cls += " q-dot--done";
-        return <span key={i} className={cls} />;
-      })}
+    <div
+      className="q-progress"
+      role="progressbar"
+      aria-valuemin={0}
+      aria-valuemax={total}
+      aria-valuenow={current + 1}
+    >
+      <div className="q-progress-track">
+        <div className="q-progress-fill" style={{ width: `${pct}%` }} />
+      </div>
     </div>
   );
 }
@@ -52,15 +56,24 @@ function ProgressDots({ current, total }: { current: number; total: number }) {
 interface TransitionWrapperProps {
   stepKey: number;
   children: ReactNode;
+  onDisplayedKeyChange?: (key: number) => void;
 }
 
-function TransitionWrapper({ stepKey, children }: TransitionWrapperProps) {
+function TransitionWrapper({
+  stepKey,
+  children,
+  onDisplayedKeyChange,
+}: TransitionWrapperProps) {
   const [displayed, setDisplayed] = useState<{ key: number; node: ReactNode }>({
     key: stepKey,
     node: children,
   });
   const [phase, setPhase] = useState<"idle" | "exit" | "enter" | "entering">("idle");
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    onDisplayedKeyChange?.(displayed.key);
+  }, [displayed.key, onDisplayedKeyChange]);
 
   useEffect(() => {
     if (stepKey === displayed.key) return;
@@ -158,6 +171,7 @@ function StepIllustration({ step }: { step: number }) {
 export function QuestionnaireShell() {
   const router = useRouter();
   const [step, setStep] = useState(0);
+  const [displayedStep, setDisplayedStep] = useState(0);
   const [answers, setAnswers] = useState<Answers>(defaultAnswers);
   const [building, setBuilding] = useState(false);
 
@@ -260,10 +274,14 @@ export function QuestionnaireShell() {
         <QuestionnaireBuilding onDone={handleBuildComplete} />
       ) : (
         <>
-          {step > 0 && <ProgressDots current={step - 1} total={TOTAL_STEPS - 1} />}
+          {displayedStep > 0 && (
+            <ProgressBar current={displayedStep - 1} total={TOTAL_STEPS - 1} />
+          )}
           <div className="q-step-container">
             <StepIllustration step={step} />
-            <TransitionWrapper stepKey={step}>{renderStep()}</TransitionWrapper>
+            <TransitionWrapper stepKey={step} onDisplayedKeyChange={setDisplayedStep}>
+              {renderStep()}
+            </TransitionWrapper>
           </div>
         </>
       )}
