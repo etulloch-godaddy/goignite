@@ -110,14 +110,6 @@ export function ContentIdeas({ userId, stage, creatorType }: Props) {
         />
       </Box>
 
-      {isFallback && (
-        <Box blockPadding="sm" inlinePadding="md" elevation="raised" rounding="md" className="social-fallback-notice">
-          <Body as="paragraph" emphasis="passive">
-            AI is unavailable — no API key configured. Showing demo data below.
-          </Body>
-        </Box>
-      )}
-
       {weeks.length > 0 && (
         <div className="social-content-table-wrap">
           <table className="social-content-table">

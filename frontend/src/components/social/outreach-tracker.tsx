@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Box from "@ux/box";
 import Button from "@ux/button";
 import text from "@ux/text";
@@ -9,6 +9,7 @@ import {
   getOutreach,
   addOutreach,
   updateOutreach,
+  clearOutreach,
   type OutreachEntry,
   type OutreachLog,
 } from "@/services/api";
@@ -57,6 +58,7 @@ export function OutreachTracker({ userId }: Props) {
   const [form, setForm] = useState({ brand: "", platform: "instagram", status: "sent", notes: "" });
   const [dealBrand, setDealBrand] = useState<string | null>(null);
   const [editingNotes, setEditingNotes] = useState<{ id: string; value: string } | null>(null);
+  const addInFlight = useRef(false);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -74,15 +76,25 @@ export function OutreachTracker({ userId }: Props) {
 
   const handleAdd = async () => {
     if (!form.brand.trim()) return;
+    if (addInFlight.current) return;
+    addInFlight.current = true;
     setSubmitting(true);
     try {
-      await addOutreach(userId, form);
-      await load();
+      const newEntry = await addOutreach(userId, form);
+      setLog((prev) => ({
+        entries: [...prev.entries, newEntry],
+        summary: {
+          contacted: prev.summary.contacted + 1,
+          replied: prev.summary.replied + (["replied", "deal"].includes(newEntry.status) ? 1 : 0),
+          deals: prev.summary.deals + (newEntry.status === "deal" ? 1 : 0),
+        },
+      }));
       setForm({ brand: "", platform: "instagram", status: "sent", notes: "" });
       setShowForm(false);
     } catch {
       // silent
     } finally {
+      addInFlight.current = false;
       setSubmitting(false);
     }
   };
@@ -115,11 +127,26 @@ export function OutreachTracker({ userId }: Props) {
     }
   };
 
+  const handleClearAll = async () => {
+    if (!window.confirm("Clear all outreach entries? This cannot be undone.")) return;
+    try {
+      await clearOutreach(userId);
+      setLog({ entries: [], summary: { contacted: 0, replied: 0, deals: 0 } });
+    } catch {
+      // silent
+    }
+  };
+
   return (
     <Box orientation="vertical" gap="lg">
       <Box orientation="horizontal" blockAlignChildren="center">
         <Heading as="heading" size={3} className="flex-1">Brand Outreach</Heading>
-        <Button design="primary" size="sm" text="Log Outreach" onClick={() => setShowForm(!showForm)} />
+        <Box orientation="horizontal" gap="sm">
+          {log.entries.length > 0 && (
+            <Button design="secondary" size="sm" text="Clear All" onClick={handleClearAll} />
+          )}
+          <Button design="primary" size="sm" text="Log Outreach" onClick={() => setShowForm(!showForm)} />
+        </Box>
       </Box>
 
       {/* Summary */}

@@ -224,8 +224,15 @@ export type SocialStats = {
   username?: string;
   followers?: number;
   posts?: number;
+  videos?: number;
   profile_url?: string;
   mock?: boolean;
+};
+
+export type OAuthUrlResponse = {
+  platform: string;
+  auth_url: string;
+  mock: boolean;
 };
 
 export type SocialMission = {
@@ -304,6 +311,10 @@ export type SeoProfileResponse = { score: number; feedback: string; rewrite: str
 export type SeoKeywordsResponse = { keywords: { keyword: string; relevance: string }[]; mock?: boolean };
 export type SeoContentResponse = { optimized: string; tips: string[]; mock?: boolean };
 
+export async function getOAuthUrl(platform: SocialPlatform): Promise<OAuthUrlResponse> {
+  return request<OAuthUrlResponse>(`/api/social/connect/${platform}`);
+}
+
 export async function mockOAuth(platform: SocialPlatform): Promise<SocialStats> {
   return request<SocialStats>(`/api/social/mock-oauth/${platform}`);
 }
@@ -367,10 +378,15 @@ export async function addOutreach(
   userId: string,
   entry: { brand: string; platform: string; status: string; notes?: string },
 ): Promise<OutreachEntry> {
-  return request<OutreachEntry>(`/api/social/outreach/${userId}`, {
+  const data = await request<{ success: boolean; entry: OutreachEntry }>(`/api/social/outreach/${userId}`, {
     method: "POST",
     body: JSON.stringify(entry),
   });
+  return data.entry;
+}
+
+export async function clearOutreach(userId: string): Promise<void> {
+  await request(`/api/social/outreach/${userId}`, { method: "DELETE" });
 }
 
 export async function updateOutreach(
