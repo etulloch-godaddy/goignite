@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
-from app.services import store
+from app.services.achievement_store import load_achievements
 from app.services.pitch_service import generate_pitch_outline
 from app.services.user_store import load_users
 
@@ -19,5 +19,5 @@ async def create_pitch_outline(body: PitchOutlineRequest):
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
 
-    achievements = store.ACHIEVEMENTS_STORE.get(body.user_id, [])
+    achievements = load_achievements(body.user_id)
     return await generate_pitch_outline(user, achievements, user.onboarding_data)

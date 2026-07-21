@@ -5,7 +5,7 @@ from typing import Optional
 from fastapi import APIRouter, HTTPException, Query
 from fastapi.responses import RedirectResponse
 
-from app.services import store
+from app.services.achievement_store import load_achievements, save_achievements
 from app.services.user_store import load_users, save_users
 from app.services.social_media_service import (
     analyze_seo_profile,
@@ -157,7 +157,7 @@ async def complete_social_mission(mission_id: str, payload: dict):
         raise HTTPException(status_code=409, detail="Mission already completed")
 
     achievement = build_achievement(user_id, mission)
-    store.ACHIEVEMENTS_STORE.setdefault(user_id, []).append(achievement)
+    save_achievements([achievement])
 
     user.completed_missions.append(mission_id)
     users[user_id] = user
@@ -311,7 +311,7 @@ def get_stage_gate(stage: str):
 @router.get("/achievements/{user_id}")
 def get_achievements(user_id: str):
     """Return all social achievements for a user."""
-    achievements = store.ACHIEVEMENTS_STORE.get(user_id, [])
+    achievements = load_achievements(user_id)
     return {
         "user_id": user_id,
         "missions_completed": len(achievements),
