@@ -108,6 +108,13 @@
   padding: 3.25rem 6.5rem;
 }
 
+/* Guarantee the generous side padding wins over @ux/space's inline-padding
+   utility class (equal specificity, order-dependent), so pages like the
+   Social hub match the dashboard's horizontal padding. */
+.dashboard-page .dashboard-content {
+  padding-inline: 6.5rem;
+}
+
 @media (max-width: 768px) {
   .dashboard-content {
     gap: 2.25rem;
@@ -2268,30 +2275,6 @@
 
 /* ─── Social Hub ─────────────────────────────────────────────────────────── */
 
-.social-page-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #111111;
-  margin: 0 0 0.25rem;
-}
-.social-page-sub {
-  font-size: 0.9375rem;
-  color: #6b7575;
-  margin: 0;
-}
-.social-back-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #6b7575;
-  text-decoration: none;
-  padding: 0.25rem 0;
-  margin-bottom: 0.25rem;
-  transition: color 0.15s;
-}
-.social-back-btn:hover { color: #111111; }
 .social-tab-content { padding-top: 0.5rem; }
 
 /* Active tab text: force dark so it's readable on light backgrounds */
@@ -2334,7 +2317,7 @@
 
 .platform-card-header {
   padding: 1.25rem 1.25rem 1.125rem;
-  background: linear-gradient(135deg, #0d3535 0%, #007c7e 100%);
+  background: #007c7e;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -2633,7 +2616,13 @@ tbody:first-of-type .content-week-header-row td { border-top: none; }
   border-radius: 999px;
   white-space: nowrap;
 }
-.social-generate-row { flex-wrap: wrap; }
+.social-generate-row {
+  align-items: flex-start;
+}
+.social-generate-row .ux-select {
+  min-width: 14rem;
+  max-width: 20rem;
+}
 .social-raw-plan { background: #fafbfc; }
 .social-pre {
   white-space: pre-wrap;
@@ -2814,19 +2803,8 @@ tbody:first-of-type .content-week-header-row td { border-top: none; }
 .monetize-loading, .monetize-empty {
   padding: 32px;
   text-align: center;
-  color: #888;
+  color: #6b7575;
   font-size: 0.9rem;
-}
-.monetize-title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #111;
-  margin: 0 0 4px;
-}
-.monetize-sub {
-  font-size: 0.9rem;
-  color: #666;
-  margin: 0;
 }
 .monetize-where-banner {
   background: #e8f9f9;
@@ -2856,12 +2834,18 @@ tbody:first-of-type .content-week-header-row td { border-top: none; }
 }
 .monetize-card {
   background: #fff;
-  border: 1px solid #e0e4e8;
-  border-radius: 12px;
+  border: 1px solid #e0e5e6;
+  border-radius: 0.875rem;
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  transition: border-color 0.15s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+.monetize-card--active:hover {
+  border-color: #00a4a6;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
 }
 .monetize-card--locked {
   opacity: 0.65;
@@ -2889,21 +2873,21 @@ tbody:first-of-type .content-week-header-row td { border-top: none; }
   flex-shrink: 0;
 }
 .monetize-badge--now {
-  background: #d4f5e9;
-  color: #1a6644;
+  background: #e4f5ee;
+  color: #0a6f57;
 }
 .monetize-badge--later {
-  background: #f0f0f0;
-  color: #777;
+  background: #edf0f0;
+  color: #6b7575;
 }
 .monetize-card-desc {
   font-size: 0.875rem;
-  color: #555;
+  color: #6b7575;
   line-height: 1.55;
   margin: 0;
 }
 .monetize-first-step {
-  background: #f8f9fa;
+  background: #f0faf9;
   border-radius: 8px;
   padding: 12px 14px;
 }
@@ -2918,7 +2902,7 @@ tbody:first-of-type .content-week-header-row td { border-top: none; }
 }
 .monetize-step-text {
   font-size: 0.845rem;
-  color: #333;
+  color: #444444;
   margin: 0;
   line-height: 1.5;
 }
@@ -2929,9 +2913,9 @@ tbody:first-of-type .content-week-header-row td { border-top: none; }
 }
 .monetize-program-chip {
   font-size: 0.75rem;
-  background: #f0f4f8;
-  color: #445566;
-  border: 1px solid #dde4ec;
+  background: #e8f9f9;
+  color: #007c7e;
+  border: 1px solid #cdeceb;
   border-radius: 6px;
   padding: 3px 10px;
 }
@@ -2953,22 +2937,25 @@ tbody:first-of-type .content-week-header-row td { border-top: none; }
 .seo-context-label {
   font-size: 0.78rem;
   font-weight: 600;
-  color: #555;
+  color: #6b7575;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
 .seo-context-input {
-  border: 1px solid #d0d0d0;
+  border: 1px solid #d0d5d6;
   border-radius: 8px;
   padding: 8px 12px;
   font-size: 0.9rem;
   color: #111;
   background: #fff;
   outline: none;
-  transition: border-color 0.15s;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
-.seo-context-input:focus { border-color: #00a4a6; }
-.seo-context-input::placeholder { color: #999; }
+.seo-context-input:focus {
+  border-color: #00a4a6;
+  box-shadow: 0 0 0 2px rgba(0, 164, 166, 0.15);
+}
+.seo-context-input::placeholder { color: #9aabab; }
 
 .seo-picker {
   display: flex;

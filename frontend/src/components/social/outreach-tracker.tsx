@@ -140,7 +140,7 @@ export function OutreachTracker({ userId }: Props) {
   return (
     <Box orientation="vertical" gap="lg">
       <Box orientation="horizontal" blockAlignChildren="center">
-        <Heading as="heading" size={3} className="flex-1">Brand Outreach</Heading>
+        <Heading as="heading" className="social-section-title flex-1">Brand Outreach</Heading>
         <Box orientation="horizontal" gap="sm">
           {log.entries.length > 0 && (
             <Button design="secondary" size="sm" text="Clear All" onClick={handleClearAll} />

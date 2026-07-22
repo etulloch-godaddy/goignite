@@ -151,6 +151,7 @@ export type NavItem = {
   badge?: string;
   locked?: boolean;
   lockReason?: string;
+  external?: boolean;
 };
 
 export function buildPrimaryNav(missionCount: number): NavItem[] {
@@ -202,7 +203,6 @@ export function buildPrimaryNav(missionCount: number): NavItem[] {
 }
 
 export function buildGrowthNav(stage: Stage): NavItem[] {
-  const builderOpen = stage !== "starter";
   const investorOpen = stage === "investor_ready";
   const lockReason = "Unlocks at Investor Ready";
 
@@ -211,9 +211,9 @@ export function buildGrowthNav(stage: Stage): NavItem[] {
       id: "website",
       label: "Website",
       icon: "page",
-      href: "#website",
-      locked: !builderOpen,
-      lockReason: builderOpen ? undefined : lockReason,
+      href: "https://www.godaddy.com/airo",
+      external: true,
+      badge: "Airo",
     },
     {
       id: "funding",
