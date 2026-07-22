@@ -12,12 +12,63 @@ Users progress through four stages — Starter → Builder → Brand → Investo
 
 | Layer | Choice | Notes |
 |---|---|---|
-| Frontend | Next.js 16 + React 19 + TypeScript | GoDaddy `@ux/*` component library; Tailwind CSS |
+| Frontend | Next.js 16 + React 19 + TypeScript | Tailwind CSS v4; GoDaddy `@ux/*` UXCore component library (20+ packages) |
+| UI Components | GoDaddy UXCore (`@ux/*` at `^2500.x`) | `@ux/button`, `@ux/card`, `@ux/modal`, etc.; transpiled via `next.config.ts` |
 | Backend | Python + FastAPI | Async, lightweight; `uvicorn` server |
-| AI | Claude API (`claude-sonnet-4-6`) | Powers the Q&A business advisor, pitch deck generation, social content ideas, growth plans, SEO optimisation |
-| Data | JSON file store (`users.json`) + SQLite pilot | Users are migrated one at a time into SQLite via `scripts/migrate_user_to_db.py`; unmigrated users still live in `users.json`. See [Database](#database) below. |
-| Auth | JWT (no Cognito for hackathon) | — |
+| AI | GoCaaS AI Gateway (OpenAI-compatible) | Model `gpt-5.5` via internal GoDaddy AI gateway; powers Q&A advisor, pitch deck, social content, growth plans, SEO |
+| Data | JSON flat-file (`users.json`) + SQLite | `user_store.py` reads/writes both transparently; SQLite is primary, JSON is legacy fallback. See [Database](#database). |
+| Auth | UUID in browser `localStorage` | No server-side auth. User identity is a UUID stored under key `creatorlevel_user_id`. |
 | GoDaddy | Domains API (real) + Airo LLC tool | `httpx` async wrapper; `sso-key` auth; OTE test env via `GODADDY_OTE=true` |
+
+---
+
+## Architecture
+
+```mermaid
+graph TD
+    subgraph Client["Browser"]
+        LS("localStorage\ncreatorlevel_user_id")
+        FE["Next.js 16 + React 19\n/questionnaire · /dashboard\n/social · /business · /investor-ready"]
+    end
+
+    subgraph Backend["FastAPI · port 8000"]
+        R["Routers\nusers · missions · chat · domains\nfunding · pitch · achievements · social"]
+        S["Services\nuser_store · xp_service · qnabot\npitch_service · social_media_service · GoDaddyClient"]
+    end
+
+    subgraph Data["Data Layer"]
+        DB[("goignite.db\nSQLite\nusers · achievements · outreach")]
+        LJ["users.json\nlegacy flat-file"]
+        SJ["Static JSON\nmissions · funding · social data\nRAG knowledge bases"]
+    end
+
+    subgraph External["External APIs"]
+        AI["GoCaaS AI Gateway\nOpenAI-compatible · gpt-5.5"]
+        SO["Meta + TikTok OAuth\nmocked by default"]
+    end
+
+    subgraph GoDaddy["GoDaddy Products"]
+        UX["@ux/* UXCore\ndesign system"]
+        DOM["Domains API\navailability · purchase · DNS\nOTE sandbox"]
+        EML["Professional Email\nhello@brand.com"]
+        WB["Airo Website Builder"]
+        AIRO["GoDaddy LLC"]
+    end
+
+    LS -.->|user_id| FE
+    UX -->|UI components| FE
+    FE -->|HTTP REST| R
+    R --> S
+    S -->|primary store| DB
+    S -.->|auto-migrates| LJ
+    S --> SJ
+    S -->|Q&A chat · pitch · content · SEO| AI
+    S -->|availability · purchase · DNS| DOM
+    S -.->|MOCK_SOCIAL_APIS=false| SO
+    FE -.->|Builder stage CTA| EML
+    FE -.->|Brand stage CTA| WB
+    FE -.->|Investor-Ready mission| AIRO
+```
 
 ---
 
@@ -25,63 +76,152 @@ Users progress through four stages — Starter → Builder → Brand → Investo
 
 ```
 hackathon2026/
-├── ACHIEVEMENTS.md              # Achievement catalog — 23 achievements, XP values, trigger missions
+├── Assets/                          # Brand images, fonts, illustrations (GIF, PNG, MP4, TTF, PDF)
 ├── backend/
 │   ├── app/
-│   │   ├── main.py                  # FastAPI app, CORS, router registration
+│   │   ├── main.py                  # FastAPI app, CORS (allow-all), router registration
+│   │   ├── store.py                 # (legacy stub)
 │   │   ├── routes/
-│   │   │   ├── users.py             # Onboarding, profile               ✓
-│   │   │   ├── missions.py          # Daily missions + completion        ✓
-│   │   │   ├── achievements.py      # Accomplishments dashboard          ✓
-│   │   │   ├── domains.py           # GoDaddy Domains API routes         ✓
-│   │   │   ├── funding.py           # Funding discovery engine           ✓
-│   │   │   ├── chat.py              # Claude-powered Q&A business advisor ✓
-│   │   │   └── social_media.py      # Social growth + SEO toolkit        ✓
+│   │   │   ├── users.py             # /api/users — create, get, patch onboarding       ✓
+│   │   │   ├── missions.py          # /api/missions — today's missions + completion     ✓
+│   │   │   ├── achievements.py      # /api/users/{id}/achievements                      ✓
+│   │   │   ├── domains.py           # /api/domains — GoDaddy Domains API full lifecycle ✓
+│   │   │   ├── funding.py           # /api/funding — funding discovery engine           ✓
+│   │   │   ├── chat.py              # /api/chat — AI-powered Q&A business advisor       ✓
+│   │   │   ├── pitch.py             # /api/pitch — pitch deck generation                ✓
+│   │   │   └── social_media.py      # /api/social — social growth + SEO toolkit         ✓
 │   │   ├── services/
-│   │   │   ├── store.py             # Shared in-memory state             ✓
-│   │   │   ├── user_store.py        # JSON-file user persistence         ✓
-│   │   │   ├── xp_service.py        # XP calculation + stage promotion   ✓
-│   │   │   ├── domains.py           # GoDaddy async httpx client         ✓
-│   │   │   ├── social_media_service.py  # Social + SEO service layer     ✓
-│   │   │   └── qnabot/
-│   │   │       ├── prompts.py       # System prompt + context headers    ✓
-│   │   │       └── tools/
-│   │   │           ├── ai_tool.py   # Claude API call wrapper            ✓
-│   │   │           └── retrieval.py # GoDaddy KB retrieval               ✓
+│   │   │   ├── db.py                # SQLAlchemy SQLite; tables: users, achievements, outreach ✓
+│   │   │   ├── user_store.py        # Dual-store: SQLite (primary) + JSON migration      ✓
+│   │   │   ├── achievement_store.py # Achievement persistence layer                      ✓
+│   │   │   ├── xp_service.py        # XP calculation + stage promotion                  ✓
+│   │   │   ├── domains.py           # GoDaddy async httpx client (GoDaddyClient)         ✓
+│   │   │   ├── domain_ai.py         # AI call to generate domain name candidates         ✓
+│   │   │   ├── funding_service.py   # Funding opportunity filtering                      ✓
+│   │   │   ├── social_media_service.py  # Social OAuth, stats, AI content generation    ✓
+│   │   │   ├── pitch_service.py     # Pitch deck generation via AI                       ✓
+│   │   │   ├── qnabot/
+│   │   │   │   ├── prompts.py       # System prompt + context headers                    ✓
+│   │   │   │   └── tools/
+│   │   │   │       ├── ai_tool.py   # AI API call wrapper                                ✓
+│   │   │   │       └── retrieval.py # Keyword-based RAG from business_knowledge.json     ✓
+│   │   │   └── pitch_kb/
+│   │   │       ├── prompts.py       # Pitch deck system prompt                           ✓
+│   │   │       ├── retrieval.py     # Keyword-based RAG from pitch_knowledge.json        ✓
+│   │   │       └── data/
+│   │   │           └── pitch_knowledge.json
 │   │   ├── models/
-│   │   │   ├── user.py              # User, Stage, CreatorType           ✓
-│   │   │   ├── mission.py           # Mission model                      ✓
-│   │   │   ├── achievement.py       # Achievement model                  ✓
-│   │   │   ├── funding.py           # FundingOpportunity model           ✓
-│   │   │   └── domains.py           # Domain contact, record, purchase   ✓
+│   │   │   ├── user.py              # User, Stage, CreatorType Pydantic models           ✓
+│   │   │   ├── mission.py           # Mission model                                      ✓
+│   │   │   ├── achievement.py       # Achievement model                                  ✓
+│   │   │   ├── funding.py           # FundingOpportunity model                           ✓
+│   │   │   └── domains.py           # Domain contact, record, purchase models            ✓
 │   │   └── data/
-│   │       ├── missions.json        # 23 mission templates per stage     ✓
-│   │       └── funding.json         # 15 funding opportunities           ✓
+│   │       ├── missions.json        # 23 mission templates per stage                     ✓
+│   │       ├── funding.json         # 15 funding opportunities                           ✓
+│   │       ├── seo_keywords.json    # SEO keyword bank by creator type + platform        ✓
+│   │       ├── social_missions.json # 22 social-specific missions                        ✓
+│   │       ├── social_monetization.json
+│   │       ├── social_platform_guides.json
+│   │       ├── social_stage_gates.json
+│   │       └── social_templates.json
+│   ├── data/
+│   │   ├── goignite.db              # SQLite database (auto-created on first run)
+│   │   └── users.json               # Legacy JSON user store
+│   ├── scripts/
+│   │   └── migrate_user_to_db.py    # One-time migration: JSON user → SQLite row
 │   ├── requirements.txt
 │   └── .env.example
 │
 ├── frontend/
-│   ├── package.json                 # Next.js 16 + React 19
+│   ├── scripts/
+│   │   └── vendor-uxcore.mjs        # Vendor script for GoDaddy UXCore packages
+│   ├── package.json                 # Next.js 16 + React 19 + all @ux/* dependencies
 │   └── src/
 │       ├── app/
-│       │   ├── page.tsx             # Landing / home
-│       │   ├── dashboard/page.tsx   # Main dashboard
-│       │   └── questionnaire/page.tsx
+│       │   ├── layout.tsx           # Root layout — GDSage font, metadata
+│       │   ├── page.tsx             # / → redirects immediately to /questionnaire
+│       │   ├── globals.css          # Tailwind v4 + @ux/tailwind-intents + all theme sheets
+│       │   ├── questionnaire/page.tsx
+│       │   ├── dashboard/page.tsx
+│       │   ├── business/page.tsx
+│       │   ├── social/page.tsx
+│       │   └── investor-ready/page.tsx
 │       ├── components/
-│       │   ├── dashboard/           # Shell, header, sidebar, missions, achievements, roadmap
-│       │   ├── questionnaire/       # Multi-step onboarding quiz
-│       │   └── home-hero.tsx
+│       │   ├── chat/
+│       │   │   └── chat-widget.tsx          # Floating AI chat panel
+│       │   ├── questionnaire/
+│       │   │   ├── questionnaire-shell.tsx  # 5-step onboarding wizard state machine
+│       │   │   ├── questionnaire-header.tsx
+│       │   │   ├── questionnaire-building.tsx
+│       │   │   └── steps/                   # step-welcome, step-business-type, step-pitch, step-confusion, step-existing, step-budget, step-comfort
+│       │   ├── dashboard/
+│       │   │   ├── dashboard-shell.tsx      # Top-level sidebar + header layout
+│       │   │   ├── dashboard-header.tsx
+│       │   │   ├── dashboard-sidebar.tsx
+│       │   │   ├── todays-missions.tsx
+│       │   │   ├── domain-suggestions.tsx   # AI domain names + GoDaddy availability
+│       │   │   ├── stage-roadmap.tsx        # 4-stage visual progression
+│       │   │   ├── achievements-panel.tsx
+│       │   │   ├── focus-area-cards.tsx     # Idea / Presence / Earnings cards
+│       │   │   └── ...                      # welcome-banner, metric-card, business-overview-widget, ai-companion, etc.
+│       │   ├── business/
+│       │   │   ├── business-shell.tsx
+│       │   │   └── business-overview-page.tsx
+│       │   ├── social/
+│       │   │   ├── social-shell.tsx         # Social hub top-level component
+│       │   │   ├── platform-connect.tsx     # OAuth connect (Instagram/TikTok/Facebook)
+│       │   │   ├── content-ideas.tsx        # AI 7-day content plan
+│       │   │   ├── growth-plan.tsx          # AI 30-day growth advisor
+│       │   │   ├── seo-tools.tsx            # Bio scorer + keyword finder + caption optimizer
+│       │   │   ├── outreach-tracker.tsx     # Brand deal CRM log
+│       │   │   └── monetization-paths.tsx
+│       │   └── investor-ready/
+│       │       ├── investor-ready-shell.tsx # Pitch deck generator UI
+│       │       └── congrats-animation.tsx
 │       ├── hooks/
-│       │   └── use-dashboard.ts     # Data fetching + mission completion logic
+│       │   ├── use-dashboard.ts     # Loads user + missions + achievements; handles completeMission
+│       │   ├── use-get-started.ts   # Milestone checklist with localStorage + XP count-up animation
+│       │   └── use-social.ts        # Loads user/creatorType for the Social page
 │       ├── lib/
-│       │   ├── dashboard-data.ts    # Types + nav builders + demo data
-│       │   ├── map-dashboard.ts     # API response → dashboard types
-│       │   └── stages.ts            # Stage config + unlock logic
-│       └── services/
-│           └── api.ts               # Centralised fetch wrapper
+│       │   ├── dashboard-data.ts    # All frontend TypeScript types; buildPrimaryNav() + buildGrowthNav()
+│       │   ├── map-dashboard.ts     # ApiUser + missions + achievements → DashboardUser
+│       │   ├── stages.ts            # Stage config + XP thresholds + unlock logic
+│       │   ├── get-started.ts       # Get-started milestone stage definitions
+│       │   ├── business-name-ideas.ts
+│       │   └── questionnaire-chips.tsx  # Chip option definitions for questionnaire steps
+│       ├── services/
+│       │   └── api.ts               # Centralised fetch wrapper; base URL = NEXT_PUBLIC_API_URL (default: http://localhost:8000)
+│       ├── styles/
+│       │   ├── dashboard-theme.css
+│       │   ├── godaddy-theme.css
+│       │   ├── questionnaire.css
+│       │   ├── congrats-animation.css
+│       │   ├── uxcore-components.css
+│       │   └── uxcore-icons.css
+│       └── fonts/
+│           ├── GDSage-Bold.ttf
+│           └── GDSage-Medium.ttf
 │
+├── package.json                     # pnpm workspace root; delegates all scripts to frontend/
+├── pnpm-lock.yaml
 └── README.md
 ```
+
+---
+
+## Frontend Pages
+
+| Route | Purpose |
+|---|---|
+| `/` | Redirects immediately to `/questionnaire` |
+| `/questionnaire` | 5-step onboarding wizard; creates user on completion |
+| `/dashboard` | Main gamified home — missions, XP, stage roadmap, domain suggestions |
+| `/business` | Business profile overview |
+| `/social` | Social media tools hub — content ideas, growth plan, SEO, outreach tracker |
+| `/investor-ready` | Pitch deck generator |
+
+All page files are thin wrappers that render a single "Shell" component.
 
 ---
 
@@ -96,6 +236,7 @@ hackathon2026/
   "xp_total": 0,
   "completed_missions": [],
   "business_profile": { "bio": "", "pitch": "", "revenue_goal": "" },
+  "onboarding_data": {},
   "godaddy_domain": null,
   "created_at": "ISO8601"
 }
@@ -151,34 +292,43 @@ hackathon2026/
 
 | Method | Route | Description |
 |---|---|---|
-| POST | `/api/users/onboard` | Create user with creator type, get roadmap |
+| GET | `/health` | Health check |
+| POST | `/api/users/create-new-user` | Create a new user (UUID assigned) |
 | GET | `/api/users/{id}` | Get user profile + XP + stage |
-| GET | `/api/missions/today/{user_id}` | Get today's personalised missions |
+| PATCH | `/api/users/{id}/onboarding-data` | Update onboarding answers |
+| GET | `/api/users/{id}/achievements` | User achievements |
+| GET | `/api/missions/today/{user_id}` | Up to 5 personalised missions for today |
 | POST | `/api/missions/{id}/complete` | Mark complete, award XP, check stage promotion |
-| GET | `/api/users/{id}/business-profile` | Auto-built profile (Claude-powered) |
-| GET | `/api/users/{id}/achievements` | Accomplishments dashboard data |
-| GET | `/api/funding` | Funding opportunities (query by stage + creator_type) |
-| GET | `/api/monetization/toolkit` | Guides + templates |
-| POST | `/api/ai/generate-pitch` | Claude generates pitch deck from user data |
-| GET | `/api/godaddy/stage-gate/{user_id}` | GoDaddy upgrade recommendation for current stage |
+| POST | `/api/chat` | AI Q&A business advisor (RAG + GoCaaS) |
+| GET | `/api/domains/ai-suggest/{user_id}` | AI-generated domain candidates + GoDaddy availability |
+| GET | `/api/domains/available` | Check single domain availability |
+| POST | `/api/domains/available/bulk` | Bulk domain availability check |
+| GET | `/api/domains/suggest` | GoDaddy keyword-based suggestions |
+| POST | `/api/domains/purchase` | Purchase a domain via GoDaddy |
+| GET | `/api/domains/{domain}/records` | List DNS records |
+| PATCH | `/api/domains/{domain}/records` | Add DNS records |
+| GET | `/api/funding` | Funding opportunities (filter by `?stage` + `?creator_type`) |
+| POST | `/api/pitch/outline` | Generate full pitch deck (all slides) |
+| POST | `/api/pitch/phase` | Generate one pitch phase (1–4) |
 | GET | `/api/social/connect/{platform}` | OAuth authorization URL for instagram/tiktok/facebook |
 | GET | `/api/social/callback/{platform}` | OAuth code exchange + redirect to frontend |
-| GET | `/api/social/mock-oauth/{platform}` | Instant mock connect — returns fake stats, no redirect needed |
-| GET | `/api/social/stats/{user_id}` | Connected platform follower/engagement stats |
+| GET | `/api/social/mock-oauth/{platform}` | Instant mock connect (no redirect); returns fake stats |
+| GET | `/api/social/stats/{user_id}` | Platform follower/engagement stats |
 | GET | `/api/social/missions/{user_id}` | Social missions filtered by stage + creator_type |
-| POST | `/api/social/missions/{mission_id}/complete` | Complete social mission and write achievement |
-| GET | `/api/social/templates` | Outreach templates filtered by stage + platform |
-| GET | `/api/social/guides` | Platform guides (IG/TikTok/FB/LinkedIn) filtered by stage |
-| GET | `/api/social/stage-gate/{stage}` | Social visibility prompt shown at each stage unlock |
-| POST | `/api/social/content-ideas` | Claude-generated 7-day content plan |
-| GET | `/api/social/outreach/{user_id}` | Brand outreach pipeline log + summary stats |
+| GET | `/api/social/missions/all` | All social missions unfiltered |
+| POST | `/api/social/missions/{mission_id}/complete` | Complete social mission, write achievement |
+| GET | `/api/social/templates` | Outreach templates by stage + platform |
+| GET | `/api/social/guides` | Platform guides (IG/TikTok/FB/LinkedIn) by stage |
+| GET | `/api/social/stage-gate/{stage}` | Social unlock messaging for a given stage |
+| POST | `/api/social/content-ideas` | AI 7-day content plan |
+| GET | `/api/social/outreach/{user_id}` | Brand outreach pipeline log |
 | POST | `/api/social/outreach/{user_id}` | Log a new brand outreach entry |
 | PATCH | `/api/social/outreach/{user_id}/{entry_id}` | Update outreach status; fires achievement on first "deal" |
 | GET | `/api/social/achievements/{user_id}` | All social achievements for a user |
-| GET | `/api/social/next-action/{user_id}` | Single highest-impact incomplete mission for the user |
+| GET | `/api/social/next-action/{user_id}` | Highest-impact incomplete mission |
 | GET | `/api/social/monetization-advice` | Monetization paths by creator type + follower count |
-| POST | `/api/social/growth-plan` | Claude-generated 30-day growth plan personalised to user |
-| GET | `/api/social/seo/keywords` | Ranked SEO keywords by creator type + platform |
+| POST | `/api/social/growth-plan` | AI 30-day growth plan |
+| GET | `/api/social/seo/keywords` | SEO keywords by creator type + platform |
 | POST | `/api/social/seo/profile` | Score + rewrite a bio for SEO discoverability |
 | POST | `/api/social/seo/content` | Rewrite a caption for maximum platform discoverability |
 
@@ -186,16 +336,15 @@ hackathon2026/
 
 ## Social Media & Marketing Module
 
-`social_media_service.py` handles OAuth, platform stats, Claude content generation, and achievement writes. The full hub lives in `SocialMediaHub.jsx` across 6 tabs.
+`social_media_service.py` handles OAuth, platform stats, AI content generation, and achievement writes. The full hub lives in `social-shell.tsx` across multiple sections.
 
 - **Platform Connect**: OAuth flow for Instagram, TikTok, and Facebook — set `MOCK_SOCIAL_APIS=true` in `.env` to bypass all external calls for demo
 - **Live Stats**: Follower count, engagement rate, and recent post performance pulled per connected platform
 - **Social Missions**: 22 missions across all 4 stages, filtered by creator type — completions write achievements with real milestone impact descriptions
-- **AI Content Plan**: `POST /api/social/content-ideas` calls `claude-sonnet-4-6` to generate a 7-day post calendar with hooks, captions, and hashtags; falls back to a static mock if no API key is set
+- **AI Content Plan**: `POST /api/social/content-ideas` calls the GoCaaS AI gateway to generate a 7-day post calendar with hooks, captions, and hashtags; falls back to a static mock if no API key is set
 - **Outreach Tracker**: Brand deal pipeline with status tracking across Starter → Investor-Ready; entries 7+ days old with status "sent" surface a follow-up reminder; closing a deal auto-fires an achievement
 - **Outreach Templates + Platform Guides**: 9 copy-paste DM/email templates and IG/TikTok/FB/LinkedIn guides, all scoped by stage
-
-Integrator adds one `include_router` call in `main.py` and one `<Route>` in `App.jsx` — no other shared files touched.
+- **SEO Tools**: Bio scorer + keyword finder + caption optimizer (`POST /api/social/seo/*`)
 
 ---
 
@@ -213,55 +362,71 @@ Stage promotion is handled in `xp_service.py`. On promotion:
 2. Achievement auto-created: e.g. "Reached Builder Stage"
 3. GoDaddy upgrade prompt surfaced in frontend
 
-See `ACHIEVEMENTS.md` for all 23 achievements (titles, XP values, categories, trigger missions).
-
 ---
 
-## AI Layer — Claude Integration
+## AI Layer — GoCaaS Integration
 
-All Claude calls use `claude-sonnet-4-6` via the Anthropic Python SDK.
+All AI calls use the **GoCaaS AI Gateway** (`https://caas-gocode-prod.caas-prod.prod.onkatana.net/v1`), which exposes an OpenAI-compatible API. The client is `AsyncOpenAI(base_url=..., api_key=API_KEY)` with model `gpt-5.5`. All AI features degrade gracefully to static mock data when `API_KEY` is not set.
 
 **1. Q&A Business Advisor** (`qnabot/`) — `POST /api/chat`
 - System prompt: warm, direct business advisor persona; plain language; no filler
-- Retrieves relevant GoDaddy KB entries and injects them as grounded context
+- Keyword-based RAG retrieves relevant GoDaddy KB entries (`business_knowledge.json`) and injects them as grounded context
 - Only surfaces GoDaddy products when they genuinely fit — never fabricated
 - Accepts optional `user_id` to personalise responses based on the user's stage, creator type, and bio
 
-**2. Social content ideas** — `POST /content-ideas`
+**2. Social content ideas** — `POST /api/social/content-ideas`
 - Input: niche, audience, platform, creator type
-- Output: 5 ready-to-post content concepts with hooks and formats
+- Output: 7-day post calendar with hooks, captions, and hashtags
 
-**3. Growth plan generation** — `POST /growth-plan`
+**3. Growth plan generation** — `POST /api/social/growth-plan`
 - Input: user stage, creator type, completed missions, social stats
-- Output: prioritised 30/60/90-day growth plan
+- Output: prioritised 30-day growth plan
 
-**4. SEO content optimisation** — `POST /seo/content`
+**4. SEO content optimisation** — `POST /api/social/seo/content`
 - Input: draft content + target keywords
 - Output: SEO-optimised rewrite with metadata suggestions
 
-**5. Pitch deck generation** — `POST /api/ai/generate-pitch` *(planned)*
+**5. Pitch deck generation** — `POST /api/pitch/outline`
 - Input: user's completed missions, creator type, revenue goal
-- Output: JSON with named sections (bio, problem, product, traction, ask) → `PitchDeck` component
+- Output: JSON with named sections (bio, problem, product, traction, ask) → rendered in `InvestorReadyShell`
+
+**6. Domain name generation** — `GET /api/domains/ai-suggest/{user_id}`
+- Input: user's business profile
+- Output: AI-generated domain name candidates + GoDaddy availability check
 
 ---
 
 ## GoDaddy Integration
 
-`godaddy_service.py` mirrors the real GoDaddy Domains/Email API shape. Frontend shows real upgrade flows:
+`services/domains.py` defines `GoDaddyClient` — an async `httpx` wrapper around the real GoDaddy Domains API. Frontend shows real upgrade flows:
 
 - **Starter → Builder**: "Your business needs a home. Register `{brand}.com` on GoDaddy"
 - **Builder → Brand**: "Go pro with `hello@{brand}.com` — GoDaddy Workspace Email"
 - **Brand → Investor-Ready**: "Your pitch is ready. Launch your full site with GoDaddy Website Builder"
-- **Investor-Ready (LLC)**: Mission `investor-llc` (+200 XP) directs users to [GoDaddy Airo LLC registration](https://www.godaddy.com/airo/register-llc) to formally incorporate before approaching investors
+- **Investor-Ready (LLC)**: Mission `investor-llc` (+200 XP) directs users to [GoDaddy Airo LLC registration](https://www.godaddy.com/airo/register-llc)
 
-Full GoDaddy Domains API integrated in `services/domains.py` (async `httpx`). Auth via `sso-key` header; OTE test environment via `GODADDY_OTE=true`.
+Auth via `sso-key {GODADDY_API_KEY}:{GODADDY_API_SECRET}` header; OTE test environment via `GODADDY_OTE=true`.
 
-**Required env vars:**
+**Required env vars (`backend/.env`):**
 ```
+API_KEY=                   # GoCaaS AI gateway key (must start with sk-)
 GODADDY_API_KEY=
 GODADDY_API_SECRET=
-GODADDY_OTE=true
-ANTHROPIC_API_KEY=
+GODADDY_OTE=true           # true = OTE sandbox, false = production
+
+# Social OAuth (leave blank/true to use mock data)
+MOCK_SOCIAL_APIS=true
+META_APP_ID=
+META_APP_SECRET=
+META_REDIRECT_URI=http://localhost:8000/api/social/callback/instagram
+TIKTOK_CLIENT_KEY=
+TIKTOK_CLIENT_SECRET=
+TIKTOK_REDIRECT_URI=http://localhost:8000/api/social/callback/tiktok
+```
+
+**Optional frontend env var (`frontend/.env.local`):**
+```
+NEXT_PUBLIC_API_URL=http://localhost:8000   # defaults to this if not set
 ```
 
 ---
@@ -278,7 +443,7 @@ ANTHROPIC_API_KEY=
 5. ✓ Stage promotion logic (`xp_service.py`)
 
 ### Phase 3 — AI + Growth ✓
-6. ✓ Claude Q&A business advisor (`qnabot/` + `POST /api/chat`)
+6. ✓ AI Q&A business advisor (`qnabot/` + `POST /api/chat`)
 7. ✓ Social growth toolkit (content ideas, growth plan, SEO, outreach tracker)
 8. ✓ Accomplishments dashboard (achievement writes on mission complete)
 
@@ -286,9 +451,9 @@ ANTHROPIC_API_KEY=
 9. ✓ Funding Engine — `funding.json` (15 opportunities) + `GET /api/funding` with stage + creator_type filtering
 10. ✓ LLC mission — GoDaddy Airo integration at Investor-Ready stage (+200 XP)
 
-### Phase 5 — GoDaddy + Polish
+### Phase 5 — GoDaddy + Polish ✓
 11. ✓ GoDaddy Domains API (`services/domains.py`, `routes/domains.py`)
-12. Pitch deck generation (`POST /api/ai/generate-pitch`)
+12. ✓ Pitch deck generation (`POST /api/pitch/outline`, `services/pitch_service.py`)
 13. Shareable accomplishments link (`/share/{user_id}`)
 14. Demo seed data + walkthrough script
 
@@ -296,39 +461,47 @@ ANTHROPIC_API_KEY=
 
 ## Database
 
-User data currently lives in two places at once, on purpose (an in-progress migration, one user at a time):
+User data lives in two places at once (an in-progress migration):
 
-- **`backend/data/users.json`** — the original flat-file store. Most users still live here.
-- **`backend/data/goignite.db`** — a local SQLite database, created automatically the first time the backend starts. A small number of pilot users have been moved here.
+- **`backend/data/users.json`** — the original flat-file store. Legacy users live here.
+- **`backend/data/goignite.db`** — SQLite database, created automatically the first time the backend starts.
 
-You don't need to configure anything — `app/services/user_store.py` reads/writes both sources transparently, so every route (`load_users()` / `save_users()`) works the same regardless of which backend a given user is in.
+**Tables in `goignite.db`:**
+
+| Table | Key Columns |
+|---|---|
+| `users` | `user_id` (PK), `creator_type`, `stage`, `xp_total`, `completed_missions` (JSON), `business_profile` (JSON), `onboarding_data` (JSON), `godaddy_domain`, `created_at` |
+| `achievements` | `achievement_id` (PK), `user_id` (indexed), `title`, `date`, `impact`, `category` |
+| `outreach` | `entry_id` (PK), `user_id` (indexed), `brand`, `platform`, `template_used`, `status`, `notes`, `created_at` |
+
+`app/services/user_store.py` reads from both sources and writes only to SQLite — the JSON file is auto-migrated on first write. You don't need to configure anything.
 
 **First-time setup:**
 
 ```bash
 cd backend
 python3 -m venv .venv
-.venv\Scripts\python.exe -m pip install -r requirements.txt   # Windows
-# source .venv/bin/activate && pip install -r requirements.txt  # macOS/Linux
+source .venv/bin/activate          # macOS/Linux
+# .venv\Scripts\activate           # Windows
+
+pip install -r requirements.txt
 ```
 
-> **Windows without Visual C++ Build Tools:** if `pip install -r requirements.txt` fails trying to compile `greenlet` from source, run `pip install --only-binary=:all: greenlet` first (grabs a prebuilt wheel), then re-run the requirements install.
+> **Windows without Visual C++ Build Tools:** if `pip install` fails compiling `greenlet`, run `pip install --only-binary=:all: greenlet` first, then re-run the requirements install.
 
-**Run the backend as usual** — `goignite.db` is created automatically on first run, no manual DB setup step:
+**Run the backend** — `goignite.db` is created automatically on first run:
 
 ```bash
-.venv\Scripts\python.exe -m uvicorn app.main:app --reload
+uvicorn app.main:app --reload
 ```
 
-**Move a user into the database** (optional — only needed if you're working on the DB migration itself):
+**Migrate a single user from JSON → SQLite** (optional — only needed if working on the migration):
 
 ```bash
-.venv\Scripts\python.exe -m scripts.migrate_user_to_db <user_id>
+python -m scripts.migrate_user_to_db <user_id>
 ```
 
-This pops that user out of `users.json` and inserts them as a row in `goignite.db`. It's one-way and one user at a time — safe to run against any user_id currently in `users.json`.
-
-`goignite.db` and `.venv/` are gitignored — each teammate generates their own local copy; only `users.json` is checked into git.
+`goignite.db` and `.venv/` are gitignored. Only `users.json` is checked into git.
 
 ---
 
@@ -337,7 +510,8 @@ This pops that user out of `users.json` and inserts them as a row in `goignite.d
 ```bash
 # Backend
 cd backend
-python3 -m uvicorn app.main:app --reload
+source .venv/bin/activate
+uvicorn app.main:app --reload
 
 # Health check
 curl http://localhost:8000/health
@@ -357,7 +531,6 @@ curl -X POST http://localhost:8000/api/missions/starter-pitch/complete \
 curl http://localhost:8000/api/funding
 curl "http://localhost:8000/api/funding?stage=investor_ready"
 curl "http://localhost:8000/api/funding?stage=investor_ready&creator_type=fashion"
-curl "http://localhost:8000/api/funding?stage=builder&creator_type=gaming"
 
 # Q&A Business Advisor
 curl -X POST http://localhost:8000/api/chat \
@@ -367,8 +540,15 @@ curl -X POST http://localhost:8000/api/chat \
 # Check achievements
 curl http://localhost:8000/api/users/{user_id}/achievements
 
-# Frontend
-cd frontend
-npm run dev
+# AI domain suggestions
+curl http://localhost:8000/api/domains/ai-suggest/{user_id}
+
+# Pitch deck
+curl -X POST http://localhost:8000/api/pitch/outline \
+  -H "Content-Type: application/json" \
+  -d '{"user_id": "{user_id}"}'
+
+# Frontend (from repo root)
+pnpm dev
 # Open http://localhost:3000
 ```
