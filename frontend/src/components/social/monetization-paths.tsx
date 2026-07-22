@@ -5,6 +5,7 @@ import Box from "@ux/box";
 import text from "@ux/text";
 import { getMonetizationAdvice, type MonetizationAdvice } from "@/services/api";
 
+const Heading = text.h2;
 const Body = text.p;
 
 interface Props {
@@ -36,8 +37,13 @@ export function MonetizationPaths({ userId, creatorType }: Props) {
   return (
     <Box orientation="vertical" gap="lg">
       <div>
-        <h2 className="monetize-title">Revenue Channels</h2>
-        <p className="monetize-sub">Actionable paths to generate revenue from your business — ranked by what you can start today.</p>
+        <Heading as="heading" className="social-section-title">
+          Revenue Channels
+        </Heading>
+        <Body as="paragraph" className="social-section-sub">
+          Actionable paths to generate revenue from your business — ranked by
+          what you can start today.
+        </Body>
       </div>
 
       {whereToStart && (

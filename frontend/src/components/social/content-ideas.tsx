@@ -88,12 +88,17 @@ export function ContentIdeas({ userId, stage, creatorType }: Props) {
 
   return (
     <Box orientation="vertical" gap="lg">
-      <Heading as="heading" size={3}>30-Day Content Calendar</Heading>
-      <Body as="paragraph" emphasis="passive">
-        A month of ready-to-post content organized by theme. Each week is a standalone content sprint — use them back-to-back or in any order.
-      </Body>
+      <div>
+        <Heading as="heading" className="social-section-title">
+          30-Day Content Calendar
+        </Heading>
+        <Body as="paragraph" className="social-section-sub">
+          A month of ready-to-post content organized by theme. Each week is a
+          standalone content sprint — use them back-to-back or in any order.
+        </Body>
+      </div>
 
-      <Box orientation="horizontal" blockAlignChildren="end" gap="md" className="social-generate-row">
+      <Box orientation="vertical" inlineAlignChildren="start" gap="sm" className="social-generate-row">
         <Select
           id="content-platform"
           label="Platform"

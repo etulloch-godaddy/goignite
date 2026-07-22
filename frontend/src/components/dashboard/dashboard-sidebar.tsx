@@ -73,6 +73,9 @@ function NavLink({
           ? "dashboard-nav-item dashboard-nav-item--active"
           : "dashboard-nav-item"
       }
+      {...(item.external
+        ? { target: "_blank", rel: "noopener noreferrer" }
+        : {})}
     >
       <NavIcon name={item.icon} />
       <Label as="label" className="flex-1">
